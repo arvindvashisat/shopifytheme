@@ -1,0 +1,55 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_color_swatches -%}
+  <style>
+    {% for block in section.blocks %}
+      {% assign color_name = block.settings.title %}
+      {% assign color = block.settings.dbtfy_swatches_color_value %}
+      {% assign image = block.settings.dbtfy_swatches_image %}
+
+      .product-option-color--{{ color_name | handleize }} {
+        background-color: {{ color }} !important;
+        {%- if image -%}
+        background-image: url("{{ image | img_url: '50x' }}") !important;
+        {%- endif -%}
+      }
+    {% endfor %}
+  </style>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "⚡ Color swatches",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054086-how-to-add-color-swatches-in-3-0)"
+      }
+    ],
+    "blocks" : [
+      {
+        "type": "swatch",
+        "name": "Color swatch",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Color name"
+          },
+          {
+            "type": "color",
+            "id": "dbtfy_swatches_color_value",
+            "label": "Color"
+          },
+          {
+            "type": "image_picker",
+            "id": "dbtfy_swatches_image",
+            "label": "Image to color"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

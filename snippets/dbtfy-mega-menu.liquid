@@ -1,0 +1,253 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_mega_menu and section.blocks.size > 0 -%}
+  <!-- Blocks -->
+  {%- for block in section.blocks -%}
+    <li class="dbtfy dbtfy-mega_menu dropdown site-nav__item mm-item small--hide medium--hide mm-item-{{ block.id }}" data-position="{{ block.settings.dbtfy_mega_menu_position }}" {{ block.shopify_attributes }}>
+    <a id="MegaMenuToggle-{{ block.id }}" href="{{ link.url }}"
+      class="dropdown-toggle site-nav__link"
+      aria-controls="MegaMenu-{{ block.id }}"
+      aria-haspopup="true"
+      aria-expanded="false">
+      {{ block.settings.dbtfy_mega_menu_nav_link | escape }}
+      <span class="{{settings.icon}}" aria-hidden="true">keyboard_arrow_down</span>
+    </a>
+    <div id="MegaMenu-{{ block.id }}" class="dropdown-menu dropdown-menu-body dropdown-list-parent" aria-labelledby="MegaMenuToggle-{{ block.id }}">
+      {%- if block.type == "mega" -%}
+        {%- assign has_product_1 = false -%}
+        {%- assign has_product_2 = false -%}
+        {%- assign has_product_3 = false -%}
+
+        <div class="grid grid-spacer grid-small multi-mega_menu">
+          {%- assign column_number = 0 -%}
+
+          {%- if block.settings.dbtfy_mega_menu_multi != blank -%}
+            {%- for link in linklists[block.settings.dbtfy_mega_menu_multi].links -%}
+              {%- assign column_number = column_number | plus: 1 -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if block.settings.dbtfy_mega_menu_multi_product_1 != blank -%}
+            {%- assign column_number = column_number | plus: 1 -%}
+            {%- assign product_1 = all_products[block.settings.dbtfy_mega_menu_multi_product_1] -%}
+            {%- assign has_product_1 = true -%}
+          {%- endif -%}
+
+          {%- if block.settings.dbtfy_mega_menu_multi_product_2 != blank -%}
+            {%- assign column_number = column_number | plus: 1 -%}
+            {%- assign product_2 = all_products[block.settings.dbtfy_mega_menu_multi_product_2] -%}
+            {%- assign has_product_2 = true -%}
+          {%- endif -%}
+
+          {%- if block.settings.dbtfy_mega_menu_multi_product_3 != blank -%}
+            {%- assign column_number = column_number | plus: 1 -%}
+            {%- assign product_3 = all_products[block.settings.dbtfy_mega_menu_multi_product_3] -%}
+            {%- assign has_product_3 = true -%}
+          {%- endif -%}
+
+          {%- if block.settings.dbtfy_mega_menu_multi_image != blank -%}
+            {%- assign column_number = column_number | plus: 1 -%}
+          {%- endif -%}
+
+          {%- if column_number == 1 -%}
+            {%- if block.settings.dbtfy_mega_menu_multi_product_1 != blank or block.settings.dbtfy_mega_menu_multi_product_2 != blank or block.settings.dbtfy_mega_menu_multi_product_3 != blank -%}
+              {%- assign grid_item_width = "large--one-fifth" -%}
+            {%- else -%}
+              {%- assign grid_item_width = "" -%}
+            {%- endif -%}
+          {%- else -%}
+            {%- assign grid_item_width = "large--one-fifth" -%}
+          {%- endif -%}
+
+          {%- if block.settings.dbtfy_mega_menu_multi != blank -%}
+            {%- for link in linklists[block.settings.dbtfy_mega_menu_multi].links -%}
+              <div class="grid__item {{ grid_item_width }} {% if column_number == 1 %}mm-item-inline{% endif %}">
+                {%- if block.settings.dbtfy_mega_menu_header and column_number > 1 -%}
+                  <a href="{{ link.url }}" class="title-product-mega_menu h4 spacer-bottom-xs">
+                    {{ link.title }}
+                  </a>
+                {%- endif -%}
+
+                {%- if link.links != blank -%}
+                  <ul class="mm-menu-list no-bullets{% if column_number == 1 %} inline-list text-center{% endif %}">
+                    {%- for childlink in link.links -%}
+                      <li class="mm-list-item">
+                        <a href="{{ childlink.url }}" class="mm-menu-item-link dropdown-link">
+                          {{ childlink.title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if column_number < 5 and block.settings.dbtfy_mega_menu_multi_image == blank -%}
+            <div class="grid__item {{ grid_item_width }} flex-auto"></div>
+          {%- endif -%}
+
+          {%- if has_product_1 -%}
+            {%- render "product-grid-item" with product_1 as product, grid_item_width: grid_item_width, current: 1 -%}
+          {%- endif -%}
+
+          {%- if has_product_2 -%}
+            {%- render "product-grid-item" with product_2 as product, grid_item_width: grid_item_width, current: 2 -%}
+          {%- endif -%}
+
+          {%- if has_product_3 -%}
+            {%- render "product-grid-item" with product_3 as product, grid_item_width: grid_item_width, current: 3 -%}
+          {%- endif -%}
+
+          {%- if block.settings.dbtfy_mega_menu_multi_image != blank -%}
+            <div class="grid__item {{ grid_item_width }} flex-auto">
+              {%- if block.settings.dbtfy_mega_menu_multi_image_link != blank -%}
+                <a class="image-link" href="{{ block.settings.dbtfy_mega_menu_multi_image_link }}">
+              {%- endif -%}
+
+                  <div class="media-wrapper" style="padding-top:{{ 1 | divided_by: block.settings.dbtfy_mega_menu_multi_image.aspect_ratio | times: 100}}%;">
+                    <img class="media lazyload"
+                    {%- render 'lazysizes', img: block.settings.dbtfy_mega_menu_multi_image, img_type: 'responsive' -%}
+                    alt="{{ block.settings.dbtfy_mega_menu_multi_image.alt }}">
+                  </div>
+
+              {%- if block.settings.dbtfy_mega_menu_multi_image_link != blank -%}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if block.type == "product" -%}
+        {%- if block.settings.dbtfy_mega_menu_header -%}
+          <div class="header-wrapper-mega_menu">
+            <h4 class="title-product-mega_menu">
+              <a href="{{ collections[block.settings.dbtfy_mega_menu_product].url }}">
+                {{ collections[block.settings.dbtfy_mega_menu_product].title | escape }}
+              </a>
+            </h4>
+
+            <a class="link-mega_menu text-link"
+                href="{{ collections[block.settings.dbtfy_mega_menu_product].url }}">
+              {{ "blogs.article.view_all" | t }}
+            </a>
+          </div>
+        {%- endif -%}
+
+        {%- assign counter = 0 -%}
+        {%- if block.settings.dbtfy_mega_menu_product_grid == "4" -%}
+          {%- assign limit = 4 -%}
+          {%- assign grid_item_width = "large--three-twelfths" -%}
+        {%- elsif block.settings.dbtfy_mega_menu_product_grid == "5" -%}
+          {%- assign limit = 5 -%}
+          {%- assign grid_item_width = "large--one-fifth" -%}
+        {%- endif -%}
+
+        <div class="grid grid-small">
+          {%- for product in collections[block.settings.dbtfy_mega_menu_product].products limit: limit -%}
+            {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+            {%- render "product-grid-item" with product as product, grid_item_width: grid_item_width, current: current -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if block.type == "collection" -%}
+        {%- if block.settings.dbtfy_mega_menu_header -%}
+          <div class="header-wrapper-mega_menu">
+            <h4 class="title-product-mega_menu">
+              <a href="{{ routes.collections_url }}">{{ block.settings.dbtfy_mega_menu_title }}</a>
+            </h4>
+
+            <a class="link-mega_menu text-link"
+                href="{{ routes.collections_url }}">
+              {{ "blogs.article.view_all" | t }}
+            </a>
+          </div>
+        {%- endif -%}
+
+        <div class="grid grid-spacer grid-small collection-mega_menu">
+          {%- assign collection_index = 0 -%}
+          {%- assign collection_count = 0 -%}
+
+          {%- assign collection_1 = block.settings.dbtfy_mega_menu_collection_1 -%}
+          {%- assign collection_2 = block.settings.dbtfy_mega_menu_collection_2 -%}
+          {%- assign collection_3 = block.settings.dbtfy_mega_menu_collection_3 -%}
+          {%- assign collection_4 = block.settings.dbtfy_mega_menu_collection_4 -%}
+          {%- assign collection_5 = block.settings.dbtfy_mega_menu_collection_5 -%}
+          {%- assign collection_6 = block.settings.dbtfy_mega_menu_collection_6 -%}
+
+          {%- if collection_1 != blank -%}{%- assign collection_count = collection_count | plus: 1 -%}{%- endif -%}
+          {%- if collection_2 != blank -%}{%- assign collection_count = collection_count | plus: 1 -%}{%- endif -%}
+          {%- if collection_3 != blank -%}{%- assign collection_count = collection_count | plus: 1 -%}{%- endif -%}
+          {%- if collection_4 != blank -%}{%- assign collection_count = collection_count | plus: 1 -%}{%- endif -%}
+          {%- if collection_5 != blank -%}{%- assign collection_count = collection_count | plus: 1 -%}{%- endif -%}
+          {%- if collection_6 != blank -%}{%- assign collection_count = collection_count | plus: 1 -%}{%- endif -%}
+
+          {%- assign collection_limit = collection_count -%}
+          {%- assign divisible_by_three = collection_count | modulo: 3 -%}
+          {%- assign divisible_by_two = collection_count | modulo: 2 -%}
+
+          {%- if collection_1 != blank -%}
+            {%- assign collection = collections[collection_1] -%}
+            {%- render 'collection-grid-item' with collection as collection, no_heading_tag: true -%}
+          {%- endif -%}
+
+          {%- if collection_2 != blank -%}
+            {%- assign collection = collections[collection_2] -%}
+            {%- render 'collection-grid-item' with collection as collection, no_heading_tag: true -%}
+          {%- endif -%}
+
+          {%- if collection_3 != blank -%}
+            {%- assign collection = collections[collection_3] -%}
+            {%- render 'collection-grid-item' with collection as collection, no_heading_tag: true -%}
+          {%- endif -%}
+
+          {%- if collection_4 != blank -%}
+            {%- assign collection = collections[collection_4] -%}
+            {%- render 'collection-grid-item' with collection as collection, no_heading_tag: true -%}
+          {%- endif -%}
+
+          {%- if collection_5 != blank -%}
+            {%- assign collection = collections[collection_5] -%}
+            {%- render 'collection-grid-item' with collection as collection, no_heading_tag: true -%}
+          {%- endif -%}
+
+          {%- if collection_6 != blank -%}
+            {%- assign collection = collections[collection_6] -%}
+            {%- render 'collection-grid-item' with collection as collection, no_heading_tag: true -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if block.type == "blog" -%}
+        {%- if block.settings.dbtfy_mega_menu_header -%}
+          <div class="header-wrapper-mega_menu">
+            <h4 class="title-product-mega_menu">
+              <a href="{{ blogs[block.settings.dbtfy_mega_menu_blog].url }}">
+                {{ blogs[block.settings.dbtfy_mega_menu_blog].title | escape }}
+              </a>
+            </h4>
+
+            <a class="link-mega_menu text-link"
+                href="{{ blogs[block.settings.dbtfy_mega_menu_blog].url }}">
+                {{ "blogs.article.view_all" | t }}
+            </a>
+          </div>
+        {%- endif -%}
+
+        {%- assign limit = 3 -%}
+        {%- assign grid_item_width = "large--four-twelfths" -%}
+
+        <div class="grid grid-small">
+          {%- for article in blogs[block.settings.dbtfy_mega_menu_blog].articles limit: limit -%}
+            {%- render "article-grid-item" with article as article, grid_item_width: grid_item_width, no_heading_tag: true -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if block.type == "html" -%}
+        {{ block.settings.dbtfy_mega_menu_html }}
+      {%- endif -%}
+    </div>
+  </li>
+  {%- endfor -%}
+{%- endif -%}

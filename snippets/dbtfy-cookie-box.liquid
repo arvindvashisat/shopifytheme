@@ -1,0 +1,32 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_cookie_box -%}
+  {%- assign dbtfy_cookie_box_button_label = settings.dbtfy_cookie_box_button_label -%}
+
+  <div class="dbtfy dbtfy-cookie_box">
+    <div id="CookieBox" class="prevent-scrollbar-shift" style="display: none;">
+      <div class="wrapper cb-wrapper">
+        <div class="cb-container {% if settings.dbtfy_cookie_box_inverted %}cb-inverted overlay-content{% endif %}">
+          <div class="grid grid-small align-center cb-grid">
+            <div class="grid__item cb-text-item">
+              <div class="rte small--text-center">
+                {{ settings.dbtfy_cookie_box_text }}
+              </div>
+            </div>
+            <div class="grid__item flex large--flex-auto medium--flex-auto cb-button-item{%- if dbtfy_cookie_box_button_label == blank -%} justify-center{%- endif -%}">
+              {%- unless dbtfy_cookie_box_button_label == blank -%}
+                <button class="btn {{ settings.dbtfy_cookie_box_button_style }} btn--small small--full cb-btn">
+                  <div class="btn__text">
+                    {{ dbtfy_cookie_box_button_label | escape }}
+                  </div>
+                </button>
+              {%- endunless -%}
+
+              <button type="button" class="btn btn-square-small flex-shrink cb-btn-close">
+                <span class="{{ settings.icon }}" aria-hidden="true">close</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

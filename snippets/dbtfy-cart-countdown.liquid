@@ -1,0 +1,50 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_cart_countdown -%}
+<div class="dbtfy dbtfy-cart_countdown {% if position == 'cart_page' %}small--sticky sticky-check-header{% endif %} {% if position == 'cart_drawer' %}sticky{% endif %}"
+  style="display: none;"
+  data-minutes="{{ settings.dbtfy_cart_countdown_time_mins }}"
+  data-cart-count="{{ cart.item_count }}"
+  data-string-minute="{{ settings.dbtfy_cart_countdown_m }}"
+  data-string-second="{{ settings.dbtfy_cart_countdown_s }}">
+
+  <div id="CartCountdown" class="CartCountdown text-center card {% if position == 'cart_page' %} spacer-bottom{% endif %} {% if position == 'cart_drawer' %}card-full{% endif %}">
+    <div class="card-body card-body-xs">
+      <div class="dbtfy-cart_countdown_default_msg">
+        {%- unless settings.dbtfy_cart_countdown_icons == blank -%}
+          <span class="dbtfy-cart_countdown_icon icon-width {{ settings.icon }}">
+            {{ settings.dbtfy_cart_countdown_icons }}
+          </span>
+        {%- endunless -%}
+
+        {%- unless settings.dbtfy_cart_countdown_prefix == blank -%}
+          <span class="text-cart_countdown prefix-cart_countdown text-ellipsis">
+            {{ settings.dbtfy_cart_countdown_prefix }}
+          </span>
+        {%- endunless -%}
+
+        <strong class="timer-cart_countdown text-secondary">
+          <span class="minutes-cart_countdown"></span>
+          <span class="seconds-cart_countdown"></span>
+        </strong>
+
+        {%- unless settings.dbtfy_cart_countdown_suffix == blank -%}
+          <span class="text-cart_countdown suffix-cart_countdown text-ellipsis">
+            {{ settings.dbtfy_cart_countdown_suffix }}
+          </span>
+        {%- endunless -%}
+      </div>
+
+      <div class="dbtfy-cart_countdown_msg_t_over hide">
+        {%- unless settings.dbtfy_cart_countdown_icon_over == blank -%}
+          <span class="dbtfy-cart_countdown_icon icon-width {{ settings.icon }}">
+            {{ settings.dbtfy_cart_countdown_icon_over }}
+          </span>
+        {%- endunless -%}
+
+        <span class="text-cart_countdown text-cart-is-over_countdown">
+          {{ settings.dbtfy_cart_countdown_msg_over }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}

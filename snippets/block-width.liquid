@@ -1,0 +1,19 @@
+{%- case section.blocks.size -%}
+  {%- when 0 -%}
+  {%- when 1 -%}
+    {%- if section.settings.full_width -%}
+      one-whole text-center
+    {%- else -%}
+      large--eight-twelfths push--large--two-twelfths text-center
+    {%- endif -%}
+  {%- when 2 -%}
+    large--six-twelfths medium--six-twelfths
+  {%- when 3 -%}
+    large--four-twelfths medium--four-twelfths
+  {%- when 4 -%}
+    large--three-twelfths medium--six-twelfths
+  {%- when 5 -%}
+    large--one-fifth medium--six-twelfths
+  {%- when 6 -%}
+    large--two-twelfths medium--six-twelfths
+{%- endcase -%}

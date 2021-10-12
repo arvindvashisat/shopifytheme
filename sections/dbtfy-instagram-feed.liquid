@@ -1,0 +1,273 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_instagram_feed -%}
+  {%- assign limit = section.settings.dbtfy_instagram_feed_desktop_grid | times: section.settings.dbtfy_instagram_feed_rows -%}
+
+  {%- if section.settings.dbtfy_instagram_feed_full_width -%}
+    {%- assign full_width = true -%}
+  {%- endif -%}
+
+  {%- if section.settings.title == blank and section.settings.subtitle == blank and section.settings.dbtfy_instagram_feed_icon == false -%}
+    {%- assign no_header = true -%}
+  {%- endif -%}
+
+  {%- case section.settings.dbtfy_instagram_feed_mobile_grid -%}
+    {%- when "1" -%}
+      {%- assign width_mobile = "" -%}
+    {%- when "2" -%}
+      {%- assign width_mobile = "small--six-twelfths" -%}
+    {%- when "3" -%}
+      {%- assign width_mobile = "small--four-twelfths" -%}
+    {%- when "4" -%}
+      {%- assign width_mobile = "small--three-twelfths" -%}
+  {%- endcase -%}
+
+  {%- case section.settings.dbtfy_instagram_feed_desktop_grid -%}
+    {%- when "3" -%}
+      {%- assign grid_item_width = "large--four-twelfths medium--four-twelfths " | append: width_mobile -%}
+    {%- when "4" -%}
+      {%- assign grid_item_width = "large--three-twelfths medium--three-twelfths " | append: width_mobile -%}
+    {%- when "6" -%}
+      {%- assign grid_item_width = "large--two-twelfths medium--four-twelfths " | append: width_mobile -%}
+    {%- when "8" -%}
+      {%- assign grid_item_width = "large--one-eighth medium--three-twelfths " | append: width_mobile -%}
+    {%- when "10" -%}
+      {%- assign grid_item_width = "large--one-tenth medium--one-fifth " | append: width_mobile -%}
+  {%- endcase -%}
+
+  {%- assign meta_title = 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' -%}
+
+  {%- capture insta_template -%}
+  <div class="grid__item {{ grid_item_width }}">
+    <a href="{% raw %}{{link}}{% endraw %}" target="_blank" class="if-item media-wrapper image-link hover-none" title="{{ meta_title }}">
+      <img class="image-link lazyload" data-src="{% raw %}{{image}}{% endraw %}"/>
+      <div class="if-content media flex align-center overlay">
+        <div class="media-content text-center">
+          <div class="icon-wrapper-instagram_feed">
+            {%- render "svg-definitions" with "instagram" -%}
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {%- endcapture -%}
+
+  <div id="InstagramFeed"
+      class="{% if full_width %}section-full-width{% endif %} {% if no_header %}section-no-title{% endif %} {{ section.settings.dbtfy_instagram_feed_section_style }}"
+      data-section-id="{{ section.id }}"
+      data-section-type="instagram-feed">
+
+    <script src="{{ 'instafeed.min.js' | asset_url }}" defer="defer"></script>
+
+    <div class="box">
+      <div class="{%- if full_width -%}wrapper-full {%- else -%}wrapper {%- endif -%}">
+
+        {%- unless no_header -%}
+        <div class="grid">
+          <div class="grid__item large--eight-twelfths push--large--two-twelfths">
+            <div class="section-header">
+              {%- if section.settings.dbtfy_instagram_feed_icon -%}
+                <p>
+                  <a class="icon-link-instagram_feed text-secondary icon-lg icon-image" target="_blank" href="{{ settings.social_instagram_link }}" title="{{ meta_title }}">
+                    {%- render 'svg-definitions' with 'instagram' -%}
+                  </a>
+                </p>
+              {%- endif -%}
+              {%- unless section.settings.title == blank -%}
+                <h2 class="section-header__title">{{ section.settings.title | escape }}</h2>
+              {%- endunless -%}
+              {%- unless section.settings.subtitle == blank -%}
+                <p class="section-header__subtitle">{{ section.settings.subtitle | escape }}</p>
+              {%- endunless -%}
+            </div>
+          </div>
+        </div>
+        {%- endunless -%}
+
+        {%- if section.settings.dbtfy_instagram_feed_access_token != blank -%}
+          <div id="instafeed" 
+          class="grid{% if section.settings.dbtfy_instagram_feed_full_width %} grid-full{% else %} grid-spacer{% endif %}"
+          data-instagram-feed
+          data-access-token="{{ section.settings.dbtfy_instagram_feed_access_token }}"
+          data-user-id="{{ section.settings.dbtfy_instagram_feed_access_token | split: '.' | first }}"
+          data-limit="{{ limit }}"
+          data-resolution-images="{{ section.settings.dbtfy_instagram_feed_resolution }}"
+          data-template='{{ insta_template }}'></div>
+        {%- else -%}
+          <div class="grid{% if section.settings.dbtfy_instagram_feed_full_width %} grid-full{% else %} grid-spacer{% endif %}">
+            {%- for i in (1..limit) -%}
+            <div class="grid__item {{ grid_item_width }}">
+              {%- capture current -%}{%- cycle 1, 2, 3, 4, 5, 6 -%}{%- endcapture -%}
+              {{ "collection-" | append: current | placeholder_svg_tag: "placeholder-svg" }}
+            </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "⚡ Instagram feed",
+    "class": "instagram-feed-section dbtfy dbtfy-instagram_feed",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057122-how-to-manage-your-instagram-feed-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Instagram settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_instagram_feed_icon",
+        "label": "Show instagram icon",
+        "info": "Also make sure you have added your Instagram page link in Theme settings > Social medias",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_instagram_feed_access_token",
+        "label": "Access Token",
+        "info": "A new token will need to be generated every 2 months [Where do I find my Access Token?](http:\/\/instagram.pixelunion.net\/)"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_instagram_feed_resolution",
+        "label": "Resolution of images",
+        "default": "low_resolution",
+        "info": "Set to thumbnail for square images",
+        "options": [
+          {
+            "value": "thumbnail",
+            "label": "Thumbnail"
+          },
+          {
+            "value": "low_resolution",
+            "label": "Low Resolution"
+          },
+          {
+            "value": "standard_resolution",
+            "label": "Standard Resolution"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Section settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_instagram_feed_full_width",
+        "label": "Full width",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "From our Instagram"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subheading"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_instagram_feed_section_style",
+        "label": "Section style",
+        "default": "section-border",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+          {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_instagram_feed_rows",
+        "label": "Number of rows",
+        "default": "1",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_instagram_feed_desktop_grid",
+        "label": "Image per row (desktop)",
+        "default": "6",
+        "options": [
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "8",
+            "label": "8"
+          },
+          {
+            "value": "10",
+            "label": "10"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_instagram_feed_mobile_grid",
+        "label": "Image per row (mobile)",
+        "default": "3",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

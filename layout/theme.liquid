@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="{{ shop.locale }}">
+  <head>
+    <!-- Basic page needs -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="{{ settings.color_body_bg }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="author" content="Debutify">
+
+    <!-- Preconnect external ressources -->
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="preconnect" href="https://shop.app" crossorigin>
+    <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+
+    {%- if content_for_layout contains "product-template" -%}
+      <link rel="preconnect" href="https://godog.shopifycloud.com">
+
+      {%- if settings.enable_payment_button -%}
+        <link rel="preconnect" href="https://pay.google.com" crossorigin>
+        <link rel="preconnect" href="https://play.google.com" crossorigin>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if content_for_layout contains "featured-video" -%}
+      <link rel="preconnect" href="https://www.youtube.com">
+    {%- endif -%}
+
+    {%- if content_for_layout contains "map" -%}
+      <link rel="preconnect" href="https://maps.googleapis.com">
+    {%- endif -%}
+
+    {%- if request.page_type == "contact" or request.page_type == "captcha" -%}
+      <link rel="preconnect" href="https://www.google.com">
+      <link rel="preconnect" href="https://www.gstatic.com">
+      <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {%- endif -%}
+
+    {%- if content_for_header contains "debutify" -%}
+      <link rel="preconnect" href="https://debutify.com">
+    {%- endif -%}
+
+    {%- if content_for_header contains "debutify" and settings.dbtfy_automatic_geolocation -%}
+      <link rel="preconnect" href="https://api.teathemes.net" crossorigin>
+    {%- endif -%}
+
+    {%- assign accent_family = settings.accent_family -%}
+    {%- assign base_family = settings.base_family -%}
+    {%- assign header_family = settings.header_family -%}
+    {%- assign base_family_bold = base_family | font_modify: "weight", "bolder" -%}
+    {%- assign base_family_italic = base_family | font_modify: "style", "italic" -%}
+    {%- assign base_family_bold_italic = base_family_bold | font_modify: "style", "italic" -%}
+    {%- assign accent_family_bold = accent_family | font_modify: "weight", "bolder" -%}
+    {%- assign icon_split = settings.icon | split: "-" -%}
+    {%- capture icon_family -%}{% for icon in icon_split %}{% unless forloop.last == true %}{{ icon | capitalize | append: " " }}{% else %}{{ icon | capitalize }}{% endunless %}{% endfor %}{%- endcapture -%}
+
+    <!-- Preload assets -->
+    <link rel="preload" href="{{ "theme.scss.css" | asset_url }}" as="style">
+    <link rel="preload" as="font" href="{{ header_family | font_url }}" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="{{ accent_family | font_url }}" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="{{ base_family | font_url }}" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="{{ settings.icon | append: ".woff2" | asset_url }}" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ "jquery-2.2.3.min.js" | asset_url }}" as="script">
+    <link rel="preload" href="{{ "theme.min.js" | asset_url }}" as="script">
+    <link rel="preload" href="{{ "lazysizes.min.js" | asset_url }}" as="script">
+
+    {%- if content_for_header contains "debutify" -%}
+      <link rel="preload" href="{{ "dbtfy-addons.min.js" | asset_url }}" as="script">
+    {%- endif -%}
+
+    {%- if canonical_url != blank  -%}
+      <link rel="canonical" href="{{ canonical_url }}">
+    {%- endif -%}
+
+    <!-- Fav icon -->
+    <link sizes="192x192" rel="shortcut icon" type="image/png"
+        {%- if settings.favicon != blank -%}
+          href="{{ settings.favicon | img_url: "192x192" }}"
+        {%- else -%}
+          href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
+        {%- endif -%}
+    >
+
+    <!-- Title and description -->
+    <title>
+      {{ page_title }}{% if current_tags %}{%- assign meta_tags = current_tags | join: ", " -%} &ndash; {{ "general.meta.tags" | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ "general.meta.page" | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    <!-- Social meta -->
+    {%- render "social-meta-tags" -%}
+
+    <!-- CSS  -->
+    {{ "theme.scss.css" | asset_url | stylesheet_tag }}
+
+    <!-- Load fonts independently to prevent redering blocks -->
+    <style>
+      {{ header_family | font_face: font_display: "swap" }}
+      {{ accent_family | font_face: font_display: "swap" }}
+      {{ base_family | font_face: font_display: "swap" }}
+      {{ base_family_bold | font_face: font_display: "swap" }}
+      {{ base_family_italic | font_face: font_display: "swap" }}
+      {{ base_family_bold_italic | font_face: font_display: "swap" }}
+      {{ accent_family_bold | font_face: font_display: "swap" }}
+      @font-face {
+        font-family: {{ icon_family }};
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+        src: url({{ settings.icon | append: ".woff2" | asset_url }}) format("woff2");
+      }
+    </style>
+
+    <!-- Theme strings and settings -->
+    <script>
+      {%- if content_for_header contains "debutify" -%}
+        window.debutify = true;
+      {%- else -%}
+        window.debutify = false;
+      {%- endif -%}
+
+      window.theme = window.theme || {};
+
+      theme.variables = {
+        small: 769,
+        postSmall: 769.1,
+        animationDuration: 600,
+        animationSlow: 1000,
+        transitionSpeed: 300,
+        fastClickPluginLink: {{ "FastClick.js" | asset_url | json }},
+        jQueryUIPluginLink: {{ "jquery-ui.min.js" | asset_url | json }},
+        jQueryUIAutocompletePluginLink: {{ "jquery.ui.autocomplete.scroll.min.js" | asset_url | json }},
+        jQueryExitIntentPluginLink: {{ "jquery.exitintent.min.js" | asset_url | json }},
+        trackingPluginLink: {{ "//www.17track.net/externalcall.js" | json }}
+      };
+
+      theme.settings = {
+        cartType: {{ settings.cart_type | json }},
+        stickyHeader: {{ settings.sticky_header | json }},
+        heightHeader: {{ settings.height_header | json }},
+        heightHeaderMobile: {{ settings.height_header_mobile | json }},
+        icon: {{ settings.icon | json }},
+        currencyOriginalPrice: {{ settings.default_price | json }},
+        customCurrency: {{ settings.dbtfy_custom_currencies }},
+        dbtfyATCAnimationType: {{ settings.dbtfy_addtocart_animation_type | json }},
+        dbtfyATCAnimationInterval: {{ settings.dbtfy_addtocart_animation_interval | json }},
+        dbtfySalesCountdownDays: {{ settings.dbtfy_sales_countdown_d | json }},
+        dbtfySalesCountdownHours: {{ settings.dbtfy_sales_countdown_h | json }},
+        dbtfySalesCountdownMinutes: {{ settings.dbtfy_sales_countdown_m | json }},
+        dbtfySalesCountdownSeconds: {{ settings.dbtfy_sales_countdown_s | json }},
+        dbtfyShopProtectImage: {{ settings.dbtfy_shop_protect_image | json }},
+        dbtfyShopProtectDrag: {{ settings.dbtfy_shop_protect_drag | json }},
+        dbtfyShopProtectTextProduct: {{ settings.dbtfy_shop_protect_text_product | json }},
+        dbtfyShopProtectTextArticle: {{ settings.dbtfy_shop_protect_text_article | json }},
+        dbtfyShopProtectCollection: {{ settings.dbtfy_shop_protect_collection | json }},
+        isSearchEnabled: {{ settings.search_enabled | json }},
+        customScript: {{ settings.custom_script | json }},
+      };
+
+      theme.strings = {
+        zoomClose: {{ "products.zoom.close" | t | json }},
+        zoomPrev: {{ "products.zoom.prev" | t | json }},
+        zoomNext: {{ "products.zoom.next" | t | json }},
+        moneyFormat: {{ shop.money_format | json }},
+        moneyWithCurrencyFormat: {{ shop.money_with_currency_format | strip_html | json }},
+        currencyFormat: {{ settings.currency_format | default: "money_with_currency_format" | json }},
+        defaultCurrency: {{ settings.default_currency | default: shop.currency | json }},
+        saveFormat: {{ "products.general.save_html" | t | json }},
+        addressError: {{ "home_page.map.address_error" | t | json }},
+        addressNoResults: {{ "home_page.map.address_no_results" | t | json }},
+        addressQueryLimit: {{ "home_page.map.address_query_limit_html" | t | json }},
+        authError: {{ "home_page.map.auth_error_html" | t | json }},
+        cartCookie: {{ "cart.general.cookies_required" | t | json }},
+        addToCart: {{ "products.product.add_to_cart" | t | json }},
+        soldOut: {{ "products.product.sold_out" | t | json }},
+        unavailable: {{ "products.product.unavailable" | t | json }},
+        regularPrice: {{ "products.general.regular_price" | t | json }},
+        salePrice: {{ "products.general.sale_price" | t | json }},
+        shopCurrency: {{ shop.currency | json }}
+      };
+
+      window.lazySizesConfig = window.lazySizesConfig || {};
+      window.lazySizesConfig.customMedia = {
+        "--small": `(max-width: ${theme.variables.small}px)`
+      };
+    </script>
+
+    <!-- JS -->
+    {{ "jquery-2.2.3.min.js" | asset_url | script_tag }}
+
+    <script src="{{ 'theme.min.js' | asset_url }}" defer="defer"></script>
+
+    <script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
+
+    {%- if content_for_header contains "debutify" -%}
+      {%- if settings.show_currency_selector -%}
+        {%- if settings.dbtfy_custom_currencies or shop.enabled_currencies.size > 1 and settings.dbtfy_cart_goal-%}
+          <script type="text/javascript" src="/services/javascripts/currencies.js" data-no-instant></script>
+          <script src="{{ 'jquery.currencies.min.js' | asset_url }}" defer="defer"></script>
+        {%- endif -%}
+      {%- endif -%}
+
+      <script src="{{ 'dbtfy-addons.min.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {%- if request.page_type contains "customers/" -%}
+      {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+    {%- endif -%}
+
+    <!-- Header hook for plugins -->
+    {{ content_for_header }}
+  </head>
+
+  <body id="{{ page_title | handle }}"
+        class="{% if settings.sticky_header %}sticky-header{% endif %}
+                 {% if settings.sticky_announcement_bar %}sticky-announcement_bar{% endif %}
+                 {% if settings.hero_header %}transparent-header{% endif %}
+                 {% if customer %}customer-logged-in{% endif %}
+                 template-{{ request.page_type | handle }}">
+
+    {%- render "dbtfy-page-transition" -%}
+
+    {%- render "drawer-search" -%}
+
+    {%- section "drawer-menu" -%}
+
+    {%- render "drawer-cart" -%}
+
+    <div id="PageContainer" class="page-container">
+      <a class="visually-hidden event-focus-box" href="#mainContent">{{ "shopify.checkout.general.skip_to_content" | t }}</a>
+
+      {%- section "announcement" -%}
+
+      {%- section "header" -%}
+
+      {%- render "dbtfy-mobile-menu" -%}
+
+      {%- unless request.page_type == "collection" -%}
+        {%- render "breadcrumbs" -%}
+      {%- endunless -%}
+
+      <main id="mainContent" class="main-content fadeIn" role="main">
+        {%- if request.page_type == "captcha" or request.page_type == "policy" -%}
+          <div class="box">
+            <div class="wrapper">
+              <div class="grid">
+                <div class="grid__item large--eight-twelfths push--large--two-twelfths">
+                  {%- endif -%}
+
+                  {{ content_for_layout }}
+
+                  {%- if request.page_type == "captcha" or request.page_type == "policy" -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </main>
+
+      {%- render "dbtfy-recently-viewed" -%}
+
+      {%- section "dbtfy-instagram-feed" -%}
+
+      {%- section "guarantee" -%}
+
+      {%- section "footer" -%}
+
+      {%- if settings.show_top_button -%}
+        <button type="button" class="btn-top scroll-top btn btn--square btn-top-{{ settings.top_button_position }} {% if settings.top_button_mobile %}small--hide{% endif %}">
+          <span class="{{settings.icon}}" aria-hidden="true">keyboard_arrow_up</span>
+        </button>
+      {%- endif -%}
+    </div>
+
+    {%- if resetPassword -%}
+      <script>
+        $(function() {
+          timber.initCache();
+          timber.resetPasswordSuccess();
+        });
+      </script>
+    {%- endif -%}
+
+    {%- render "dbtfy-cookie-box" -%}
+    {%- render "dbtfy-sales-pop" -%}
+    {%- render "dbtfy-facebook-messenger" -%}
+    {%- render "dbtfy-newsletter-popup" -%}
+    {%- render "dbtfy-quick-view", type: "container" -%}
+    {%- section "dbtfy-upsell-popup" -%}
+    {%- section "dbtfy-quantity-breaks" -%}
+    {%- render "dbtfy-age-check" -%}
+    {%- render "dbtfy-social-discount" -%}
+    {%- section "dbtfy-cart-upsell" -%}
+    {%- section "dbtfy-color-swatches" -%}
+
+    {%- if request.page_type == "product" -%}
+      {%- section "dbtfy-size-chart" -%}
+    {%- endif -%}
+  </body>
+</html>

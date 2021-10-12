@@ -1,0 +1,182 @@
+{%- assign blog = blogs[section.settings.blog] -%}
+{%- assign limit = section.settings.grid | times: section.settings.rows -%}
+
+{%- if blog.articles_count == 0 or blog == blank -%}
+  {%- assign emptyState = true -%}
+{%- else -%}
+  {%- assign emptyState = false -%}
+{%- endif -%}
+
+{%- paginate blog.articles by limit -%}
+  <div id="section-{{ section.id }}" class="{{ section.settings.section_style }}" data-section-id="{{ section.id }}" data-section-type="blog-template">
+    <div class="box">
+      <div class="wrapper">
+
+        {%- unless section.settings.title == blank and section.settings.subtitle == blank -%}
+          <div class="grid">
+            <div class="grid__item large--eight-twelfths push--large--two-twelfths">
+              <div class="section-header">
+                {%- unless section.settings.title == blank -%}
+                  <h2 class="section-header__title">{{ section.settings.title | escape }}</h2>
+                {%- endunless -%}
+                {%- unless section.settings.subtitle == blank -%}
+                  <p class="section-header__subtitle">{{ section.settings.subtitle | escape }}</p>
+                {%- endunless -%}
+              </div>
+             </div>
+          </div>
+        {%- endunless -%}
+
+        <div class="grid grid-spacer">
+          {%- capture grid_item_width -%}
+            {%- render 'article-width' -%}
+          {%- endcapture -%}
+
+          {%- if emptyState -%}
+            {%- for i in (1..limit) -%}
+              {%- capture current -%}{% cycle 1, 2 %}{%- endcapture -%}
+              {%- render 'article-grid-item', emptyState: emptyState, grid_item_width: grid_item_width, current: current -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for article in blog.articles -%}
+              {%- render 'article-grid-item' with article as article, grid_item_width: grid_item_width, emptyState: emptyState -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.show_view_all -%}
+        <div class="view-all-box">
+          <a href="{{ blog.url }}" class="btn {{ section.settings.button_style }} view-all-link">
+            {{ 'blogs.article.view_all' | t }}
+          </a>
+        </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+  {
+    "name": "Blog posts",
+	"class": "featured-blog-section",
+    "settings": [
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured blog"
+      },
+	  {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subheading"
+      },
+      {
+        "type": "select",
+        "id": "section_style",
+        "label": "Section style",
+        "default": "section-blank",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+		  {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+	  {
+		"type": "header",
+		"content": "Grid"
+	  },
+	  {
+        "type": "select",
+        "id": "rows",
+        "label": "Number of rows",
+		"default": "1",
+		"options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+		  {
+            "value": "2",
+            "label": "2"
+          }
+		]
+      },
+	  {
+        "type": "select",
+        "id": "grid",
+        "label": "Articles per row",
+		"default": "2",
+		"options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+		  {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+		]
+      },
+	  {
+		"type": "header",
+		"content": "Footer"
+	  },
+	  {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": "Show 'View all' button",
+        "default": false
+      },
+	  {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button style",
+        "default": "btn-outline-primary",
+        "options": [
+          {
+            "value": "",
+            "label": "Default"
+          },
+          {
+            "value": "btn--primary",
+            "label": "Full"
+          },
+          {
+            "value": "btn-outline-primary",
+            "label": "Outline"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog posts",
+        "category": "Blog",
+        "settings": {
+          "blog": "News"
+        }
+      }
+    ]
+  }
+{% endschema %}

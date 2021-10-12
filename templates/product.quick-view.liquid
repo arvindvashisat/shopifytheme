@@ -1,0 +1,224 @@
+{%- comment -%}
+  Template only used for AJAX reference
+{%- endcomment -%}
+
+{%- layout none -%}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+{%- if product.images.size > 1 -%}
+  {%- assign carousel = true -%}
+{%- else -%}
+  {%- assign carousel = false -%}
+{%- endif -%}
+
+{% if current_variant.compare_at_price > current_variant.price %}
+  {%- assign on_sale = true -%}
+{%- else -%}
+  {%- assign on_sale = false -%}
+{%- endif -%}
+
+{%- if current_variant.available -%}
+  {%- assign sold_out = false -%}
+{%- else -%}
+  {%- assign sold_out = true -%}
+{%- endif -%}
+
+<div id="QuickView-{{ product.handle }}"
+     class="modal"
+     data-upsell-target-id="{{ product.id }}"
+     role="dialog">
+
+  <div class="modal-dialog modal-large">
+    <div class="modal-content overlay-content" aria-hidden="true" tabindex="-1">
+      <div class="modal-header">
+        <a href="{{ product.url }}?variant={{ current_variant.id }}"
+           class="modal-title h4">
+          {{ product.title }}
+        </a>
+
+        <button type="button"
+                class="modal-close btn btn-square-small"
+                title="{{ 'general.password_page.close' | t }}"
+                aria-label="{{ 'general.password_page.close' | t }}"
+                data-modal-close="#QuickView-{{ product.handle }}">
+          <span class="{{ settings.icon }}">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="qv-grid grid grid-small">
+          <!-- photos -->
+          <div class="qv-photos grid__item medium--six-twelfths large--six-twelfths">
+            <div class="qv-slick grid grid-small{% if carousel %} slick qv-slick-image product-single__media-group{% endif %}">
+              {%- for image in product.images -%}
+                <div class="grid__item qv-image-{{ image.id }}{% if image == current_variant.featured_image %} qv-featured-image{% endif %}"
+                    data-index="{{ forloop.index0 }}">
+                  <div class="product--wrapper media-wrapper"
+                      style="padding-top: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;">
+                    <img class="product--image media lazyload"
+                        {% render 'lazysizes', img: image, img_type: 'responsive' %}
+                        alt="{{ image.alt | escape }}"
+                        data-image>
+                  </div>
+                </div>
+              {%- else -%}
+                <div class="grid__item">
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endfor -%}
+            </div>
+
+            {%- if carousel -%}
+              <div class="grid grid-small product-single__thumbnails slick qv-slick-thumbnails{% if product.images.size < 6  %} slick-disabled{% endif %}">
+                {%- for image in product.images -%}
+                  <div class="grid__item one-fifth">
+                    <a class="product--wrapper product-single__thumbnail image-link media-wrapper"
+                       style="padding-top: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;">
+
+                      <img class="product--image product-single__thumb media lazyload"
+                          {% render 'lazysizes', img: image, img_type: 'responsive' %}
+                           alt="{{ image.alt | escape }}">
+                    </a>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <!-- details -->
+          <div class="qv-details grid__item medium--six-twelfths large--six-twelfths spacer-top {% if sold_out %}variant-soldout{% endif %}">
+            {%- if settings.grid_product_vendor -%}
+              <p class="qv-vendor text-small text-italic">
+                {{ product.vendor }}
+              </p>
+            {%- endif -%}
+
+            <div class="qv-price-wrapper text-money text-large price-container spacer-bottom">
+              <span class="qv-price{% if on_sale %} on-sale text-secondary{% endif %}"
+                  {% if on_sale %}
+                  aria-label="{{ 'products.general.sale_price' | t }}"
+                  {% else %}
+                  aria-label="{{ 'products.general.regular_price' | t }}"
+                  {% endif %}>
+                  <span class="money">{{ current_variant.price | money }}</span>
+              </span>
+
+              <span class="qv-price-compare text-strike text-muted{% unless on_sale %} hide{% endunless %}"
+                  aria-label="{{ 'products.general.regular_price' | t }}">
+                  <span class="money">{{ current_variant.compare_at_price | money }}</span>
+              </span>
+            </div>
+
+            {%- render "review-badge", badge_template: "grid" -%}
+
+            {%- unless product.description == blank -%}
+              <div class="qv-description rte">
+                {%- assign desc = product.description | strip_html -%}
+
+                {{ desc | truncatewords: 22 }}
+
+                <a href="{{ product.url }}?variant={{ current_variant.id }}"
+                   class="text-link continue-link">
+
+                  {{ 'products.product.full_details' | t }}
+                  <span class="{{ settings.icon }}"
+                        aria-hidden="true">arrow_forward</span>
+                </a>
+              </div>
+            {%- endunless -%}
+
+            {%- capture "form_classes" -%}add-to-cart__form qv-form product-single__form{%- endcapture -%}
+            {%- capture "form_id" -%}QuickViewForm-{{ section.id }}-{{ product.id }}{%- endcapture -%}
+
+            {%- form "product", product, class: form_classes, id: form_id -%}
+              {%- unless product.has_only_default_variant -%}
+                <div class="qv-variant-wrapper variant-wrapper grid grid-small">
+                  {%- for option in product.options_with_values -%}
+                    <div class="grid__item qv-variant-item radio-wrapper product-form__item">
+                      <label class="qv-select-label single-option-radio__label"
+                             for="QuickViewSelect-{{ forloop.index0 }}-{{ product.id }}">
+                        {{ option.name | escape }}
+                      </label>
+
+                      <select class="qv-select select--small full"
+                              id="QuickViewSelect-{{ forloop.index0 }}-{{ product.id }}"
+                              data-index="option{{ forloop.index }}">
+
+                        {%- for value in option.values -%}
+                          <option value="{{ value | escape }}"
+                              {% if option.selected_value == value %} selected="selected"{% endif %}>
+                            {{ value | escape }}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              {%- endunless -%}
+
+              <select name="id"
+                      class="qv-master-select"
+                      style="display: none;">
+
+                {%- for variant in product.variants -%}
+                  {%- if variant.available -%}
+                    <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+                            data-sku="{{ variant.sku }}"
+                            value="{{ variant.id }}"
+                            data-variant="{{ variant.title | replace: ' / ', '' }}"
+                            data-price="{{ variant.price | money }}"
+                            data-inventory-quantity="{{ variant.inventory_quantity }}"
+                        {% if variant.compare_at_price > variant.price %}data-price-compare="{{ variant.compare_at_price | money }}"{% endif %}
+                            data-image-id="{{ variant.image.id }}">
+                      {{ variant.title }} - {{ variant.price | money_with_currency }}
+                    </option>
+                  {%- else -%}
+                    <option disabled="disabled"
+                            data-variant="{{ variant.title | replace: ' / ', '' }}"
+                            data-price="{{ variant.price | money }}"
+                            {% if variant.compare_at_price > variant.price %}data-price-compare="{{ variant.compare_at_price | money }}"{% endif %}
+                            data-image-id="{{ variant.image.id }}">
+                      {{ variant.title }} - {{ "products.product.sold_out" | t }}
+                    </option>
+                  {%- endif -%}
+                {%- endfor -%}
+              </select>
+
+              {%- if settings.dbtfy_quick_view_quantity_selector -%}
+                <div class="qv-quantity-wrapper spacer-bottom">
+                  {%- assign quantity_id = 'quick-view-' | append: item.id -%}
+
+                  <label class="inline-label" for="{{ quantity_id }}">{{ 'products.product.quantity' | t }}</label>
+                  {%- render 'quantity-selector', type: 'product', id: quantity_id -%}
+                </div>
+              {%- endif -%}
+
+              <button type="submit"
+                      name="add"
+                      class="btn--add-to-cart qv-addtocart-button btn btn--primary btn--full"
+                      {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+
+                <span class="btn__text">
+                  <span class="{{ settings.icon }}">
+                    {{ settings.icon_cart }}
+                  </span>
+
+                  <span class="btn__add-to-cart-text">
+                    {%- if current_variant.available -%}
+                      {{ "products.product.add_to_cart" | t }}
+                    {%- else -%}
+                      {{ "products.product.sold_out" | t }}
+                    {%- endif -%}
+                  </span>
+                </span>
+              </button>
+            {%- endform -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay-modal overlay-backdrop"></div>

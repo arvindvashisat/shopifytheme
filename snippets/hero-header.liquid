@@ -1,0 +1,23 @@
+{%- if settings.hero_header -%}
+<style class="hero-header-style">
+  .header-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  .site-header{background-color: transparent;}
+  .site-header .site-nav__link,.site-header .site-header__logo-link{
+    color: {{ settings.color_transparent_nav_text }};
+  }
+  .cart-link__bubble--visible{
+    border-color: {{ settings.color_transparent_nav_text }};
+  }
+  .site-header .default-logo{
+    display:none;
+  }
+  .site-header .inverted-logo{
+    display:block;
+  }
+</style>
+{%- endif -%}

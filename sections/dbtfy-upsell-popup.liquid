@@ -1,0 +1,365 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_upsell_popup and section.blocks.size > 0 -%}
+  <div class="dbtfy dbtfy-upsell_popup"
+       data-section-id="{{ section.id }}"
+       data-section-type="upsell-popup">
+
+    <!-- Blocks -->
+    {%- for block in section.blocks -%}
+      {%- assign not_in_cart = true -%}
+      {%- assign in_stock = false -%}
+      {%- assign valid_upsell = false -%}
+      {%- assign trigger_empty = false -%}
+
+      {%- if block.settings.dbtfy_upsell_popup_product_trigger != blank -%}
+        {%- assign product_trigger = all_products[block.settings.dbtfy_upsell_popup_product_trigger] -%}
+      {%- else -%}
+        {%- assign trigger_empty = true -%}
+      {%- endif -%}
+
+      {%- if block.settings.dbtfy_upsell_popup_product_offer != blank -%}
+        {%- assign product_offer = all_products[block.settings.dbtfy_upsell_popup_product_offer] -%}
+      {%- endif -%}
+
+      {%- assign loop = 0 -%}
+
+      {%- for item in cart.items -%}
+        {%- if item.product.handle == product_offer.handle -%}
+          {%- assign not_in_cart = false -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if product_offer.available -%}
+        {%- assign in_stock = true -%}
+      {%- endif -%}
+
+      {%- if not_in_cart and in_stock -%}
+        {%- assign valid_upsell = true -%}
+      {%- endif -%}
+
+      {%- if trigger_empty -%}
+        {%- assign product_trigger_id = 'general' -%}
+      {%- else -%}
+        {%- assign product_trigger_id = product_trigger.id -%}
+      {%- endif -%}
+
+      {%- if valid_upsell -%}
+        <div id="UpsellPopup-{{ product_trigger_id }}"
+            class="modal up-modal"
+            role="dialog"
+            data-offer="{{ product_offer.id }}"
+            {{ block.shopify_attributes }}
+            {%- if block.settings.dbtfy_upsell_popup_discount_name != blank and block.settings.dbtfy_upsell_popup_discount_type != blank and block.settings.dbtfy_upsell_popup_discount_amount != blank -%}
+            data-discount-name="{{ block.settings.dbtfy_upsell_popup_discount_name }}"
+            data-discount-type="{{ block.settings.dbtfy_upsell_popup_discount_type }}"
+            data-discount-amount="{{ block.settings.dbtfy_upsell_popup_discount_amount }}"
+            {%- endif -%}>
+
+          <div class="modal-dialog {{ section.settings.dbtfy_upsell_popup_width }}">
+
+            <div class="overlay-content modal-content modal-content-upsell_popup" aria-hidden="true" tabindex="-1">
+
+              <div class="modal-header">
+                <h4 class="modal-title">
+                  <a href="{{ product_offer.url }}">{{ product_offer.title }}</a>
+                </h4>
+
+                <button type="button"
+                        class="modal-close btn btn-square-small"
+                        title="{{ 'general.password_page.close' | t }}"
+                        aria-label="{{ 'general.password_page.close' | t }}"
+                        data-modal-close="#UpsellPopup-{{ product_trigger_id }}">
+                  <span class="{{ settings.icon }}" aria-hidden="true">close</span>
+                </button>
+              </div>
+
+              <div class="progress">
+                <div class="progress-bar up-progress-bar"
+                     role="progressbar"
+                     style="width: {{ section.settings.dbtfy_upsell_popup_range }}%;">
+                </div>
+              </div>
+
+              <div class="modal-body">
+                <div class="grid grid-small grid-spacer align-center">
+                  <div class="grid__item large--six-twelfths medium--six-twelfths">
+                    {%- for variant in product_offer.variants -%}
+                      {%- assign loop = loop | plus: 1 -%}
+
+                      {%- if variant.available -%}
+                        {%- if variant.image -%}
+                          {%- assign image = variant.image -%}
+                        {%- else -%}
+                          {%- assign image = product_offer.featured_image -%}
+                        {%- endif -%}
+
+                        <div class="product--wrapper media-wrapper up-img up-img-{{ variant.id }}"
+                              style="{%- unless loop == 1 -%}display:none;{%- endunless -%} padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;">
+                          <img class="product--image media lazyload"
+                              {%- render 'lazysizes', img: image, img_type: 'responsive' -%}
+                              alt="{{ image.alt | escape }}"
+                              data-image>
+                        </div>
+                      {%- else -%}
+                        {%- assign loop = loop | minus: 1 -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+
+                  <div class="grid__item large--six-twelfths medium--six-twelfths {{ section.settings.text_alignment }}">
+                    <div class="rte">
+                      {%- if block.settings.dbtfy_upsell_popup_title != blank -%}
+                        <h3 class="title-upsell_popup">
+                          {{ block.settings.dbtfy_upsell_popup_title }}
+                        </h3>
+                      {%- endif -%}
+
+                      {%- if block.settings.dbtfy_upsell_popup_text != blank -%}
+                        {{ block.settings.dbtfy_upsell_popup_text }}
+                      {%- endif -%}
+                    </div>
+
+                    {%- capture "form_classes" -%}up-form{%- endcapture -%}
+
+                    {%- form "product", product_offer, class:form_classes -%}
+                      <select name="id" class="up-select select--small full{% if product_offer.variants.size <= 1 %} hide{% endif %}">
+
+                        {%- for variant in product_offer.variants -%}
+                          {%- if variant.available -%}
+                            <option {% if variant == product_offer.selected_or_first_available_variant %}selected="selected"{% endif %}
+                                    value="{{ variant.id }}" data-variant-title="{{ variant.title | escape }}" data-variant-price="{{ variant.price }}">
+                              {{ variant.title | escape }} - {{ variant.price | money }}
+                            </option>
+                          {%- else -%}
+                            <option disabled="disabled">
+                              {{ variant.title | escape }} - {{ "products.product.sold_out" | t }}
+                            </option>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </select>
+
+                      {%- if block.settings.button_label != blank -%}
+                        <button type="submit" class="btn btn--primary btn--full up-btn-offer spacer-top">
+                          <span class="btn__text">
+                            {%- if block.settings.dbtfy_upsell_popup_icons != blank -%}
+                              <span class="{{ settings.icon }}" aria-hidden="true">
+                                {{ block.settings.dbtfy_upsell_popup_icons }}
+                              </span>
+                            {% endif %}
+
+                            {{ block.settings.button_label | escape }}
+                          </span>
+                        </button>
+                      {%- endif -%}
+                    {%- endform -%}
+                  </div>
+                </div>
+              </div>
+
+              {%- unless product_offer.description == blank or section.settings.dbtfy_upsell_popup_description == blank -%}
+              <div class="card card-full tab">
+                <button id ="tab-button-{{ block.id }}" class="card-header tab-header up-btn-description"
+                        type="button"
+                        role="tab"
+                        aria-controls="tab-content-{{block.id}}"
+                        aria-selected="false">
+                  <span class="tab-header-title">{{ section.settings.dbtfy_upsell_popup_description }}</span>
+                </button>
+
+                <div id="tab-content-{{block.id}}" class="card-body tab-body" role="tabpanel" aria-labelledby="tab-button-{{ block.id }}">
+                  <div class="tab-content rte">
+                    {{ product_offer.description }}
+                  </div>
+                </div>
+              </div>
+              {%- endunless -%}
+
+              {%- if section.settings.dbtfy_upsell_popup_cart != blank or section.settings.dbtfy_upsell_popup_checkout != blank -%}
+                <div class="modal-footer">
+                  <div class="grid">
+                    <div class="grid__item six-twelfths">
+                      {%- if section.settings.dbtfy_upsell_popup_cart != blank -%}
+                        <button type="button" class="up-cart-link"
+                        data-modal-close="#UpsellPopup-{{ product_trigger_id }}">
+                          <small class="btn__text">
+                            {{ section.settings.dbtfy_upsell_popup_cart }}
+                          </small>
+                        </button>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="grid__item six-twelfths text-right">
+                      {%- if section.settings.dbtfy_upsell_popup_checkout != blank -%}
+                        <button type="button" class="up-checkout-link">
+                          <small class="btn__text">
+                            {{ section.settings.dbtfy_upsell_popup_checkout }}
+                          </small>
+                        </button>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay-modal overlay-backdrop"></div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+{%- schema -%}
+  {
+    "name": "⚡ Upsell pop-up",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054298-how-to-use-upsell-pop-up-in-3-0)"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_upsell_popup_width",
+        "label": "Size",
+        "default": "",
+        "options": [
+          {
+            "value": "",
+            "label": "Medium"
+          },
+          {
+            "value": "modal-large",
+            "label": "Large"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_upsell_popup_description",
+        "label": "Description text",
+        "default": "See product details"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_upsell_popup_cart",
+        "label": "Decline offer text",
+        "default": "No thanks"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_upsell_popup_checkout",
+        "label": "Checkout text",
+        "default": "Go to checkout →"
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text alignment",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_upsell_popup_range",
+        "label": "Progress bar width",
+        "min": 50,
+        "max": 90,
+        "step": 1,
+        "unit": "%",
+        "default": 75
+      }
+    ],
+    "blocks" : [
+      {
+        "type": "upsell",
+        "name": "Upsell",
+        "settings": [
+          {
+            "type": "text",
+            "id": "dbtfy_upsell_popup_title",
+            "label": "Title",
+            "default": "Special Offer!"
+          },
+          {
+            "type": "richtext",
+            "id": "dbtfy_upsell_popup_text",
+            "label": "Text",
+            "default": "<p>Add this product to your cart and get 20% OFF your entire order.<\/p>"
+          },
+          {
+            "type": "product",
+            "id": "dbtfy_upsell_popup_product_trigger",
+            "label": "Product trigger",
+            "info": "Leave empty to trigger on all products"
+          },
+          {
+            "type": "product",
+            "id": "dbtfy_upsell_popup_product_offer",
+            "label": "Product offer"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_upsell_popup_icons",
+            "label": "Button icon",
+            "info": "[View all available icons](https:\/\/material.io\/resources\/icons)",
+            "default": "card_giftcard"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label",
+            "default": "Claim offer!"
+          },
+          {
+            "type": "header",
+            "content": "Discount code",
+            "info": "[Create a discount code](\/admin\/discounts\/new)"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_upsell_popup_discount_name",
+            "label": "Name",
+            "placeholder": "20OFF"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_upsell_popup_discount_amount",
+            "label": "Amount",
+            "placeholder": "20"
+          },
+          {
+            "type": "radio",
+            "id": "dbtfy_upsell_popup_discount_type",
+            "label": "Type",
+            "default": "%",
+            "options": [
+              {
+                "value": "%",
+                "label": "Percentage"
+              },
+              {
+                "value": "$",
+                "label": "Fixed amount"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+{%- endschema -%}

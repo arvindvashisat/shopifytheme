@@ -1,0 +1,114 @@
+{%- assign on_sale = false -%}
+{%- assign sold_out = true -%}
+
+{%- if product.compare_at_price > product.price -%}
+  {%- assign on_sale = true -%}
+{%- endif -%}
+
+{%- if product.available -%}
+  {%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- assign product_link = product.url | within: collection -%}
+
+{%- unless sold_out -%}
+
+  {%- if type == "image" -%}
+  <div class="grid__item {{ grid_item_width }} image-item-upsell_bundles selected-image-upsell_bundles grid-image-{{ product.id }} {% if item == "first" %}current-image-upsell_bundles{% endif %}">
+    {%- assign loop = 0 -%}
+
+    {%- unless product.has_only_default_variant -%}
+      {%- for variant in product.variants -%}
+        {%- if variant.available -%}
+          {%- assign loop = loop | plus: 1 -%}
+
+          {%- if variant.image -%}
+            {%- assign image = variant.image -%}
+          {%- else -%}
+            {%- assign image = product.featured_image -%}
+          {%- endif -%}
+
+          {%- assign img_url = image | img_url: "1x1" | replace: "_1x1.", "_{width}x." -%}
+
+          <a id="imageUpsellBundles-{{ variant.id }}" class="loop-{{loop}} grid-product__image-link image-link image-link-upsell_bundles" {% unless item == "first" %}href="{{ product_link }}"{% endunless %}  style="{% unless loop == 1 %}display:none;{% endunless %}">
+            <div class="product--wrapper media-wrapper" style="padding-top: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;">
+              <img class="product--image media lazyload"
+              {%- render 'lazysizes', img: image, img_type: 'responsive' -%}
+              alt="{{ image.alt }}">
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- assign loop = 1 -%}
+      {%- assign image = product.featured_image -%}
+      {%- assign img_url = image | img_url: "1x1" | replace: "_1x1.", "_{width}x." -%}
+
+      <a id="imageUpsellBundles-{{ variant.id }}" class="loop-{{loop}} grid-product__image-link image-link image-link-upsell_bundles" {% unless item == "first" %}href="{{ product_link }}"{% endunless %}  {% unless loop == 1 %}style="display:none;"{% endunless %}>
+        <div class="product--wrapper media-wrapper" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;">
+          <img class="product--image media lazyload"
+          {%- render 'lazysizes', img: image, img_type: 'responsive' -%}
+          alt="{{ image.alt }}">
+        </div>
+      </a>
+    {%- endunless -%}
+
+  </div>
+  {%- endif -%}
+
+
+  {%- if type == "form" -%}
+    <div class="form-item-upsell_bundles {% if item == "first" %}current-form-upsell_bundles{% endif %}">
+      <div class="checkbox box-wrap-upsell_bundles">
+        <input id="upsellBundleCheckbox-{{ product.id }}" class="checkbox-upsell_bundles" data-product-id="{{ product.id }} " type="checkbox" value="{{ product.id }}" checked>
+
+        <label for="upsellBundleCheckbox-{{ product.id }}" class="label-upsell_bundles text-ellipsis">
+          {%- if item == "first" -%}
+            <strong>{{ section.settings.dbtfy_upsell_bundles_current }} </strong>
+          {%- endif -%}
+  
+          <span class="title-upsell_bundles">{{ product.title }}</span>
+  
+          {%- if section.settings.dbtfy_upsell_bundles_reviews -%}
+            {%- render "review-badge", badge_template: "grid" -%}
+          {%- endif -%}
+        </label>
+      </div>
+
+      <form data-id="{{ product.id }}" id="upsellBundles-{{ product.id }}" autocomplete="off" action="/cart/add" method="post" class="form-upsell_bundles active-upsell_bundles" enctype="multipart/form-data">
+        <select class="select--small select-upsell_bundles text-ellipsis" name="id[]">
+          {%- unless product.has_only_default_variant -%}
+            {%- for variant in product.variants -%}
+              {%- if variant.available -%}
+                <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} value="{{ variant.id }}"
+                data-price="{{ variant.price }}"
+                data-compare-at-price="{% if variant.compare_at_price %}{{ variant.compare_at_price }}{% else %}0{% endif %}">
+                  {{ variant.title | escape }}
+                </option>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} value="{{ variant.id }}"
+            data-price="{{ variant.price }}"
+            data-compare-at-price="{{ variant.compare_at_price }}">
+              {{ product.title | escape }}
+            </option>
+          {%- endunless -%}
+        </select>
+
+        <div class="dbtfy-upsell-bundle-price-wrapper text-money">
+          {%- for variant in product.variants -%}
+            {%- if variant == product.selected_or_first_available_variant -%}
+              <span class="dbtfy-upsell-bundle-current-price {% if variant.compare_at_price > variant.price %}text-secondary{% endif %}"><span class="money">{{ variant.price | money }}</span></span>
+              <span class="dbtfy-upsell-bundle-compare-price text-muted text-strike" {% unless variant.compare_at_price %}style='display: none;'{% endunless %} >
+                <span class="money">{{ variant.compare_at_price | money }}</span>
+              </span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </form>
+
+    </div>
+  {%- endif -%}
+{%- endunless -%}

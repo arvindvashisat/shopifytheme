@@ -1,0 +1,424 @@
+{%- assign product = all_products[section.settings.featured_product] -%}
+{%- assign emptyState = false -%}
+{%- if product == blank -%}
+  {%- assign emptyState = true -%}
+{%- endif -%}
+{%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
+
+<div itemscope itemtype="http://schema.org/Product" 
+     id="section-{{ section.id }}"
+     class="{{ section.settings.section_style }}"
+     data-section-id="{{ section.id }}"
+     data-section-type="product-template"
+     data-image-zoom-type="{{ section.settings.enable_image_zoom }}"
+     data-enable-history-state="false"
+     data-stacked-layout="{% if section.settings.media_layout == "stacked" %}true{% else %}false{% endif %}"
+     {%- if first_3d_model -%}data-has-model="true"{%- endif -%}>
+
+  {%- render 'product-template' with product as product, emptyState: emptyState -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Featured product",
+	  "class": "featured-product-section",
+    "settings": [
+      {
+        "type": "product",
+        "id": "featured_product",
+        "label": "Product"
+      },
+      {
+        "type": "select",
+        "id": "section_style",
+        "label": "Section style",
+        "default": "section-blank",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+  	  {
+        "type": "header",
+        "content": "Product tabs"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_product_tabs_position",
+        "label": "Position",
+        "default": "under_addtocart",
+        "options": [
+          {
+            "value": "under_addtocart",
+            "label": "Under add-to-cart button"
+          },
+          {
+            "value": "separate_section",
+            "label": "In a separate section"
+          },
+          {
+            "value": "above_description",
+            "label": "Above product description"
+          },
+          {
+            "value": "under_description",
+            "label": "Under product description"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Product page"
+      },
+  	  {
+        "type": "checkbox",
+        "id": "show_product_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_type",
+        "label": "Show product type",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_sku",
+        "label": "Show SKU",
+        "default": false
+      },
+  	  {
+        "type": "checkbox",
+        "id": "product_title_large",
+        "label": "Enable large product title",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_tags",
+        "label": "Show product tags",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_collections",
+        "label": "Show product collections",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_full_details",
+        "label": "Show full detail link",
+        "default": true
+      },
+  	  {
+        "type": "header",
+        "content": "Media",
+    		"info": "Learn more about [media types](https://help.shopify.com/manual/products/product-media)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_image_zoom",
+        "label": "Enable image zoom",
+    		"default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": false
+      },
+  	  {
+        "type": "select",
+        "id": "media_layout",
+        "label": "Gallery layout",
+        "default": "thumbnails",
+        "options": [
+    		  {
+            "value": "stacked",
+            "label": "Stacked"
+          },
+     		  {
+            "value": "thumbnails",
+            "label": "Thumbnails"
+          }
+        ]
+      },
+  	  {
+        "type": "header",
+        "content": "Product form"
+      },
+  	  {
+        "type": "checkbox",
+        "id": "quantity_enabled",
+        "label": "Show quantity picker",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "product_selector",
+        "label": "Picker type",
+    		"default": "select",
+        "options": [
+          {
+            "value": "radio",
+            "label": "Button"
+          },
+          {
+            "value": "select",
+            "label": "Dropdown"
+          }
+        ]
+      },
+  	  {
+        "type": "header",
+        "content": "Product description"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_description",
+        "label": "Show product description",
+        "default": false
+      },
+  	  {
+        "type": "checkbox",
+        "id": "description_full",
+        "label": "Full width",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_product_description_position",
+        "label": "Position",
+        "default": "separate_section",
+        "options": [
+          {
+            "value": "under_addtocart",
+            "label": "Under add-to-cart button"
+          },
+          {
+            "value": "separate_section",
+            "label": "In a separate section"
+          }
+        ]
+      },
+	    {
+        "type": "select",
+        "id": "description_style",
+        "label": "Description style",
+        "default": "section-border",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+    		  {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text alignment (desktop)",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "",
+            "label": "Left"
+          },
+     		  {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_alignment_mobile",
+        "label": "Text alignment (mobile)",
+        "default": "small--text-center",
+        "options": [
+          {
+            "value": "small--text-left",
+            "label": "Left"
+          },
+     		  {
+            "value": "small--text-center",
+            "label": "Center"
+          },
+          {
+            "value": "small--text-right",
+            "label": "Right"
+          }
+        ]
+      }
+    ],
+    "blocks" : [
+      {
+        "type": "description",
+        "name": "Product description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "dbtfy_product_tabs_open",
+            "label": "Open tab by default",
+            "default": false
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_product_tabs_icons",
+            "label": "Icon",
+            "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_product_tabs_title",
+            "label": "Title",
+            "default": "Details"
+          }
+        ]
+      },
+      {
+        "type": "reviews",
+        "name": "Reviews",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "dbtfy_product_tabs_open",
+            "label": "Open tab by default",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "dbtfy_product_tabs_review",
+            "label": "Show star ratings",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_product_tabs_icons",
+            "label": "Icon",
+            "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_product_tabs_title",
+            "label": "Title",
+            "default": "Reviews",
+            "info": "To show your review widget in product tabs, go in \"Review app\" > \"Review widget\" and tick the \"Show in Product tabs\" checkbox"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text/Image/HTML",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "dbtfy_product_tabs_open",
+            "label": "Open tab by default",
+            "default": false
+          },
+          {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Text alignment",
+            "default": "text-center",
+            "options": [
+              {
+                "value": "",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_product_tabs_icons",
+            "label": "Icon",
+            "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_product_tabs_title",
+            "label": "Title",
+            "default": "Rich text"
+          },
+          {
+            "type": "richtext",
+            "id": "dbtfy_product_tabs_text",
+            "label": "Text"
+          },
+          {
+            "type": "image_picker",
+            "id": "dbtfy_product_tabs_image",
+            "label": "Image"
+          },
+          {
+            "type": "html",
+            "id": "dbtfy_product_tabs_html",
+            "label": "HTML"
+          },
+          {
+            "type": "header",
+            "content": "Visibility settings"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_product_tabs_type",
+            "label": "Product type",
+			      "info": "Comma-separated"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_product_tabs_tag",
+            "label": "Product tag",
+            "info": "Comma-separated"
+          },
+          {
+            "type": "product",
+            "id": "dbtfy_product_tabs_product",
+            "label": "Product"
+          },
+          {
+            "type": "collection",
+            "id": "dbtfy_product_tabs_collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured product",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,177 @@
+{% assign has_color_swatches = false %}
+
+{%- if content_for_header contains 'debutify' and settings.dbtfy_color_swatches -%}
+  {%- if settings.dbtfy_color_swatches_grid != blank -%}
+    {%- if product.available and product.variants.size > 1 -%}
+      {% assign has_color_swatches = true %}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if emptyState -%}
+  {%- assign product_link = '/admin/products' -%}
+  {%- assign vendor = 'home_page.onboarding.product_vendor' | t -%}
+  {%- assign title = 'home_page.onboarding.product_title' | t -%}
+  {%- assign compare_at_price = 2999 -%}
+  {%- assign price = 1999 -%}
+{%- else -%}
+  {%- assign variant = product.first_available_variant -%}
+  {%- assign product_link = product.url | within: collection -%}
+  {%- assign vendor = product.vendor -%}
+  {%- assign title = product.title -%}
+
+  {% if has_color_swatches %}
+    {%- assign compare_at_price = variant.compare_at_price -%}
+    {%- assign price = variant.price -%}
+  {% else %}
+    {%- assign compare_at_price = product.compare_at_price -%}
+    {%- assign price = product.price -%}
+  {% endif %}
+{%- endif -%}
+
+{%- if compare_at_price > price -%}
+  {%- assign on_sale = true -%}
+{%- else -%}
+  {%- assign on_sale = false -%}
+{%- endif -%}
+
+{%- if product.available or emptyState -%}
+  {%- assign sold_out = false -%}
+{%- else -%}
+  {%- assign sold_out = true -%}
+{%- endif -%}
+
+{%- if settings.grid_product_hover and product.images.size > 1 -%}
+  {%- assign image_hover = true -%}
+{%- else -%}
+  {%- assign image_hover = false -%}
+{%- endif -%}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+<div class="grid__item grid-product flex {{ grid_item_width }}{% if sold_out %} is-sold-out{% endif %}" data-product-card data-product-handle="{{ product.handle }}" data-product-id="{{ product.id }}">
+  <div class="card grid-product__wrapper {% if image_hover %} has-hover-image{% endif %}">
+    <div class="grid-product__image-wrapper">
+      <a href="{{ product_link }}?variant={{ product.first_available_variant.id }}" class="grid-product__image-link">
+        {%- if product.images != blank -%}
+          <div id="ProductImageWrapper-{{ product.featured_image.id }}" class="product--wrapper card-image grid-product--wrapper media-wrapper" style="padding-top:{{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%;">
+            <img class="product--image media lazyload ProductImage-{{ product.featured_image.id }}"
+            {% render 'lazysizes', img: product.featured_image, img_type: 'responsive' %}
+            alt="{{ product.featured_image.alt }}"
+            data-image>
+          </div>
+
+          {%- if image_hover -%}
+            <div class="product--wrapper card-image grid-product--wrapper media-wrapper product-hover-image" style="padding-top:{{ 1 | divided_by: product.images[1].aspect_ratio | times: 100 }}%;">
+              <img class="product--image media lazyload"
+              {% render 'lazysizes', img: product.images[1], img_type: 'responsive', add_on_crop: settings.dbtfy_product_image_crop %}
+              alt="{{ product.images[1].alt }}">
+            </div>
+          {%- endif -%}
+        {%- elsif product.images.size < 1 or emptyState -%}
+          {{ 'product-' | append: current | placeholder_svg_tag: 'card-image placeholder-svg' }}
+        {%- endif -%}
+      </a>
+
+      {%- unless settings.tag_placement == 'none' -%}
+        {%- if sold_out -%}
+          <span class="badge grid-product__badge grid-product__badge-{{ settings.tag_placement }} disabled">
+            <span class="{{settings.icon}}">watch_later</span>
+            <span class="product-badge-text tooltip-position-bottom">
+              {{ 'products.product.sold_out_html' | t }}
+            </span>
+          </span>
+        {%- elsif on_sale -%}
+          {%- capture saved_amount -%}
+            {%- if settings.sale_type == 'amount' -%}
+             <span class="money">{{ compare_at_price | minus: price | money }}</span>
+            {%- elsif settings.sale_type == 'percentage' -%}
+              {{ compare_at_price | minus: price | times: 100 | divided_by: compare_at_price }}%
+            {%- endif -%}
+          {%- endcapture -%}
+          <span class="badge grid-product__badge grid-product__badge-{{ settings.tag_placement }}">
+            <span class="{{settings.icon}}">local_offer</span>
+            <span class="product-badge-text tooltip-position-bottom">
+              {{ 'products.general.save_html' | t: saved_amount: saved_amount }}
+            </span>
+          </span>
+        {%- endif -%}
+      {%- endunless -%}
+
+      {%- unless emptyState -%}
+        {%- render "dbtfy-quick-view" with product as product -%}
+        {%- render "dbtfy-wish-list" with product as product -%}
+      {%- endunless -%}
+    </div>
+
+    {%- unless emptyState -%}
+      {%- render "dbtfy-collection-addtocart" with product as product, sold_out: sold_out -%}
+    {%- endunless -%}
+
+    <a href="{{ product_link }}?variant={{ product.first_available_variant.id }}" class="card-body flex flex-column justify-center grid-product__meta spacer-auto-xs text-center">
+      {%- if has_color_swatches -%}
+        {%- render "dbtfy-color-swatches" with product as product, type: 'product_grid' -%}
+      {%- endif -%}
+
+      <p class="grid-product__title h6{% if settings.grid_product_truncate %} text-ellipsis{% endif %}">{{ title }}</p>
+
+      {%- if settings.review_badge_product_grid -%}
+        {%- unless emptyState -%}
+          {%- render 'review-badge' with product as product, position: 'product_grid' -%}
+        {%- endunless -%}
+      {%- endif -%}
+
+      <p class="grid-product__price-wrap">
+        <span class="grid-product__price text-money">
+
+          <span class="price-regular{% if on_sale %} on-sale text-secondary{% endif %}"
+                {% if on_sale %}
+                aria-label="{{ 'products.general.sale_price' | t }}"
+                {% else %}
+                aria-label="{{ 'products.general.regular_price' | t }}"
+                {% endif %}>
+            {%- if product.price_varies and emptyState == false -%}
+            <span class="money">{{ product.price_min | money }}+</span>
+            {%- else -%}
+            <span class="money">{{ price | money }}</span>
+            {%- endif -%}
+          </span>
+
+          <span class="price-compare text-strike text-muted {% unless on_sale %}hide{% endunless %}"
+                aria-label="{{ 'products.general.regular_price' | t }}">
+            {%- if on_sale -%}
+              <span class="money">{{ compare_at_price | money }}</span>
+            {%- else -%}
+            <span class="money"></span>
+            {%- endif -%}
+          </span>
+        </span>
+
+        {%- if variant.available and variant.unit_price_measurement -%}
+        {%- capture unit_price_separator -%}
+        <span aria-hidden="true">/</span><span class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+        {%- endcapture -%}
+
+        {%- capture unit_price_base_unit -%}
+        <span>
+          {%- if variant.unit_price_measurement.reference_value != 1 -%}
+          {{- variant.unit_price_measurement.reference_value -}}
+          {%- endif -%}
+          {{ variant.unit_price_measurement.reference_unit }}
+        </span>
+        {%- endcapture -%}
+        <span class="product-unit-price">
+          <span class="visually-hidden">{{ 'products.general.unit_price' | t }}</span>
+          <span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+        </span>
+        {%- endif -%}
+      </p>
+    </a>
+
+    {%- if settings.grid_product_vendor -%}
+    <div class="card-footer text-center">
+      <p class="vendor grid-product__vendor text-small text-italic">{{ vendor }}</p>
+    </div>
+    {%- endif -%}
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_recently_viewed -%}
+{%- assign rvProductLimit = 3 -%}
+
+<div class="dbtfy dbtfy-recently_viewed fadeInLeft" data-visible-products="{{ rvProductLimit }}" style="display: none;">
+  <div class="rv-box">
+    <div class="rv-wrapper">
+      {%- unless settings.dbtfy_recently_viewed_title == blank -%}
+        <h3 class="rv-title text-small text-center small--hide">{{ settings.dbtfy_recently_viewed_title }}</h3>
+
+        <div class="section-header medium--hide large--hide">
+          <h2 class="section-header__title">{{ settings.dbtfy_recently_viewed_title }}</h2>
+        </div>
+      {%- endunless -%}
+
+      <div class="rv-products">
+        <ul class="grid rv-main rv-js-grid">
+
+          {%- for rvProducts in (0..rvProductLimit) -%}
+            <li class="grid__item large--one-whole medium--one-whole small--fill rv-box-{{ rvProducts }} rv-thumbnail {% cycle 'even', 'odd' %}"></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- endif -%}

@@ -1,0 +1,37 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_cart_goal -%}
+  {%- assign goal = settings.dbtfy_cart_goal_amount -%}
+  {%- assign cart_total = cart.total_price | divided_by: 100 -%}
+  {%- assign percentage_reached = cart_total | times: 100 | divided_by: goal -%}
+
+  <div class="dbtfy dbtfy-cart_goal {% if position == 'cart_drawer' %}drawer__inner-section{% endif %}"
+       data-goal-amount="{{ goal }}"
+       data-cart-total-amount="{{ cart_total }}"
+       data-cart-total-count="{{ cart.item_count }}"
+       data-before-amount-text="{{ settings.dbtfy_cart_goal_before_text }}"
+       data-after-amount-text="{{ settings.dbtfy_cart_goal_after_text }}"
+       data-goal-reached-text="{{ settings.dbtfy_cart_goal_reached_text }}">
+
+    <div class="cg-wrapper" {% if cart.item_count == 0 %}style="display: none"{% endif %}>
+      <p class="cg-free-shipping-text text-center">
+        {%- if goal > cart_total -%}
+          <span>{{ settings.dbtfy_cart_goal_before_text }} <span class="cg-goal-amount text-money text-secondary"> </span> {{ settings.dbtfy_cart_goal_after_text }}</span>
+        {%- else -%}
+          <span>{{ settings.dbtfy_cart_goal_reached_text }}</span>
+        {%- endif -%}
+      </p>
+
+      <div class="cg-free-shipping-bar progress progress-rounded">
+        <div class="cg-progress-bar progress-bar" role="progressbar" style="width: {{ percentage_reached }}%"></div>
+
+        {%- if settings.dbtfy_cart_goal_icons != blank -%}
+          <span class="cg-icon">
+            <span class="{{ settings.icon }} icon-width text-secondary">{{ settings.dbtfy_cart_goal_icons }}</span>
+          </span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <span class="cart_goal_amount_new hide">{{ goal }}</span>
+
+  </div>
+{%- endif -%}

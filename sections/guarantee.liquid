@@ -1,0 +1,190 @@
+{%- capture column_width -%}
+  {%- render 'block-width' -%}
+{%- endcapture -%}
+
+{%- if section.blocks.size > 0 and section.settings.show_guarantee -%}
+  <div id="section-{{ section.id }}" class="{{ section.settings.section_style }}" data-section-id="{{ section.id }}" data-section-type="guarantee-template">
+    <div class="box box-small">
+      <div class="wrapper">
+        <div class="grid grid-spacer text-center">
+
+          <!-- Blocks -->
+          {%- for block in section.blocks -%}
+            <div class="grid__item {{ column_width }}" {{ block.shopify_attributes }}>
+              <div class="guarantee-item {% if block.settings.text == blank and block.settings.button_label == blank %}guarantee-title-only{% endif %}">
+                {%- if block.settings.image != blank -%}
+                <p class="guarantee-image">
+                  <img class="imgset lazyload image-{{ section.settings.guarantee_size }}"
+                  {%- render 'lazysizes', img: block.settings.image, img_type: 'retina', img_height: '50' -%}
+                  alt="{{ block.settings.image.alt }}">
+                </p>
+                {%- elsif block.settings.guarantee_icon != blank -%}
+                <p class="guarantee-icon">
+                  <span class="{{settings.icon}} icon-width icon-image icon-{{ section.settings.guarantee_size }} text-secondary" aria-hidden="true">{{ block.settings.guarantee_icon }}</span>
+                </p>
+                {%- endif -%}
+                {%- unless block.settings.title == blank -%}
+                <h5 class="guarantee-title">{{ block.settings.title }}</h5>
+                {%- endunless -%}
+                {%- unless block.settings.text == blank -%}
+                <div class="guarantee-text rte spacer-none">{{ block.settings.text }}</div>
+                {%- endunless -%}
+                {%- unless block.settings.button_label == blank -%}
+                <a href="{{ block.settings.button_link }}" class="btn {{ block.settings.button_style }} btn--small">
+                  {{ block.settings.button_label | escape }}
+                </a>
+                {%- endunless -%}
+              </div>
+            </div>
+          {%- endfor -%}
+
+          {%- if section.blocks.size == 0 -%}
+            {%- render 'no-blocks' -%}
+          {%- endif -%}
+
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+
+{% schema %}
+  {
+    "name": "Guarantee",
+    "class": "guarantee-section",
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_guarantee",
+        "label": "Show section",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "guarantee_size",
+        "label": "Media size",
+        "default": "xl",
+        "options": [
+          {
+            "value": "xs",
+            "label": "Extra small"
+          },
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          },
+          {
+            "value": "xl",
+            "label": "Extra large"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "section_style",
+        "label": "Section style",
+        "default": "section-border",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+    		  {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      }
+  	],
+  	"blocks" : [
+  	  {
+        "type": "text",
+        "name": "Guarantee",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+    		  {
+            "type": "text",
+            "id": "guarantee_icon",
+            "label": "Icon",
+      			"info": "[View all available icons](https://material.io/resources/icons)",
+            "default": "loyalty",
+            "placeholder": "loyalty"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Our Guarantee"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default":"<p>Share your guarantees with your customers.</p>"
+          },
+    		  {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "default": "btn-outline-primary",
+            "options": [
+              {
+                "value": "",
+                "label": "Default"
+              },
+              {
+                "value": "btn--primary",
+                "label": "Full"
+              },
+              {
+                "value": "btn-outline-primary",
+                "label": "Outline"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+          }
+        ]
+      }
+    ],
+    "default": {
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,42 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_trust_badge -%}
+  {%- assign valid_badge = false -%}
+
+  {%- if settings.dbtfy_trust_badge_product and position == "product_page" -%}
+    {%- assign valid_badge = true -%}
+  {%- endif -%}
+
+  {%- if settings.dbtfy_trust_badge_cart -%}
+    {%- if position == "cart_page" or position == "cart_drawer" -%}
+      {%- assign valid_badge = true -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if valid_badge -%}
+    <div class="dbtfy dbtfy-trust_badge {% if position == 'cart_page' or position == 'cart_drawer' %}spacer-top{% endif %}">
+      <div id="TrustBadge"
+           class="text-{{ settings.dbtfy_trust_badge_text_position }}-trust_badge{% if position == 'product_page' %} card card-body{% endif %}">
+
+        <div class="container-trust_badge text-center">
+          {%- unless settings.dbtfy_trust_badge_text == blank -%}
+            <p class="text-trust_badge{% if settings.dbtfy_trust_badge_text_small %} text-small{% endif %}">
+              {{ settings.dbtfy_trust_badge_text }}
+            </p>
+          {%- endunless -%}
+
+          {%- if settings.dbtfy_trust_badge_image -%}
+            <div class="image-wrapper-trust_badge">
+              {%- assign image_size = settings.dbtfy_trust_badge_width | append: "x" -%}
+
+              <img class="image-trust_badge lazyload"
+                   src="{{ settings.dbtfy_trust_badge_image | img_url: image_size }}"
+                   srcset="{{ settings.dbtfy_trust_badge_image | img_url: image_size }} 1x, {{ settings.dbtfy_trust_badge_image | img_url: image_size, scale: 2 }} 2x"
+                   alt="{{ settings.dbtfy_trust_badge_image.alt }}">
+            </div>
+          {%- else -%}
+            {%- render "payment-icons" -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

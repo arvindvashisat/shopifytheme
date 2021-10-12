@@ -1,0 +1,107 @@
+{%- comment -%}
+  Template only used for AJAX reference
+{%- endcomment -%}
+
+{%- layout none -%}
+
+<div id="WishlistItem-{{ product.handle }}" class="grid align-center small--align-top wl-item" data-product-id="{{ product.id }}">
+  <div class="grid__item large--three-twelfths medium--three-twelfths small--four-twelfths">
+    <a href="{{ product.url }}"
+        class="product--wrapper image-link wl-img media-wrapper"
+        style="padding-top: {{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%">
+
+      <img class="product--image media lazyload"
+      {%- render 'lazysizes', img: product.featured_image, img_type: 'responsive' -%}
+      alt="{{ product.featured_image.alt }}">
+    </a>
+  </div>
+
+  <div class="grid__item large--nine-twelfths medium--nine-twelfths small eight-twelfths">
+    <div class="grid align-center">
+      <div class="grid__item large--four-twelfths medium--four-twelfths wl-name-wrapper">
+        <h5 class="wl-name">
+          <a href="{{ product.url }}" class="cart__product-name">
+            {{ product.title }}
+          </a>
+        </h5>
+
+        <p class="cart__product-meta spacer-bottom-none">
+          <button type="button" class="wl-remove" data-product-handle="{{ product.handle }}">
+            <span class="{{ settings.icon }}">delete</span>
+            <span class="small--hide">
+              {{ "cart.general.remove" | t }}
+            </span>
+          </button>
+        </p>
+      </div>
+
+      <div class="grid__item large--four-twelfths medium--four-twelfths">
+        <span class="cart__price text-money">
+          {%- if product.compare_at_price > 0 -%}
+            <span class="on-sale text-secondary" aria-label="{{ 'products.general.regular_price' | t }}">
+               <span class="money">{{ product.price | money }}</span>
+            </span>
+
+            <span class="text-strike text-muted" aria-label="{{ 'products.general.sale_price' | t }}">
+              <span class="money">{{ product.compare_at_price | money }}</span>
+            </span>
+          {%- else -%}
+            <span class="price" aria-label="{{ 'products.general.regular_price' | t }}">
+              <span class="money">{{ product.price | money }}</span>
+            </span>
+          {%- endif -%}
+        </span>
+      </div>
+
+      <div class="grid__item large--four-twelfths medium--four-twelfths">
+        <div class="wl-product-options">
+          {%- capture "form_classes" %}wl-form{%- endcapture -%}
+          {%- capture "form_id" %}wl-form--{{ product.id }}{%- endcapture -%}
+
+          {%- form "product", product, class: form_classes, id: form_id -%}
+            {%- assign first_option = product.options | first -%}
+
+            <select class="btn btn-outline-primary btn--small btn--full wl-select text-ellipsis{% unless product.available %} disabled{% endunless %}"
+                    name="id"
+                  {% unless product.available %}disabled="disabled"{% endunless %}
+                  {% if first_option == 'Title' %}style="display: none"{% endif %}>
+
+              <option disabled="disabled" hidden="hidden"{% unless first_option == 'Title' %} selected="selected"{% endunless %}>
+                {%- unless product.available -%}
+                  {{ "products.product.sold_out" | t }}
+                {%- else -%}
+                  {{ "products.product.add_to_cart" | t }}
+                {%- endunless -%}
+              </option>
+
+              {%- for variant in product.variants -%}
+                {%- if variant.available -%}
+                  <option value="{{ variant.id }}" data-variant-title="{{ variant.title | escape }}" data-variant-price="{{ variant.price }}"
+                  {% if variant.title == 'Default Title' %} selected="selected"{% endif %}>
+                    {{ variant.title }} - {{ variant.price | money }}
+                  </option>
+                {%- endif -%}
+              {%- endfor -%}
+            </select>
+
+            <button id="wl-button--{{ product.id }}"
+                    name="add"
+                    type="submit"
+                    class="btn btn-outline-primary btn--small btn--full wl-button text-ellipsis{% unless product.available %} disabled{% endunless %}"
+                  {% unless product.available %}disabled="disabled"{% endunless %}
+                  {% unless first_option == 'Title' %}style="display: none"{% endunless %}>
+
+              <span class="btn__text">
+                {%- unless product.available -%}
+                  {{ "products.product.sold_out" | t }}
+                {%- else -%}
+                  {{ "products.product.add_to_cart" | t }}
+                {%- endunless -%}
+              </span>
+            </button>
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

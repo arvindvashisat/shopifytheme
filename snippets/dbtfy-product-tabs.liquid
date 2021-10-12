@@ -1,0 +1,124 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_product_tabs and section.blocks.size > 0 -%}
+  <div class="dbtfy dbtfy-product_tabs">
+      <div id="ProductTabs" class="card-group {{ class }}">
+        <!-- Blocks -->
+        {%- for block in section.blocks -%}
+          {%- capture tab_start -%}
+          <div class="card tab" {{ block.shopify_attributes }}>
+            <button type="button" id="tab-button-{{forloop.index}}{{ block.id }}" class="card-header tab-header tab-header-{{ block.id }}{% if block.settings.dbtfy_product_tabs_open %} active{% endif %}"
+                    role="tab"
+                    aria-controls="tab-content-{{forloop.index}}{{ block.id }}"
+                    {% if block.settings.dbtfy_product_tabs_open %}aria-selected="true"{% else %}aria-selected="false"{% endif %}>
+
+              {%- unless block.settings.dbtfy_product_tabs_icons == blank -%}
+                <span class="{{ settings.icon }} card-header-icon text-secondary">{{ block.settings.dbtfy_product_tabs_icons }}</span>
+              {%- endunless -%}
+
+              {%- unless block.settings.dbtfy_product_tabs_title == blank -%}
+              <span class="tab-header-title">{{ block.settings.dbtfy_product_tabs_title }}</span>
+              {%- endunless -%}
+
+              {%- if block.type == "reviews" and settings.review_widget_tabs and block.settings.dbtfy_product_tabs_review -%}
+                {%- render "review-badge" with product as product, position: "product_grid" -%}
+              {%- endif -%}
+            </button>
+            <div class="card-body tab-body" id="tab-content-{{forloop.index}}{{ block.id }}" role="tabpanel" aria-labelledby="tab-button-{{forloop.index}}{{ block.id }}">
+              <div class="tab-content">
+          {%- endcapture -%}
+
+          {%- capture tab_end -%}
+                </div>
+              </div>
+            </div>
+          {%- endcapture -%}
+
+          {%- if block.type == "description" and product.description != blank -%}
+            {{ tab_start }}
+
+            <div class="pt-description rte" itemprop="description">
+              {{ product.description }}
+            </div>
+
+            {{ tab_end }}
+          {%- endif -%}
+
+          {%- if block.type == "reviews" and settings.review_widget_tabs -%}
+            {{ tab_start }}
+
+            {%- render "review-widget" -%}
+
+            {{ tab_end }}
+          {%- endif -%}
+
+          {%- if block.type == "text" -%}
+            {%- assign valid_tab = false -%}
+
+            {%- if block.settings.dbtfy_product_tabs_type != blank -%}
+              {%- assign type_list = block.settings.dbtfy_product_tabs_type | split: "," -%}
+
+              {%- for type in type_list -%}
+                {%- if product.type contains type -%}
+                  {%- assign valid_tab = true -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+
+            {%- if block.settings.dbtfy_product_tabs_tag != blank -%}
+              {%- assign tag_list = block.settings.dbtfy_product_tabs_tag | split: "," -%}
+
+              {%- for tag in tag_list -%}
+                {%- if product.tags contains tag -%}
+                  {%- assign valid_tab = true -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+
+            {%- if block.settings.dbtfy_product_tabs_product != blank -%}
+              {%- assign product_filter = block.settings.dbtfy_product_tabs_product -%}
+
+              {%- if product.handle == product_filter -%}
+                {%- assign valid_tab = true -%}
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if block.settings.dbtfy_product_tabs_collection != blank -%}
+              {%- for collection in product.collections -%}
+                {%- if collection.handle == block.settings.dbtfy_product_tabs_collection -%}
+                  {%- assign valid_tab = true -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+
+            {%- if block.settings.dbtfy_product_tabs_product == blank and block.settings.dbtfy_product_tabs_type == blank and block.settings.dbtfy_product_tabs_tag == blank and block.settings.dbtfy_product_tabs_collection == blank -%}
+              {%- assign valid_tab = true -%}
+            {%- endif -%}
+
+            {%- if valid_tab -%}
+              {{ tab_start }}
+
+              <div class="rte {{ block.settings.text_alignment }}">
+                {%- unless block.settings.dbtfy_product_tabs_text == blank -%}
+                  {{ block.settings.dbtfy_product_tabs_text }}
+                {%- endunless -%}
+
+                {%- if block.settings.dbtfy_product_tabs_image -%}
+                  <div class="media-wrapper" style="padding-top:{{ 1 | divided_by: block.settings.dbtfy_product_tabs_image.aspect_ratio | times: 100}}%;">
+                    <img class="media lazyload"
+                    {%- render 'lazysizes', img: block.settings.dbtfy_product_tabs_image, img_type: 'responsive' -%}
+                    alt="{{ block.settings.dbtfy_product_tabs_image.alt }}">
+                  </div>
+                {%- endif -%}
+
+                {%- unless block.settings.dbtfy_product_tabs_html == blank -%}
+                  {{ block.settings.dbtfy_product_tabs_html }}
+                {%- endunless -%}
+              </div>
+
+              {{ tab_end }}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+{%- endif -%}

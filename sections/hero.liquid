@@ -1,0 +1,489 @@
+{%- if section.blocks.size > 1 -%}
+  {%- assign hero_slick = true -%}
+{%- else -%}
+  {%- assign hero_slick = false -%}
+{%- endif -%}
+
+<div id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="hero-section">
+  {%- if section.blocks.size > 0 -%}
+    {%- render 'hero-header' -%}
+
+    <div id="Hero-{{ section.id }}" class="hero-container hero-index {% if hero_slick %}slick slick-hero{% endif %}"
+        data-arrows="{{ section.settings.arrows }}"
+        data-dots="{{ section.settings.dots }}"
+        data-autoplay="{{ section.settings.autoplay }}"
+        data-autoplayspeed="{{ section.settings.autoplayspeed | times: 1000 }}"
+        data-fade="true">
+
+      <!-- Blocks -->
+      {%- for block in section.blocks -%}
+      <div class="hero hero-{{ block.id }}
+                  hero--{{ section.settings.section_height }} hero-mobile-{{ section.settings.section_height_mobile }}
+                  {{ block.settings.text_position }} small--{{ block.settings.text_position_mobile }}
+                  {{ block.settings.text_alignment }} small--{{ block.settings.text_alignment_mobile }}
+                  {% if block.settings.overlay %}overlay{% endif %}
+                  {% if hero_slick %}hero__slide{% endif %}
+                  media-wrapper"
+           {{ block.shopify_attributes }}>
+
+        {%- if block.settings.image != blank -%}
+          <div class="hero-image hero-image-{{ block.id }} media bgset lazyload"
+              {%- render 'lazysizes', img: block.settings.image, img_mobile: block.settings.image_mobile, img_type: 'background' -%}>
+          </div>
+        {%- elsif block.settings.video != blank -%}
+          {%- assign video_extension = block.settings.video | split: '.' | last -%}
+          <video class="hero-video hero-video-{{ block.id }} media lazyload" src="{{ block.settings.video | asset_url }}" loop muted no-controls autoplay playsinline preload="true">
+            <source type="video/{{video_extension}}" src="{{ block.settings.video | asset_url }}">
+          </video>
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'media placeholder-svg lazyload' }}
+        {%- endif -%}
+
+        <div class="hero__inner media-content">
+          <div class="hero__text-wrapper">
+            <div class="hero-content">
+              {%- if block.settings.title != blank -%}
+              <div class="page-title-wrapper">
+                <h2 class="hero__title page-title h1">{{ block.settings.title | escape }}</h2>
+              </div>
+              {%- endif -%}
+
+              {%- if block.settings.text != blank -%}
+              <div class="rte hero__text">{{ block.settings.text }}</div>
+              {%- endif -%}
+              {%- if block.settings.button_label != blank or block.settings.button_label_2 != blank -%}
+              <div class="hero__cta">
+                <div class="inline-list">
+                  {%- if block.settings.button_label != blank -%}
+                  <a href="{{ block.settings.button_link }}" class="btn {{ block.settings.button_style }} hero__btn">
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                  {%- endif -%}
+                  {%- if block.settings.button_label_2 != blank -%}
+                  <a href="{{ block.settings.button_link_2 }}" class="btn {{ block.settings.button_style_2 }} hero__btn">
+                    {{ block.settings.button_label_2 | escape }}
+                  </a>
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+
+        {%- if block.settings.image -%}
+        <style>
+          .hero-image-{{ block.id }}{
+            background-position: {{ block.settings.image_position }};
+          }
+          .mobile-view .hero-image-{{ block.id }}{
+            background-position: {{ block.settings.image_position_mobile }};
+          }
+        </style>
+        {%- endif -%}
+
+      </div>
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    {%- render 'no-blocks' -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Slideshow",
+	  "class": "hero-section",
+	  "max_blocks": 4,
+    "settings": [
+	    {
+        "type": "select",
+        "id": "section_height",
+        "label": "Section height (desktop)",
+        "default": "xlarge",
+        "options": [
+          {
+            "label": "Extra Small",
+            "value": "xsmall"
+          },
+		      {
+            "label": "Small",
+            "value": "small"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Large",
+            "value": "large"
+          },
+		      {
+            "label": "Full",
+            "value": "xlarge"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "section_height_mobile",
+        "label": "Section height (mobile)",
+        "default": "xlarge",
+        "options": [
+          {
+            "label": "Extra Small",
+            "value": "xsmall"
+          },
+          {
+            "label": "Small",
+            "value": "small"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Large",
+            "value": "large"
+          },
+          {
+            "label": "Full",
+            "value": "xlarge"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Carousel options"
+      },
+      {
+        "type": "checkbox",
+        "id": "arrows",
+        "label": "Show arrows",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dots",
+        "label": "Show dots",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Auto rotate",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "autoplayspeed",
+        "label": "Rotation speed",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "unit": "s",
+        "default": 8
+      }
+    ],
+	  "blocks" : [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+		      {
+            "type": "header",
+            "content": "Image",
+            "info": "Because the size and shape of the slideshow depends on the size and shape of the customer's device, your slideshow images will be cropped on some screens. Try to use images that have a focal point in the middle so that the important part of each image is always visible."
+          },
+          {
+            "type": "checkbox",
+            "id": "overlay",
+            "label": "Show overlay",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background image (desktop)",
+            "info": "Recommended size: 3840 x 2160 px"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Background image (mobile)",
+            "info": "Recommended size: 2160 x 3840 px"
+          },
+          {
+            "type": "select",
+            "id": "image_position",
+            "label": "Image position (desktop)",
+            "default": "center center",
+            "options": [
+              {
+                "label": "Top left",
+                "value": "top left"
+              },
+              {
+                "label": "Top center",
+                "value": "top center"
+              },
+              {
+                "label": "Top right",
+                "value": "top right"
+              },
+              {
+                "label": "Middle left",
+                "value": "center left"
+              },
+              {
+                "label": "Middle center",
+                "value": "center center"
+              },
+              {
+                "label":"Middle right",
+                "value": "center right"
+              },
+              {
+                "label":"Bottom left",
+                "value": "bottom left"
+              },
+              {
+                "label": "Bottom center",
+                "value": "bottom center"
+              },
+              {
+                "label": "Bottom right",
+                "value": "bottom right"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "image_position_mobile",
+            "label": "Image position (mobile)",
+            "default": "center center",
+            "options": [
+              {
+                "label": "Top left",
+                "value": "top left"
+              },
+              {
+                "label": "Top center",
+                "value": "top center"
+              },
+              {
+                "label": "Top right",
+                "value": "top right"
+              },
+              {
+                "label": "Middle left",
+                "value": "center left"
+              },
+              {
+                "label": "Middle center",
+                "value": "center center"
+              },
+              {
+                "label":"Middle right",
+                "value": "center right"
+              },
+              {
+                "label":"Bottom left",
+                "value": "bottom left"
+              },
+              {
+                "label": "Bottom center",
+                "value": "bottom center"
+              },
+              {
+                "label": "Bottom right",
+                "value": "bottom right"
+              }
+            ]
+          },
+          {
+            "type": "header",
+		      	"content": "Video"
+          },
+          {
+            "type": "text",
+            "id": "video",
+            "label": "Background video",
+            "info": "To upload your video, click on Theme actions > Edit code > Assets > Add a new asset. Write your file name with format which is uploaded in Assets folder. For e.g. videoplayback.mp4",
+            "placeholder": "background-video.mp4"
+          },
+          {
+            "type": "header",
+			      "content": "Text"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Slideshow"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your story.</p>"
+          },
+          {
+            "type": "select",
+            "id": "text_position",
+            "label": "Text position (desktop)",
+            "default": "align-center",
+            "options": [
+              {
+                "value": "align-top",
+                "label": "Top"
+              },
+              {
+                "value": "align-center",
+                "label": "Middle"
+              },
+              {
+                "value": "align-bottom",
+                "label": "Bottom"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "text_position_mobile",
+            "label": "Text position (mobile)",
+            "default": "align-center",
+            "options": [
+              {
+                "value": "align-top",
+                "label": "Top"
+              },
+              {
+                "value": "align-center",
+                "label": "Middle"
+              },
+              {
+                "value": "align-bottom",
+                "label": "Bottom"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Text alignment (desktop)",
+            "default": "text-center",
+            "options": [
+              {
+                "value": "text-left",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "text_alignment_mobile",
+            "label": "Text alignment (mobile)",
+            "default": "text-center",
+            "options": [
+              {
+                "value": "text-left",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "header",
+		      	"content": "Buttons"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label",
+		      	"default": "Shop now"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link",
+		      	"default": "/collections/all"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "default": "btn--primary",
+            "options": [
+              {
+                "value": "",
+                "label": "Default"
+              },
+              {
+                "value": "btn--primary",
+                "label": "Full"
+              },
+              {
+                "value": "btn-outline-primary",
+                "label": "Outline"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "button_label_2",
+            "label": "Button label",
+		      	"default": "Learn more"
+          },
+          {
+            "type": "url",
+            "id": "button_link_2",
+            "label": "Button link",
+			      "default": "/collections/all"
+          },
+          {
+            "type": "select",
+            "id": "button_style_2",
+            "label": "Button style",
+            "default": "",
+            "options": [
+              {
+                "value": "",
+                "label": "Default"
+              },
+              {
+                "value": "btn--primary",
+                "label": "Full"
+              },
+              {
+                "value": "btn-outline-primary",
+                "label": "Outline"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Slideshow",
+        "category": "Image and text"
+      }
+    ]
+  }
+{% endschema %}

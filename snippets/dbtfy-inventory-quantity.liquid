@@ -1,0 +1,39 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_inventory_quantity -%}
+<div class="dbtfy dbtfy-inventory_quantity{% if sticky_variant %} sticky_inventory_quantity{% endif %}"
+     hidden
+     data-min="{{ settings.dbtfy_inventory_quantity_min }}"
+     data-max="{{ settings.dbtfy_inventory_quantity_max }}"
+     {%- if settings.dbtfy_inventory_quantity_show_random -%}
+      data-show-random-values
+     {%- endif -%}
+>
+
+    {%- unless settings.dbtfy_inventory_quantity_icons == blank -%}
+      <span class="{{ settings.icon }}">
+        {{ settings.dbtfy_inventory_quantity_icons }}
+      </span>
+    {%- endunless -%}
+
+    {%- unless settings.dbtfy_inventory_quantity_prefix == blank -%}
+      <span>
+        {{ settings.dbtfy_inventory_quantity_prefix }}
+      </span>
+    {%- endunless -%}
+
+    {%- if settings.dbtfy_inventory_quantity_show_random -%}
+      <strong class="random-inventory_quantity"></strong>
+    {%- else -%}
+      {%- for variant in product.variants -%}
+        {%- if variant.inventory_quantity > 0 and variant.inventory_management == "shopify" -%}
+          <strong class="quantity-item-inventory_quantity quantity-item-{{ variant.id }}-inventory_quantity" hidden>
+            {{ variant.inventory_quantity }}
+          </strong>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    <span>
+      {{ settings.dbtfy_inventory_quantity_suffix }}
+    </span>
+  </div>
+{%- endif -%}

@@ -1,0 +1,203 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_quantity_breaks and section.blocks.size > 0 -%}
+<div class="qb-wrapper"
+     data-save-text="{{ "products.general.save_html" | t: saved_amount: discount_saved }}"
+     data-save-after-percentage-text="{{ section.settings.dbtfy_quantity_breaks_saved_money_text_after_percentage }}"
+     data-more-discount-before-quantity-text="{{ section.settings.dbtfy_quantity_breaks_more_discount_text_before }}"
+     data-more-discount-after-quantity-text="{{ section.settings.dbtfy_quantity_breaks_more_discount_text_after }}"
+     data-more-discount-after-percentage-text="{{ section.settings.dbtfy_quantity_breaks_more_discount_text_after_percentage }}"
+     data-saved-money="{{ section.settings.dbtfy_quantity_breaks_saved_money }}"
+     data-before-coupon-code="{{ section.settings.dbtfy_quantity_breaks_coupon_code_text_before }}"
+     data-after-coupon-code="{{ section.settings.dbtfy_quantity_breaks_coupon_code_text_after }}"
+     data-highest-discount-text="{{ section.settings.dbtfy_quantity_breaks_highest_discount_text }}"
+     data-quantity-label="{{ section.settings.dbtfy_quantity_label }}">
+
+  <div id="QuantityBreaks" class="dbtfy dbtfy-quantity_breaks"
+       data-product-id="{{ product.id }}"
+       data-section-id="{{ section.id }}"
+       data-section-type="quantity-breaks">
+
+    {%- if section.settings.dbtfy_quantity_breaks_text != blank -%}
+      <p class="qb-label">
+        <small>{{ section.settings.dbtfy_quantity_breaks_text }}</small>
+      </p>
+    {%- endif -%}
+
+    <div class="radio qb-quantity flex align-center">
+      <input type="radio" id="Quantity1" name="quantity" value="1" checked>
+
+      <label for="Quantity1">
+        {{ section.settings.dbtfy_quantity_breaks_buy }} 1 {{ section.settings.additional_text }} {{ section.settings.separator_text }} <span class="qb-price text-money"></span>
+      </label>
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- if block.settings.dbtfy_quantity_breaks_discount != blank and block.settings.dbtfy_quantity_breaks_code != blank and block.settings.dbtfy_upsell_popup_discount_type != blank -%}
+        <div class="radio qb-quantity qb-quantity-range">
+          <input type="radio" id="Quantity-{{ block.id }}" name="quantity" value="{{ block.settings.dbtfy_quantity_breaks_range }}"
+                  data-discount="{{ block.settings.dbtfy_quantity_breaks_discount }}"
+                  data-discount-code="{{ block.settings.dbtfy_quantity_breaks_code }}"
+                  data-discount-type="{{ block.settings.dbtfy_upsell_popup_discount_type }}">
+
+          <label for="Quantity-{{ block.id }}">
+            {{ section.settings.dbtfy_quantity_breaks_buy }} {{ block.settings.dbtfy_quantity_breaks_range }} {{ block.settings.additional_text }} {{ section.settings.separator_text }} <span class="qb-price text-money"></span>
+          </label>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+
+{%- schema -%}
+  {
+    "name": "⚡ Quantity breaks",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054197-how-to-apply-quantity-breaks-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Product page text"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_label",
+        "label": "Quantity label",
+		    "default": "Quantity"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_text",
+        "label": "Quantity breaks text"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_buy",
+        "label": "Buy text",
+        "default": "Buy"
+      },
+      {
+        "type": "text",
+        "id": "additional_text",
+        "label": "Additional text for priceline"
+      },
+      {
+        "type": "text",
+        "id": "separator_text",
+        "label": "Separator text",
+        "default": "-"
+      },
+	    {
+        "type": "header",
+        "content": "Cart text"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_saved_money",
+        "label": "Text before amount saved",
+        "default": "You are saving"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_saved_money_text_after_percentage",
+        "label": "Text after discount percentage",
+        "default": "off"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_coupon_code_text_before",
+        "label": "Text before discount code",
+        "default": "Coupon code"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_coupon_code_text_after",
+        "label": "Text after discount code",
+        "default": "applied at checkout"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_more_discount_text_before",
+        "label": "Text before quantity",
+        "default": "Add"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_more_discount_text_after",
+        "label": "Text after quantity",
+        "default": "more item to unlock"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_more_discount_text_after_percentage",
+        "label": "Text after discount percentage",
+        "default": "off"
+      },
+	    {
+        "type": "text",
+        "id": "dbtfy_quantity_breaks_highest_discount_text",
+        "label": "Highest discount text",
+        "default": "Highest discount applied!"
+      }
+	  ],
+  	"blocks" : [
+      {
+        "type": "discount",
+        "name": "Quantity break",
+		    "limit": 5,
+        "settings": [
+          {
+            "type": "range",
+            "id": "dbtfy_quantity_breaks_range",
+			      "label": "Quantity",
+      	  	"min": 2,
+          	"max": 20,
+          	"step": 1,
+			      "default": 2,
+			      "info": "Set the same \"Minimum quantity of items\" in your discount code settings"
+          },
+          {
+            "type": "text",
+            "id": "additional_text",
+            "label": "Additional text for priceline"
+          },
+          {
+            "type": "header",
+            "content": "Discount code",
+            "info": "[Create a discount code](\/admin\/discounts\/new)"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_quantity_breaks_code",
+            "label": "Name",
+            "placeholder": "20OFF"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_quantity_breaks_discount",
+            "label": "Amount",
+            "placeholder": "20"
+          },
+          {
+            "type": "radio",
+            "id": "dbtfy_upsell_popup_discount_type",
+            "label": "Type",
+            "default": "%",
+            "options": [
+              {
+                "value": "%",
+                "label": "Percentage"
+              }
+            ]
+          }
+		    ]
+      }
+    ]
+  }
+{%- endschema -%}

@@ -1,0 +1,25 @@
+{%- comment -%}
+  Template only used for AJAX reference
+{%- endcomment -%}
+
+{%- if product.available -%}
+  {%- assign sold_out = false -%}
+{%- else -%}
+  {%- assign sold_out = true -%}
+{%- endif -%}
+
+{%- assign product_link = product.url | within: collection -%}
+
+<div class="grid-product rv-product-js{% if sold_out %} is-sold-out{% endif %}" data-product-card data-product-handle="{{ product.handle }}" data-product-id="{{ product.id }}">
+    <div class="grid-product__wrapper">
+      {%- if product.featured_image -%}
+        <a href="{{ product_link }}" class="image-link" data-image-link title="Recently viewed {{ product.title }}">
+          <div id="ProductImageWrapper-{{ product.featured_image.id }}" class="product--wrapper media-wrapper" style="padding-top: {{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%;">
+            <img class="product--image media lazyload ProductImage-{{ product.featured_image.id }}"
+            {%- render 'lazysizes', img: product.featured_image, img_type: 'responsive' -%}
+            alt="{{ product.featured_image.alt }}">
+          </div>
+        </a>
+      {%- endif -%}
+    </div>
+</div>

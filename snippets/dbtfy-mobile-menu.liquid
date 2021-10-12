@@ -1,0 +1,19 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_mobile_menu -%}
+  {%- assign menu = settings.dbtfy_mobile_menu_link_list -%}
+
+  {%- if linklists[menu].links.size > 0 -%}
+    <div class="dbtfy dbtfy-mobile_menu medium--hide large--hide">
+      <ul class="mobile-menu__inner no-bullets flex">
+        {%- for link in linklists[menu].links -%}
+          <li class="mobile-menu__item">
+            <a href="{{ link.url }}" class="mobile-menu__link">
+              <span class="mobile-menu__link-text">
+                {{ link.title | escape }}
+              </span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+{%- endif -%}

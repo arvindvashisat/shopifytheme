@@ -1,0 +1,202 @@
+{%- if section.blocks.size > 0 and section.settings.show_product_row -%}
+<div id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product-row-section">
+  <!-- Blocks -->
+  {%- for block in section.blocks -%}
+
+    {%- assign valid_row = false -%}
+
+    {%- if block.settings.type_row != blank -%}
+      {%- assign type_list = block.settings.type_row | split: "," -%}
+      {%- for type in type_list -%}
+        {%- if product.type contains type -%}
+          {%- assign valid_row = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if block.settings.tag_row != blank -%}
+      {%- assign tag_list = block.settings.tag_row | split: "," -%}
+      {%- for tag in tag_list -%}
+        {%- if product.tags contains tag -%}
+          {%- assign valid_row = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if block.settings.product_row != blank -%}
+      {%- assign product_filter = block.settings.product_row -%}
+      {%- if product.handle == product_filter -%}
+        {%- assign valid_row = true -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if block.settings.collection_row != blank -%}
+      {%- for collection in product.collections -%}
+        {%- if collection.handle == block.settings.collection_row -%}
+          {%- assign valid_row = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if block.settings.type_row == blank and block.settings.tag_row == blank and block.settings.product_row == blank and block.settings.collection_row == blank -%}
+      {%- assign valid_row = true -%}
+    {%- endif -%}
+
+    {%- if valid_row %}
+    <div class="{{ block.settings.section_style }}">
+      <div class="box">
+        <div class="wrapper">
+
+          <div class="grid grid-spacer align-center">
+            <div class="grid__item large--six-twelfths medium--six-twelfths featured-row-{{ block.settings.image_alignement }}">
+              {%- if block.settings.image != blank -%}
+                <div class="media-wrapper" style="padding-top:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100}}%;">
+                  <img class="media lazyload"
+                  {%- render 'lazysizes', img: block.settings.image, img_type: 'responsive' -%}
+                  alt="{{ block.settings.image.alt }}">
+                </div>
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+
+            <div class="grid__item large--six-twelfths medium--six-twelfths {{ block.settings.text_alignment }}">
+              {%- unless block.settings.title == blank -%}
+                <h2 class="section-header__title">{{ block.settings.title | escape }}</h2>
+              {%- endunless -%}
+              {%- unless block.settings.text == blank -%}
+                <div class="rte text-lead">{{ block.settings.text }}</div>
+              {%- endunless -%}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
+{%- schema -%}
+  {
+    "name": "Image with text",
+	  "class": "product-row-section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_product_row",
+        "label": "Show section",
+        "default": true
+      }
+    ],
+    "blocks" : [
+	    {
+        "type": "row",
+        "name": "Row",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Image with text"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+          },
+          {
+            "type": "select",
+            "id": "section_style",
+            "label": "Section style",
+            "default": "section-border",
+            "options": [
+              {
+                "value": "section-blank",
+                "label": "Blank background"
+              },
+              {
+                "value": "section-default",
+                "label": "Accent background"
+              },
+              {
+                "value": "section-border",
+                "label": "Border top"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "image_alignement",
+            "label": "Image alignment",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Text alignment",
+            "default": "text-center",
+            "options": [
+              {
+                "value": "",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Visibility settings"
+          },
+          {
+            "type": "text",
+            "id": "type_row",
+            "label": "Product type",
+		      	"info": "Comma-separated"
+          },
+          {
+            "type": "text",
+            "id": "tag_row",
+            "label": "Product tag",
+            "info": "Comma-separated"
+          },
+          {
+            "type": "product",
+            "id": "product_row",
+            "label": "Product"
+          },
+          {
+            "type": "collection",
+            "id": "collection_row",
+            "label": "Collection"
+          }
+        ]
+      }
+    ]
+  }
+{%- endschema -%}

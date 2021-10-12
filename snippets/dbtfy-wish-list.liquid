@@ -1,0 +1,54 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_wish_list -%}
+  {%- if type == "page" -%}
+    <div class="dbtfy dbtfy-wish_list">
+      <div id="WishlistPage" data-section-type="wish-list-page">
+        <div class="wl-no-item text-center" style="display: none">
+          <p>{{ settings.dbtfy_wish_list_empty_text }}</p>
+          <a href="{{ settings.browsing_link }}" class="btn btn--primary cart--continue-browsing">{{ "cart.general.continue_browsing_html" | t }}</a>
+        </div>
+        <div id="WishlistTemplate" class="card-group"></div>
+      </div>
+    </div>
+  {%- elsif type == "menu" -%}
+    <li class="dbtfy dbtfy-wish_list site-nav__item {{ class }}">
+      {%- assign whishlist_page = pages[settings.dbtfy_wish_list_page] -%}
+      <a href="{{ whishlist_page.url }}" class="site-nav__link site-nav__link--icon wishlist-link" aria-label="{{ whishlist_page.title }}" title="{{ whishlist_page.title }}">
+        <span class="{{ settings.icon }}" aria-hidden="true">{%- if settings.icon == "material-icons-outlined" -%}favorite_border{%- else -%}favorite{%- endif -%}</span>
+
+        {%- if settings.dbtfy_wish_list_bubble -%}
+          <span class="wl-bubble cart-link__bubble--visible{% if settings.dbtfy_wish_list_bubble_animation %} rubberBand infinite slow{% endif %}" style="display: none;"></span>
+        {%- endif -%}
+
+        {%- if settings.dbtfy_wish_list_count -%}
+          <span class="wl-count"></span>
+        {%- endif -%}
+      </a>
+    </li>
+  {%- elsif type == "button" -%}
+    <div class="dbtfy dbtfy-wish_list grid__item flex-auto">
+      <div class="dbtfy-wishlist-btn">
+        <button class="wl-add wl-icon btn btn-outline-primary btn-square-xsmall"
+                data-product-handle="{{ product.handle }}"
+                data-add-wish-list-text="{{ settings.dbtfy_wish_list_add_text }}"
+                data-remove-wish-list-text="{{ settings.dbtfy_wish_list_remove_text }}"
+                aria-label="{{ settings.dbtfy_wish_list_add_text }}"
+                title="{{ settings.dbtfy_wish_list_add_text }}">
+          <span class="{{ settings.icon }}">{%- if settings.icon == "material-icons-outlined" -%}favorite_border{%- else -%}favorite{%- endif -%}</span>
+        </button>
+      </div>
+    </div>
+  {%- else -%}
+    <div class="dbtfy dbtfy-wish_list">
+      <div class="dbtfy-wishlist-icon grid-product__badge grid-product__badge-{{ settings.dbtfy_wish_list_icon_placement }}">
+        <button class="wl-add wl-icon btn btn-outline-primary btn-square-xsmall"
+                data-product-handle="{{ product.handle }}"
+                data-add-wish-list-text="{{ settings.dbtfy_wish_list_add_text }}"
+                data-remove-wish-list-text="{{ settings.dbtfy_wish_list_remove_text }}"
+                aria-label="{{ settings.dbtfy_wish_list_add_text }}"
+                title="{{ settings.dbtfy_wish_list_add_text }}">
+          <span class="{{ settings.icon }}">{%- if settings.icon == "material-icons-outlined" -%}favorite_border{%- else -%}favorite{%- endif -%}</span>
+        </button>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

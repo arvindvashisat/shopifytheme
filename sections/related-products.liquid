@@ -1,0 +1,303 @@
+{%- if section.settings.show_related_products -%}
+  {%- assign limit = section.settings.desktop_grid | times: section.settings.rows -%}
+  {%- assign counter = 0 -%}
+
+  {%- if section.settings.related_collection -%}
+    {%- assign related_collection = true -%}
+  {%- else -%}
+    {%- assign related_all = true -%}
+  {%- endif -%}
+
+  {%- if section.settings.same_vendor -%}
+    {%- assign same_vendor = true -%}
+  {%- else -%}
+    {%- assign same_vendor = false -%}
+  {%- endif -%}
+
+  {%- if section.settings.same_type -%}
+    {%- assign same_type = true -%}
+  {%- else -%}
+    {%- assign same_type = false -%}
+  {%- endif -%}
+
+  {%- assign found_a_collection = false -%}
+
+  {%- if related_collection -%}
+    {%- assign exclusions = 'frontpage,all' | split: ',' -%}
+
+    {%- if product.metafields.c_f['Related Products'] -%}
+      {%- assign collection = collections[product.metafields.c_f['Related Products']] -%}
+    {%- endif -%}
+
+    {%- if collection and collection.all_products_count > 1 -%}
+      {%- unless exclusions contains collection.handle -%}
+        {%- assign found_a_collection = true -%}
+      {%- endunless -%}
+    {%- endif -%}
+    {%- unless found_a_collection -%}
+      {%- for c in product.collections -%}
+        {%- unless exclusions contains c.handle or c.all_products_count < 2 -%}
+          {%- assign found_a_collection = true -%}
+          {%- assign collection = c -%}
+          {%- break -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endunless -%}
+
+    {%- if found_a_collection == false and section.settings.never_empty -%}
+      {%- assign found_a_collection = true -%}
+	  {%- endif -%}
+  {%- endif -%}
+
+
+  {%- if related_all -%}
+    {%- assign collection = collections.all -%}
+    {%- assign found_a_collection = true -%}
+  {%- endif -%}
+
+
+  {%- if found_a_collection -%}
+    {%- assign current_product = product -%}
+
+    {%- capture grid_item_width -%}
+      {%- render 'product-width' -%}
+    {%- endcapture -%}
+
+    {%- capture related_items -%}
+      {%- for product in collection.products -%}
+        {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+        {%- unless product.handle == current_product.handle -%}
+          {%- unless same_vendor and current_product.vendor != product.vendor -%}
+            {%- unless same_type and current_product.type != product.type -%}
+              {%- render 'product-grid-item' with product as product, grid_item_width: grid_item_width, current: current -%}
+              {%- assign counter = counter | plus: 1 -%}
+              {%- if counter == limit -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endunless -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+
+	  {%- if related_items == blank and section.settings.never_empty -%}
+      {%- assign collection = collections.all -%}
+      {%- assign found_a_collection = true -%}
+
+      {%- capture related_items -%}
+        {%- for product in collection.products -%}
+          {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+          {%- unless product.handle == current_product.handle -%}
+            {%- render 'product-grid-item' with product as product, grid_item_width: grid_item_width, current: current -%}
+            {%- assign counter = counter | plus: 1 -%}
+            {%- if counter == limit -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+    {%- endif -%}
+
+    {%- assign related_items = related_items | trim -%}
+
+	{%- unless related_items == blank -%}
+      <div id="relatedProductSection" class="{{ section.settings.section_style }}" data-section-id="{{ section.id }}" data-section-type="product-grid-section">
+        <div class="box">
+          <div class="wrapper">
+            {%- unless section.settings.title == blank and section.settings.subtitle == blank -%}
+            <div class="section-header">
+              {%- unless section.settings.title == blank -%}
+              <h2 class="section-header__title">{{ section.settings.title | escape }}</h2>
+              {%- endunless -%}
+              {%- unless section.settings.subtitle == blank -%}
+              <p class="section-header__subtitle">{{ section.settings.subtitle | escape }}</p>
+              {%- endunless -%}
+            </div>
+            {%- endunless -%}
+            <div id="ProductGrid-{{ section.id }}"
+                class="grid grid-spacer {% if section.settings.slider_related_products %}slick slick-product-grid{% endif %}"
+                data-arrows="{{ section.settings.arrows }}"
+                data-dots="{{ section.settings.dots }}"
+                data-autoplay="{{ section.settings.autoplay }}"
+                data-autoplayspeed="{{ section.settings.autoplayspeed | times: 1000 }}"
+                data-slidetoshow="{{ section.settings.desktop_grid }}">
+              {{ related_items }}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endunless -%}
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Related product",
+	  "class": "related-product-section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "related_collection",
+        "label": "Same collection",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "same_vendor",
+        "label": "Same vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "same_type",
+        "label": "Same product type",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "never_empty",
+        "label": "Show all products if empty",
+        "default": true
+      },
+	    {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "You may also like"
+      },
+	    {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subheading"
+      },
+      {
+        "type": "select",
+        "id": "section_style",
+        "label": "Section style",
+        "default": "section-border",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+		      {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+	    {
+        "type": "select",
+        "id": "rows",
+        "label": "Number of rows",
+        "default": "1",
+        "options": [
+		      {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          }
+        ]
+      },
+	    {
+		    "type": "select",
+		    "id": "desktop_grid",
+		    "label": "Products per row (desktop)",
+        "default": "4",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          }
+        ]
+	    },
+      {
+        "type": "select",
+        "id": "mobile_grid",
+        "label": "Product per row (mobile)",
+        "default": "2",
+        "options":[
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value":"2",
+            "label": "2"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Carousel options"
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_related_products",
+        "label": "Enable carousel",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "arrows",
+        "label": "Show arrows",
+        "default": true
+      },
+	    {
+        "type": "checkbox",
+        "id": "dots",
+        "label": "Show dots",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Auto rotate",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "autoplayspeed",
+        "label": "Rotation speed",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "unit": "s",
+        "default": 5
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,3726 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Debutify",
+    "theme_author": "Debutify",
+    "theme_version": "3.0.0",
+    "theme_documentation_url": "https:\/\/help.debutify.com\/en\/articles\/",
+    "theme_support_email": "support@debutify.com"
+  },
+  {
+    "name": "Advanced settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_header",
+        "label": "Enable sticky header",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_announcement_bar",
+        "label": "Enable sticky announcement bar",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "hero_header",
+        "label": "Enable transparent header",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "height_header",
+        "label": "Height (desktop)",
+        "min": 60,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 70
+      },
+      {
+        "type": "range",
+        "id": "height_header_mobile",
+        "label": "Height (mobile)",
+        "min": 60,
+        "max": 80,
+        "step": 1,
+        "unit": "px",
+        "default": 60
+      },
+      {
+        "type": "header",
+        "content": "Search"
+      },
+      {
+        "type": "checkbox",
+        "id": "search_enabled",
+        "label": "Enable search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "search_product",
+        "label": "Only search products",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Icons"
+      },
+      {
+        "type": "select",
+        "id": "icon",
+        "label": "Icon style",
+        "default": "material-icons-outlined",
+        "options": [
+          {
+            "value": "material-icons",
+            "label": "Filled"
+          },
+          {
+            "value": "material-icons-outlined",
+            "label": "Outlined"
+          },
+          {
+            "value": "material-icons-round",
+            "label": "Rounded"
+          },
+          {
+            "value": "material-icons-sharp",
+            "label": "Sharp"
+          },
+          {
+            "value": "material-icons-two-tone",
+            "label": "Two Tone"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Product grid"
+      },
+      {
+        "type": "checkbox",
+        "id": "grid_product_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "grid_product_truncate",
+        "label": "Truncate product title",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "grid_product_hover",
+        "label": "Show second image on hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_product_accent_background",
+        "label": "Enable transparent background",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "tag_placement",
+        "label": "Sales badge placement",
+        "default": "top-left",
+        "options": [
+          {
+            "value": "none",
+            "label": "Hidden"
+          },
+          {
+            "value": "top-left",
+            "label": "Left"
+          },
+          {
+            "value": "top-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Collection grid"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_grid_card",
+        "label": "Enable card element",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_grid_products_count",
+        "label": "Show products count",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_grid_animation",
+        "label": "Enable animation on hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_grid_button",
+        "label": "Show button",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "collection_grid_button_label",
+        "label": "Button label",
+        "default": "Shop now"
+      },
+      {
+        "type": "select",
+        "id": "collection_grid_button_style",
+        "label": "Button style",
+        "default": "btn--primary",
+        "options": [
+          {
+            "value": "",
+            "label": "Default"
+          },
+          {
+            "value": "btn--primary",
+            "label": "Full"
+          },
+          {
+            "value": "btn-outline-primary",
+            "label": "Outline"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "collection_grid_button_size",
+        "label": "Button size",
+        "default": "btn--small",
+        "options": [
+          {
+            "value": "btn--small",
+            "label": "Small"
+          },
+          {
+            "value": "",
+            "label": "Default"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Article grid"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_comments",
+        "label": "Show comments",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "word_count",
+        "label": "Word count",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "default": 18
+      },
+      {
+        "type": "header",
+        "content": "Localization"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_locale_selector",
+        "label": "Show language selector",
+        "default": true,
+        "info": "To add a language, go to your [languages settings](\/admin\/settings\/languages)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_currency_selector",
+        "label": "Show currency selector",
+        "default": true,
+        "info": "To add a currency, go to your [currency settings](\/admin\/settings\/payments). If your store is not using Shopify Payments, you can also enable the Custom currencies in Theme settings > Add-ons."
+      },
+      {
+        "type": "header",
+        "content": "Newsletter signup"
+      },
+      {
+        "type": "checkbox",
+        "id": "newsletter_name",
+        "label": "Show name field",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "newsletter_optin",
+        "label": "Enable opt-in checkbox",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Hero image"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_hero",
+        "label": "Show image",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "section_height",
+        "label": "Section height (desktop)",
+        "default": "xsmall",
+        "options": [
+          {
+            "value": "xsmall",
+            "label": "Extra small"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          },
+          {
+            "value": "xlarge",
+            "label": "Extra large"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "section_height_mobile",
+        "label": "Section height (mobile)",
+        "default": "xsmall",
+        "options": [
+          {
+            "value": "xsmall",
+            "label": "Extra Small"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          },
+          {
+            "value": "xlarge",
+            "label": "Extra large"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Borders"
+      },
+      {
+        "type": "range",
+        "id": "border_radius",
+        "label": "Border radius",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 6,
+        "info": "Max for perfect circle"
+      },
+      {
+        "type": "select",
+        "id": "border_width",
+        "label": "Border width",
+        "default": "1",
+        "options": [
+          {
+            "value": "1",
+            "label": "1px"
+          },
+          {
+            "value": "2",
+            "label": "2px"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Buttons"
+      },
+      {
+        "type": "range",
+        "id": "button_padding_x",
+        "label": "Padding X",
+        "min": 5,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "button_padding_y",
+        "label": "Padding Y",
+        "min": 5,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "header",
+        "content": "Back to top button"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_button",
+        "label": "Show",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "top_button_mobile",
+        "label": "Hide on mobile",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "top_button_position",
+        "label": "Position",
+        "default": "center",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Page"
+      },
+      {
+        "type": "checkbox",
+        "id": "page_title_background",
+        "label": "Enable page title background",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_breadcrumbs",
+        "label": "Show breadcrumbs",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_back_to_collection",
+        "label": "Show back to collection",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "page_wrapper",
+        "label": "Page width",
+        "default": "1180",
+        "placeholder": "1180"
+      },
+      {
+        "type": "header",
+        "content": "Payment icons",
+        "info": "[How to upload an SVG file?](https:\/\/help.debutify.com\/en\/articles\/5058493-how-to-upload-a-svg-file-in-debutify-theme)"
+      },
+      {
+        "type": "range",
+        "id": "payment_icon_size",
+        "label": "Icon size",
+        "min": 10,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 18
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_1",
+        "label": "Custom icon",
+        "placeholder": "custom-icon.svg"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_2",
+        "label": "Custom icon",
+        "placeholder": "custom-icon.svg"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_3",
+        "label": "Custom icon",
+        "placeholder": "custom-icon.svg"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_4",
+        "label": "Custom icon",
+        "placeholder": "custom-icon.svg"
+      },
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "checkbox",
+        "id": "transition_hover_enabled",
+        "label": "Enable transitions on hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_payment_button",
+        "label": "Show dynamic checkout buttons",
+        "info": "Each customer will see their preferred payment method from those available on your store, such as PayPal or Apple Pay. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/change-the-layout\/dynamic-checkout)",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "sale_type",
+        "label": "Sale type",
+        "default": "amount",
+        "options": [
+          {
+            "value": "amount",
+            "label": "Fixed amount"
+          },
+          {
+            "value": "percentage",
+            "label": "Percentage"
+          }
+        ]
+      },
+      {
+        "type": "url",
+        "id": "browsing_link",
+        "label": "Continue browsing link",
+        "default": "\/collections\/all"
+      },
+      {
+        "type": "text",
+        "id": "buy_now_text",
+        "label": "Custom buy it now label",
+        "info": "Special characters aren't allowed"
+      },
+      {
+        "type": "header",
+        "content": "Developer"
+      },
+      {
+        "type": "text",
+        "id": "zindex_drawer",
+        "label": "Overlays z-index",
+        "info": "Increase that number if you have 3rd-party App's element showing over your cart drawer.",
+        "default": "999999999"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Drawer\/Page"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable order notes",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "default": "drawer",
+        "options": [
+          {
+            "value": "page",
+            "label": "Page"
+          },
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "icon_cart",
+        "label": "Cart icon",
+        "default": "local_mall",
+        "options": [
+          {
+            "value": "shopping_cart",
+            "label": "Cart"
+          },
+          {
+            "value": "local_mall",
+            "label": "Bag"
+          },
+          {
+            "value": "shopping_basket",
+            "label": "Basket"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_bubble",
+        "label": "Show bubble",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_bubble_animation",
+        "label": "Enable bubble animation",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_count",
+        "label": "Show count",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Checkout button"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_cost_checkout",
+        "label": "Show cost",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "checkout_icon",
+        "label": "Checkout icon",
+        "default": "lock",
+        "placeholder": "lock",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Announcement"
+      },
+      {
+        "type": "color",
+        "id": "color_announcement_bg",
+        "label": "Background",
+        "default": "#260759"
+      },
+      {
+        "type": "color",
+        "id": "color_announcement_text",
+        "label": "Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "color",
+        "id": "color_nav_bg",
+        "label": "Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_nav_border",
+        "label": "Borders",
+        "default": "#E5E5E5"
+      },
+      {
+        "type": "color",
+        "id": "color_nav_text",
+        "label": "Text",
+        "default": "#212529"
+      },
+      {
+        "type": "header",
+        "content": "Page"
+      },
+      {
+        "type": "color",
+        "id": "color_body_bg",
+        "label": "Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_default",
+        "label": "Accent background",
+        "default": "#FAF8FF"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Borders",
+        "default": "#E5E5E5"
+      },
+      {
+        "type": "color",
+        "id": "color_headings",
+        "label": "Headings",
+        "default": "#212529"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Text",
+        "default": "#444444"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Buttons",
+        "default": "#5600E3"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Buttons label",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Links and accents",
+        "default": "#2DFFB3"
+      },
+      {
+        "type": "color",
+        "id": "color_input",
+        "label": "Form elements",
+        "default": "#F2ECFF"
+      },
+      {
+        "type": "header",
+        "content": "Drawers"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_bg",
+        "label": "Background",
+        "default": "#260759"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_default",
+        "label": "Accent background",
+        "default": "#360C7B"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_border",
+        "label": "Borders",
+        "default": "#3E0E8F"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_text",
+        "label": "Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_primary",
+        "label": "Buttons",
+        "default": "#2DFFB3"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_button_text",
+        "label": "Buttons label",
+        "default": "#360C7B"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_secondary",
+        "label": "Links and accents",
+        "default": "#2DFFB3"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_input",
+        "label": "Form elements",
+        "default": "#1E0840"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_overlay",
+        "label": "Overlay background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "range",
+        "id": "color_drawer_overlay_opacity",
+        "label": "Overlay opacity",
+        "min": 50,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 65
+      },
+      {
+        "type": "header",
+        "content": "Footer"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_bg",
+        "label": "Background",
+        "default": "#260759"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_default",
+        "label": "Accent background",
+        "default": "#360C7B"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_border",
+        "label": "Borders",
+        "default": "#3E0E8F"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_text",
+        "label": "Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_primary",
+        "label": "Buttons",
+        "default": "#2DFFB3"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_button_text",
+        "label": "Buttons Label",
+        "default": "#360C7B"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_secondary",
+        "label": "Links and accents",
+        "default": "#2DFFB3"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_input",
+        "label": "Form elements",
+        "default": "#1E0840"
+      },
+      {
+        "type": "header",
+        "content": "Image overlay"
+      },
+      {
+        "type": "color",
+        "id": "color_overlay",
+        "label": "Background",
+        "default": "#260759"
+      },
+      {
+        "type": "color",
+        "id": "color_transparent_nav_text",
+        "label": "Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "range",
+        "id": "opacity_overlay",
+        "label": "Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 65
+      }
+    ]
+  },
+  {
+    "name": "Custom style\/script",
+    "settings": [
+      {
+        "type": "html",
+        "id": "custom_style",
+        "label": "Custom style",
+        "placeholder": ".site_header {\nbackground_color: #666;\ncolor: white;\ndisplay: block;\n}"
+      },
+      {
+        "type": "html",
+        "id": "custom_script",
+        "label": "Custom script",
+        "placeholder": "console.log('Custom script');"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image"
+      }
+    ]
+  },
+  {
+    "name": "Review apps",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Review apps"
+      },
+      {
+        "type": "radio",
+        "id": "review_app",
+        "label": "Select your Review app",
+        "default": "",
+        "options": [
+          {
+            "value": "",
+            "label": "No Review app"
+          },
+          {
+            "value": "loox",
+            "label": "Loox [Install here](https:\/\/loox.io\/app\/debutify)"
+          },
+          {
+            "value": "growave",
+            "label": "Growave [Install here](https:\/\/growave.io?ref=rickyhayes)"
+          },
+          {
+            "value": "product_reviews",
+            "label": "Product Reviews [Install here](https:\/\/apps.shopify.com\/product-reviews)"
+          },
+          {
+            "value": "judge_me",
+            "label": "Judge.me [Install here](https:\/\/apps.shopify.com\/judgeme)"
+          },
+          {
+            "value": "ryviu",
+            "label": "Ryviu [Install here](https:\/\/apps.shopify.com\/ryviu)"
+          },
+          {
+            "value": "stamped_io",
+            "label": "Stamped.io [Install here](https:\/\/apps.shopify.com\/product-reviews-addon)"
+          },
+          {
+            "value": "ali_reviews",
+            "label": "Ali Reviews [Install here](https:\/\/apps.shopify.com\/ali-reviews)"
+          },
+          {
+            "value": "rivyo",
+            "label": "Rivyo [Install here](https:\/\/apps.shopify.com\/rivyo-product-review)"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Review widgets"
+      },
+      {
+        "type": "select",
+        "id": "review_section_style",
+        "label": "Section style",
+        "default": "section-border",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+          {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "review_widget_tabs",
+        "label": "Show in Product tabs",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Star Ratings"
+      },
+      {
+        "type": "checkbox",
+        "id": "review_badge_product_grid",
+        "label": "Show in product grid",
+        "info": "These badges might also need to be enabled from within your Review app settings.",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sharing options"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_whatsapp",
+        "label": "Share on Whatsapp",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_linkedin",
+        "label": "Share on LinkedIn",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "share_reddit",
+        "label": "Share on Reddit",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "share_email",
+        "label": "Share on Email",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_messenger",
+        "label": "Share on Messenger",
+        "default": true,
+        "info": "Messenger will only shows on mobile. Make sure to add your Facebook page ID below."
+      },
+      {
+        "type": "text",
+        "id": "facebook_page_id",
+        "label": "Facebook page ID"
+      },
+      {
+        "type": "header",
+        "content": "Accounts"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "placeholder": "https:\/\/www.facebook.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter",
+        "placeholder": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest",
+        "placeholder": "https:\/\/www.pinterest.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "placeholder": "https:\/\/instagram.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "Snapchat",
+        "placeholder": "https:\/\/www.snapchat.com\/add\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_whatsapp_link",
+        "label": "Whatsapp",
+        "placeholder": "https:\/\/web.whatsapp.com"
+      },
+      {
+        "type": "text",
+        "id": "social_telegram_link",
+        "label": "Telegram",
+        "placeholder": "https:\/\/web.telegram.org"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "Tiktok",
+        "placeholder": "https:\/\/www.tiktok.com"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin_link",
+        "label": "LinkedIn",
+        "placeholder": "https:\/\/in.linkedin.com"
+      },
+      {
+        "type": "text",
+        "id": "social_reddit_link",
+        "label": "Reddit",
+        "placeholder": "https:\/\/reddit.com\/"
+      },
+      {
+        "type": "text",
+        "id": "social_messenger_link",
+        "label": "Messenger",
+        "placeholder": "https:\/\/messenger.com\/"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "Tumblr",
+        "placeholder": "https:\/\/shopify.tumblr.com"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube",
+        "placeholder": "https:\/\/www.youtube.com\/user\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo",
+        "placeholder": "https:\/\/vimeo.com\/shopify"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "header_family",
+        "label": "Font",
+        "default": "poppins_n7"
+      },
+      {
+        "type": "range",
+        "id": "header_font_size",
+        "label": "Base size",
+        "min": 24,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "default": 34
+      },
+      {
+        "type": "range",
+        "id": "header_font_size_big",
+        "label": "Page title size",
+        "min": 50,
+        "max": 90,
+        "step": 2,
+        "unit": "px",
+        "default": 60
+      },
+      {
+        "type": "range",
+        "id": "header_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "header_transform",
+        "label": "Text transform",
+        "default": "initial",
+        "options": [
+          {
+            "value": "initial",
+            "label": "Default"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Accent text",
+        "info": "Menus and buttons"
+      },
+      {
+        "type": "font_picker",
+        "id": "accent_family",
+        "label": "Font",
+        "default": "poppins_n6"
+      },
+      {
+        "type": "range",
+        "id": "accent_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "accent_transform",
+        "label": "Text transform",
+        "default": "initial",
+        "options": [
+          {
+            "value": "initial",
+            "label": "Default"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "button_uppercase",
+        "label": "Uppercase buttons",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Body text"
+      },
+      {
+        "type": "font_picker",
+        "id": "base_family",
+        "label": "Font",
+        "default": "poppins_n4"
+      },
+      {
+        "type": "range",
+        "id": "base_font_size",
+        "label": "Base size",
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "✅ Debutify Add-ons (41)",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Activate Add-ons",
+        "info": "Debutify Add-ons requires a [paid plan](https:\/\/debutify.com\/app\/plans)"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_addtocart_animation",
+        "label": "Add-to-cart animation",
+        "info": "Add an animation to the product page add-to-cart button. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054044-how-to-use-add-to-cart-animation-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_age_check",
+        "label": "Age check",
+        "info": "Verifies the age of website visitors before they can access your content and products. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057047-how-to-use-the-age-check-add-on-in-debutify-3-0)",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_automatic_geolocation",
+        "label": "Automatic geolocation",
+        "info": "Add ability to set default language and currency based on user location. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057013-how-to-use-automatic-geolocation-in-debutify-3-0)",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_cart_countdown",
+        "label": "Cart countdown",
+        "info": "Display a countdown timer in the cart. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054061-how-to-use-cart-countdown-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_cart_discount",
+        "label": "Cart discount",
+        "info": "Allow customers to enter discount codes in the cart before checkout. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054067-how-to-use-cart-discount-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_cart_goal",
+        "label": "Cart goal",
+        "info": "Offer free shipping when a specific cart total amount is reached. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054070-how-to-use-cart-goal-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_cart_upsell",
+        "label": "Cart upsell",
+        "info": "Add up-sells and cross-sells directly in your cart. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057083-how-to-use-cart-upsell-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_collection_addtocart",
+        "label": "Collection add-to-cart",
+        "info": "Allow visitors to add products to cart directly from collection pages. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054085-how-to-use-collection-add-to-cart-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_color_swatches",
+        "label": "Color swatches",
+        "info": "Add color swatches to your product options. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054086-how-to-add-color-swatches-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_cookie_box",
+        "label": "Cookie box",
+        "info": "Display a cookie box to make your website GDPR compliant. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054095-how-to-use-a-cookie-box-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_custom_currencies",
+        "label": "Custom currencies",
+        "info": "Show prices in multiple currencies without having to use Shopify Payment multi-currency converter. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057090-how-to-use-custom-currencies-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_delivery_time",
+        "label": "Delivery time",
+        "info": "Display an approximate date of delivery. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054100-how-to-use-delivery-time-add-on-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_discount_saved",
+        "label": "Discount saved",
+        "info": "Display the discount amount of on-sale product variants on the product page. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054103-how-to-use-discount-saved-add-on-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_facebook_messenger",
+        "label": "Facebook messenger",
+        "info": "Add a Facebook Messenger chat widget to your store. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057679-how-to-add-a-facebook-messenger-chat-widget-in-debutify-3-0)",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_faq_page",
+        "label": "FAQ",
+        "info": "Add a searchable question and answers module to your store. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054110-how-to-display-a-new-f-a-q-page-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_instagram_feed",
+        "label": "Instagram feed",
+        "info": "Display the latest images of your Instagram page. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057122-how-to-manage-your-instagram-feed-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_inventory_quantity",
+        "label": "Inventory quantity",
+        "info": "Display the stock level for each product variants. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054133-how-to-display-the-inventory-quantity-of-your-product-variant-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_linked_options",
+        "label": "Linked options",
+        "info": "Hide unavailable product variant combinations. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054136-how-to-use-linked-options-in-3-0)",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_live_view",
+        "label": "Live view",
+        "info": "Display the number of people viewing your product page. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054147-how-to-use-live-view-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_mega_menu",
+        "label": "Mega menu",
+        "info": "Add nested menus, products, collections, articles and more to your header navigation. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054172-how-to-create-a-mega-menu-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_mobile_menu",
+        "label": "Mobile menu",
+        "info": "Add a simple scrollable menu below your mobile header. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057472-how-to-create-a-mobile-menu-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_newsletter_popup",
+        "label": "Newsletter pop-up",
+        "default": true,
+        "info": "Display a customizable newsletter pop-up to capture your visitor's email before they leave your store. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054175-how-to-display-a-newsletter-popup-in-3-0)"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_order_tracking",
+        "label": "Order tracking",
+        "info": "Let your customer track their orders directly from within your store. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057483-how-to-use-order-tracking-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_page_transition",
+        "label": "Page transition",
+        "info": "Display a preloader with your logo while the page is loading. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057511-how-to-use-page-transition-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_pricing_table",
+        "label": "Pricing table",
+        "info": "Showcase product options, bundles, packages and all other upgrade options in a side-by-side price comparison table. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054183-how-to-create-a-pricing-table-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_product_image_crop",
+        "label": "Product image crop",
+        "info": "Format all your product images into the same ratio. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057531-how-to-use-product-image-crop-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_product_tabs",
+        "label": "Product tabs",
+        "info": "Add additional details about your products in customizable tabs. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054187-how-to-create-product-tabs-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_quantity_breaks",
+        "label": "Quantity breaks",
+        "info": "Reward customers with discount codes when they purchase multiple items from your store. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054197-how-to-apply-quantity-breaks-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_quick_view",
+        "label": "Quick view",
+        "info": "Let customers quickly view your product details before they visit the product page. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054198-how-to-use-quick-view-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_recently_viewed",
+        "label": "Recently viewed",
+        "info": "Display the products a visitor has seen while browsing your store. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057690-how-to-display-recently-viewed-products-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sales_countdown",
+        "label": "Sales countdown",
+        "info": "Add a countdown timer for your on-sale products. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054213-how-to-display-a-sales-countdown-on-your-product-page-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sales_pop",
+        "label": "Sales pop",
+        "info": "Showcase your store's recent purchases to all visitors. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057674-how-to-add-sales-pop-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_shop_protect",
+        "label": "Shop protect",
+        "info": "Protect your product description, images, articles and other content from being stolen. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054230-how-to-use-shop-protect-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_size_chart",
+        "label": "Size chart",
+        "info": "Add customizable size guides with tables and images to your product pages. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057686-how-to-add-a-size-chart-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_smart_search",
+        "label": "Smart search",
+        "info": "Show search results immediately as you type into the search field. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054239-how-to-use-smart-search-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_social_discount",
+        "label": "Social discount",
+        "info": "Reward customer with a discount code when they share your products on social media. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5057551-how-to-use-a-social-discount-add-on-in-debutify-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sticky_addtocart",
+        "label": "Sticky add-to-cart",
+        "info": "Add a sticky add-to-cart bar when scrolling passed the add-to-cart button. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054241-how-to-display-a-sticky-add-to-cart-bar-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_trust_badge",
+        "label": "Trust badge",
+        "info": "Display payments icons or custom trust badges under the add-to-cart and checkout buttons. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054277-how-to-display-a-trust-badge-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_upsell_bundles",
+        "label": "Upsell bundles",
+        "info": "Let customers buy different products in one-click by creating bundle offers. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054282-how-to-manage-upsell-bundles-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_upsell_popup",
+        "label": "Upsell pop-up",
+        "info": "Display a customizable upsell pop-up that trigger when adding a product to cart. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054298-how-to-use-upsell-pop-up-in-3-0)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_wish_list",
+        "label": "Wish list",
+        "info": "Let customers add their favorite products to a wish list they can come back to later. [Learn more](https:\/\/help.debutify.com\/en\/articles\/5054299-how-to-setup-a-wish-list-addon-in-debutify-3-0)",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "⚡ Add-to-cart animation",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054044-how-to-use-add-to-cart-animation-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_addtocart_animation_type",
+        "label": "Animation type",
+        "default": "shakeX",
+        "options": [
+          {
+            "value": "bounce",
+            "label": "Bounce"
+          },
+          {
+            "value": "flash",
+            "label": "Flash"
+          },
+          {
+            "value": "pulse",
+            "label": "Pulse"
+          },
+          {
+            "value": "shakeX",
+            "label": "Shake X"
+          },
+          {
+            "value": "shakeY",
+            "label": "Shake Y"
+          },
+          {
+            "value": "tada",
+            "label": "Tada"
+          },
+          {
+            "value": "heartBeat",
+            "label": "Heart beat"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_addtocart_animation_interval",
+        "label": "Interval time",
+        "min": 5,
+        "max": 20,
+        "step": 1,
+        "unit": "s",
+        "default": 10
+      }
+    ]
+  },
+  {
+    "name": "⚡ Age check",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057047-how-to-use-the-age-check-add-on-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "dbtfy_age_check_background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_age_check_option",
+        "label": "Verification type",
+        "default": "birth-date",
+        "options": [
+          {
+            "value": "birth-date",
+            "label": "Birth Date"
+          },
+          {
+            "value": "yes-no",
+            "label": "Yes\/No"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_age_check_valid_age",
+        "label": "Valid age",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "default": 18
+      },
+      {
+        "type": "image_picker",
+        "id": "dbtfy_age_check_logo_image",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_age_check_logo_svg",
+        "label": "SVG Logo",
+        "placeholder": "logo.svg",
+        "info": "[How to upload an SVG file?](https:\/\/help.debutify.com\/en\/articles\/5058493-how-to-upload-a-svg-file-in-debutify-theme)"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_age_check_logo_image_width",
+        "label": "Logo width",
+        "min": 50,
+        "max": 400,
+        "step": 5,
+        "unit": "px",
+        "default": 80
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_age_check_title",
+        "label": "Title",
+        "default": "Age Check"
+      },
+      {
+        "type": "textarea",
+        "id": "dbtfy_age_check_description",
+        "label": "Description",
+        "default": "Please verify your age to continue."
+      },
+      {
+        "type": "textarea",
+        "id": "dbtfy_age_check_error_message",
+        "label": "Error message",
+        "default": "You are too young to view this website."
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_age_check_yes",
+        "label": "Yes button label",
+        "default": "Yes"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_age_check_no",
+        "label": "No button label",
+        "default": "No"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_age_check_enter",
+        "label": "Enter button title",
+        "default": "Enter"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Cart countdown",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054061-how-to-use-cart-countdown-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_cart_countdown_time_mins",
+        "label": "Minutes",
+        "min": 1,
+        "max": 59,
+        "step": 1,
+        "default": 5
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_countdown_icons",
+        "label": "Icon",
+        "default": "check_circle",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_countdown_prefix",
+        "label": "Prefix",
+        "default": "Your cart is saved for the next"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_countdown_suffix",
+        "label": "Suffix"
+      },
+      {
+        "type": "header",
+        "content": "Timer over settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_countdown_icon_over",
+        "label": "Icon",
+        "default": "alarm",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_countdown_msg_over",
+        "label": "Message when timer is over",
+        "default": "Order before your items are out of stock!"
+      },
+      {
+        "type": "header",
+        "content": "Translation Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_countdown_m",
+        "label": "Minutes",
+        "default": "m"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_countdown_s",
+        "label": "Seconds",
+        "default": "s"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Cart discount",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054067-how-to-use-cart-discount-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_discount_label",
+        "label": "Input label",
+        "default": "Discount code"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_discount_icon",
+        "label": "Label icon",
+        "default": "local_offer",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_discount_placeholder",
+        "label": "Input placeholder",
+        "default": "Enter discount code here"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_discount_apply_button_label",
+        "label": "Button label",
+        "default": "Apply discount code"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_discount_apply_button_icons",
+        "label": "Button icon",
+        "default": "check_circle",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Cart goal",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054070-how-to-use-cart-goal-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_goal_before_text",
+        "label": "Prefix",
+        "default": "You're"
+      },
+      {
+        "type": "number",
+        "id": "dbtfy_cart_goal_amount",
+        "label": "Goal amount",
+        "default": 70,
+        "info": "Set up your free [shipping rates](\/admin\/settings\/shipping) matching the amount entered above"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_goal_after_text",
+        "label": "Suffix",
+        "default": "away from FREE shipping!"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_goal_reached_text",
+        "label": "Goal reached",
+        "default": "You are eligible for FREE shipping!"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cart_goal_icons",
+        "label": "Icon",
+        "default": "local_shipping",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Color swatches",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054086-how-to-add-color-swatches-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_color_swatches_color",
+        "label": "Product page variant options",
+        "info": "Add variant options name with comma-separated",
+        "default": "Color"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_color_swatches_grid",
+        "label": "Product grid variant options",
+        "info": "Color swatches will be applied to all variant options with this name",
+        "default": "Color"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_color_swatches_count",
+        "label": "Swatches on product grid",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 3
+      }
+    ]
+  },
+  {
+    "name": "⚡ Cookie box",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054095-how-to-use-a-cookie-box-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_cookie_box_inverted",
+        "label": "Use drawer colors",
+        "default": true
+      },
+      {
+        "type": "richtext",
+        "id": "dbtfy_cookie_box_text",
+        "label": "Text",
+        "default": "<p><strong>Do you like cookies?<\/strong> 🍪 We use cookies to ensure you get the best experience on our website.<\/p>"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_cookie_box_button_label",
+        "label": "Button label",
+        "default": "Accept cookies"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_cookie_box_button_style",
+        "label": "Button style",
+        "default": "btn--primary",
+        "options": [
+          {
+            "value": "",
+            "label": "Default"
+          },
+          {
+            "value": "btn--primary",
+            "label": "Full"
+          },
+          {
+            "value": "btn-outline-primary",
+            "label": "Outline"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "⚡ Custom currencies",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057090-how-to-use-custom-currencies-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "paragraph",
+        "content": "While enabled, the native Shopify Payment multi-currency converter will be disabled. Note that Shopify doesn't allow us to convert the prices on the Checkout page."
+      },
+      {
+        "type": "select",
+        "id": "currency_format",
+        "label": "Format",
+        "options": [
+          {
+            "value": "money_format",
+            "label": "Without currency ($10.00)"
+          },
+          {
+            "value": "money_with_currency_format",
+            "label": "With currency ($10.00 USD)"
+          }
+        ],
+        "default": "money_format"
+      },
+      {
+        "type": "text",
+        "id": "supported_currencies",
+        "label": "Supported currencies",
+        "default": "USD CAD INR GBP AUD EUR JPY",
+        "info": "Use the country's ISO [currency code](https:\/\/www.xe.com\/iso4217.php). Separate your currency codes with a space."
+      },
+      {
+        "type": "text",
+        "id": "default_currency",
+        "label": "Default currency",
+        "default": "USD"
+      },
+      {
+        "type": "checkbox",
+        "id": "default_price",
+        "label": "Show original price on hover",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "⚡ Delivery time",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054100-how-to-use-delivery-time-add-on-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_delivery_time_position",
+        "label": "Position",
+        "default": "under_add_to_cart_button",
+        "options": [
+          {
+            "value": "under_product_price",
+            "label": "Under product price"
+          },
+          {
+            "value": "under_add_to_cart_button",
+            "label": "Under add-to-cart button"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Text settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_delivery_time_icons",
+        "label": "Icon",
+        "default": "local_shipping",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_delivery_time_prefix",
+        "label": "Prefix",
+        "default": "Buy now to receive in"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_delivery_time_separator",
+        "label": "Separator",
+        "default": "-"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_delivery_time_suffix",
+        "label": "Suffix",
+        "default": "days"
+      },
+      {
+        "type": "header",
+        "content": "Format settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_delivery_time_date",
+        "label": "Show as date",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_delivery_time_format",
+        "label": "Date format",
+        "default": "%b %d",
+        "info": "%a %b %d %Y"
+      },
+      {
+        "type": "header",
+        "content": "General delivery",
+        "info": "Applies to all products"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_delivery_time_from",
+        "label": "Min delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 7
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_delivery_time_to",
+        "label": "Max delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 14
+      },
+      {
+        "type": "header",
+        "content": "Specific delivery 1"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_from_1",
+        "label": "Min delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 7
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_to_1",
+        "label": "Max delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 14
+      },
+      {
+        "type": "product",
+        "id": "dbtfy_specific_delivery_product_1",
+        "label": "Product"
+      },
+      {
+        "type": "collection",
+        "id": "dbtfy_specific_delivery_collection_1",
+        "label": "Collection"
+      },
+      {
+        "type": "header",
+        "content": "Specific delivery 2"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_from_2",
+        "label": "Min delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 7
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_to_2",
+        "label": "Max delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 14
+      },
+      {
+        "type": "product",
+        "id": "dbtfy_specific_delivery_product_2",
+        "label": "Product"
+      },
+      {
+        "type": "collection",
+        "id": "dbtfy_specific_delivery_collection_2",
+        "label": "Collection"
+      },
+      {
+        "type": "header",
+        "content": "Specific delivery 3"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_from_3",
+        "label": "Min delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 7
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_to_3",
+        "label": "Max delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 14
+      },
+      {
+        "type": "product",
+        "id": "dbtfy_specific_delivery_product_3",
+        "label": "Product"
+      },
+      {
+        "type": "collection",
+        "id": "dbtfy_specific_delivery_collection_3",
+        "label": "Collection"
+      },
+      {
+        "type": "header",
+        "content": "Specific delivery 4"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_from_4",
+        "label": "Min delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 7
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_to_4",
+        "label": "Max delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 14
+      },
+      {
+        "type": "product",
+        "id": "dbtfy_specific_delivery_product_4",
+        "label": "Product"
+      },
+      {
+        "type": "collection",
+        "id": "dbtfy_specific_delivery_collection_4",
+        "label": "Collection"
+      },
+      {
+        "type": "header",
+        "content": "Specific delivery 5"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_from_5",
+        "label": "Min delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 7
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_specific_delivery_time_to_5",
+        "label": "Max delivery time (days)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "default": 14
+      },
+      {
+        "type": "product",
+        "id": "dbtfy_specific_delivery_product_5",
+        "label": "Product"
+      },
+      {
+        "type": "collection",
+        "id": "dbtfy_specific_delivery_collection_5",
+        "label": "Collection"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Facebook messenger",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057679-how-to-add-a-facebook-messenger-chat-widget-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "textarea",
+        "id": "dbtfy_facebook_messenger_code",
+        "label": "Code",
+        "info": "How to get code? Go to your Facebook page > Settings > Messaging > Add Messenger to your website > Copy & paste the code snippet"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_facebook_messenger_mobile",
+        "label": "Hide on mobile",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "⚡ Inventory quantity",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054133-how-to-display-the-inventory-quantity-of-your-product-variant-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_inventory_quantity_icons",
+        "label": "Icon",
+        "default": "history",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_inventory_quantity_prefix",
+        "label": "Prefix",
+        "default": "Only"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_inventory_quantity_suffix",
+        "label": "Suffix",
+        "default": "left in stock"
+      },
+      {
+        "type": "header",
+        "content": "Quantity Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_inventory_quantity_show_random",
+        "label": "Show random quantities",
+        "default": true,
+        "info": "Uncheck to show real inventory"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_inventory_quantity_min",
+        "label": "Min quantity",
+        "min": 1,
+        "max": 99,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_inventory_quantity_max",
+        "label": "Max quantity",
+        "min": 1,
+        "max": 99,
+        "step": 1,
+        "default": 14
+      }
+    ]
+  },
+  {
+    "name": "⚡ Live view",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054147-how-to-use-live-view-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_live_view_position",
+        "label": "Position",
+        "default": "under_add_to_cart_button",
+        "options": [
+          {
+            "value": "under_product_price",
+            "label": "Under product price"
+          },
+          {
+            "value": "under_add_to_cart_button",
+            "label": "Under add-to-cart button"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_live_view_prefix",
+        "label": "Prefix"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_live_view_people",
+        "label": "People",
+        "default": "People"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_live_view_suffix",
+        "label": "Suffix",
+        "default": "are viewing this right now"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_live_view_icons",
+        "label": "Icon",
+        "default": "visibility",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_live_view_min",
+        "label": "Min (people)",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_live_view_max",
+        "label": "Max (people)",
+        "min": 2,
+        "max": 100,
+        "step": 1,
+        "default": 8,
+        "info": "Must be higher than min."
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_live_view_interval",
+        "label": "Interval time (seconds)",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "default": 4
+      }
+    ]
+  },
+  {
+    "name": "⚡ Mobile menu",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057472-how-to-create-a-mobile-menu-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_mobile_menu_height",
+        "label": "Height",
+        "min": 40,
+        "max": 60,
+        "step": 1,
+        "unit": "px",
+        "default": 45
+      },
+      {
+        "type": "link_list",
+        "id": "dbtfy_mobile_menu_link_list",
+        "label": "Menu"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Newsletter pop-up",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054175-how-to-display-a-newsletter-popup-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Floating bar Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_newsletter_floating_bar",
+        "label": "Activate",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_floating_bar_mobile",
+        "label": "Hide on mobile",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_floating_bar_position",
+        "label": "Position",
+        "default": "right",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_floating_bar_text",
+        "label": "Text",
+        "default": "Get 20% off!"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_floating_bar_icons",
+        "label": "Icon",
+        "default": "arrow_drop_up",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "header",
+        "content": "Pop-up Settings"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_newsletter_popup_width",
+        "label": "Width",
+        "default": "medium",
+        "options": [
+          {
+            "label": "Small",
+            "value": "small"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Large",
+            "value": "large"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "dbtfy_newsletter_popup_image",
+        "label": "Image"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_newsletter_popup_image_position",
+        "label": "Image position",
+        "default": "center center",
+        "options": [
+          {
+            "label": "Top left",
+            "value": "top left"
+          },
+          {
+            "label": "Top center",
+            "value": "top center"
+          },
+          {
+            "label": "Top right",
+            "value": "top right"
+          },
+          {
+            "label": "Middle left",
+            "value": "center left"
+          },
+          {
+            "label": "Middle center",
+            "value": "center center"
+          },
+          {
+            "label": "Middle right",
+            "value": "center right"
+          },
+          {
+            "label": "Bottom left",
+            "value": "bottom left"
+          },
+          {
+            "label": "Bottom center",
+            "value": "bottom center"
+          },
+          {
+            "label": "Bottom right",
+            "value": "bottom right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_newsletter_popup_title",
+        "label": "Title",
+        "default": "Subscribe to our Newsletter!"
+      },
+      {
+        "type": "richtext",
+        "id": "dbtfy_newsletter_popup_text",
+        "label": "Text",
+        "default": "<p>Get 10% off your first purchase by subscribing to our newsletter.<\/p>"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_newsletter_popup_close",
+        "label": "Close text",
+        "default": "No thanks, I don't like discounts."
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_newsletter_popup_icons",
+        "label": "Send icon",
+        "default": "mail",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "header",
+        "content": "Trigger Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_newsletter_popup_time_trigger",
+        "label": "Enable time-based trigger",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_newsletter_popup_timeout",
+        "label": "Trigger timeout (seconds)",
+        "min": 5,
+        "max": 60,
+        "step": 1,
+        "default": 15,
+        "info": "Trigger will also happen when customer is about to leave your website. (exit-intent)"
+      },
+      {
+        "type": "header",
+        "content": "Success settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_newsletter_popup_title_success",
+        "label": "Title",
+        "default": "Thank you!"
+      },
+      {
+        "type": "richtext",
+        "id": "dbtfy_newsletter_popup_text_success",
+        "label": "Text",
+        "default": "<p>Copy the discount code below and paste it at checkout to get your discount!<\/p>"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_newsletter_popup_coupon",
+        "label": "Discount code",
+        "info": "[Create a discount code](\/admin\/discounts\/new)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_newsletter_popup_apply",
+        "label": "Button label",
+        "default": "Continue browsing"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Order tracking",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057483-how-to-use-order-tracking-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_order_tracking_input_text",
+        "label": "Input placeholder text",
+        "default": "Enter your tracking number..."
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_order_tracking_button_text",
+        "label": "Button text",
+        "default": "Track my order"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Page transition",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057511-how-to-use-page-transition-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "dbtfy_page_transition_image",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_page_transition_svg",
+        "label": "SVG Logo",
+        "placeholder": "logo.svg",
+        "info": "[How to upload an SVG file?](https:\/\/help.debutify.com\/en\/articles\/5058493-how-to-upload-a-svg-file-in-debutify-theme)"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_page_transition_width",
+        "label": "Logo width",
+        "min": 50,
+        "max": 400,
+        "step": 5,
+        "unit": "px",
+        "default": 80
+      }
+    ]
+  },
+  {
+    "name": "⚡ Product image crop",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057531-how-to-use-product-image-crop-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_product_image_crop_ratio",
+        "label": "Image ratio",
+        "default": "1:1",
+        "options": [
+          {
+            "value": "16:9",
+            "label": "16:9"
+          },
+          {
+            "value": "3:2",
+            "label": "3:2"
+          },
+          {
+            "value": "4:3",
+            "label": "4:3"
+          },
+          {
+            "value": "1:1",
+            "label": "1:1"
+          },
+          {
+            "value": "3:4",
+            "label": "3:4"
+          },
+          {
+            "value": "2:3",
+            "label": "2:3"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_product_image_crop_position",
+        "label": "Image position",
+        "default": "center center",
+        "options": [
+          {
+            "label": "Top left",
+            "value": "top left"
+          },
+          {
+            "label": "Top center",
+            "value": "top center"
+          },
+          {
+            "label": "Top right",
+            "value": "top right"
+          },
+          {
+            "label": "Middle left",
+            "value": "center left"
+          },
+          {
+            "label": "Middle center",
+            "value": "center center"
+          },
+          {
+            "label": "Middle right",
+            "value": "center right"
+          },
+          {
+            "label": "Bottom left",
+            "value": "bottom left"
+          },
+          {
+            "label": "Bottom center",
+            "value": "bottom center"
+          },
+          {
+            "label": "Bottom right",
+            "value": "bottom right"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "⚡ Quick view",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054198-how-to-use-quick-view-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_quick_view_hide_mobile",
+        "label": "Hide on mobile",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_quick_view_quantity_selector",
+        "label": "Show quantity picker",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "icon_placement",
+        "label": "Icon placement",
+        "default": "bottom-left",
+        "options": [
+          {
+            "value": "bottom-left",
+            "label": "Left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Right"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "⚡ Recently viewed",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057690-how-to-display-recently-viewed-products-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_recently_viewed_title",
+        "label": "Heading",
+        "default": "Recently viewed"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Sales countdown",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054213-how-to-display-a-sales-countdown-on-your-product-page-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_icons",
+        "label": "Icon",
+        "default": "local_fire_department",
+        "info": "Enter the name of any free solid icons on [Material Design](https:\/\/material.io\/resources\/icons\/?style=baseline)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_prefix",
+        "label": "Prefix",
+        "default": "Sale ends in"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_suffix",
+        "label": "Suffix"
+      },
+      {
+        "type": "header",
+        "content": "Timer Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_date",
+        "label": "Sale end date",
+        "info": "MM\/DD\/YYYY"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_sales_countdown_time_hours",
+        "label": "Hours",
+        "min": 0,
+        "max": 23,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_sales_countdown_time_mins",
+        "label": "Minutes",
+        "min": 0,
+        "max": 59,
+        "step": 1,
+        "default": 48
+      },
+      {
+        "type": "header",
+        "content": "Visibility Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_type",
+        "label": "Product type",
+        "info": "Comma-separated"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_tag",
+        "label": "Product tag",
+        "info": "Comma-separated"
+      },
+      {
+        "type": "product",
+        "id": "dbtfy_sales_countdown_product",
+        "label": "Product"
+      },
+      {
+        "type": "collection",
+        "id": "dbtfy_sales_countdown_collection",
+        "label": "Collection"
+      },
+      {
+        "type": "header",
+        "content": "Translation Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_d",
+        "label": "Days",
+        "default": "d"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_h",
+        "label": "Hours",
+        "default": "h"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_m",
+        "label": "Minutes",
+        "default": "m"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_countdown_s",
+        "label": "Seconds",
+        "default": "s"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Sales pop",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057674-how-to-add-sales-pop-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Notification settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sales_pop_mobile",
+        "label": "Hide on mobile"
+      },
+      {
+        "type": "collection",
+        "id": "dbtfy_sales_pop_collection",
+        "label": "Collection",
+        "info": "Leave empty for all products"
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_sales_pop_timeago",
+        "label": "Max time ago (hours)",
+        "min": 1,
+        "max": 96,
+        "step": 1,
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_sales_pop_display",
+        "label": "Display time (seconds)",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_sales_pop_interval",
+        "label": "Interval time (seconds)",
+        "min": 5,
+        "max": 20,
+        "step": 1,
+        "default": 6
+      },
+      {
+        "type": "header",
+        "content": "Text settings"
+      },
+      {
+        "type": "textarea",
+        "id": "dbtfy_sales_pop_name",
+        "label": "Names",
+        "default": "Someone",
+        "info": "Comma-separated"
+      },
+      {
+        "type": "textarea",
+        "id": "dbtfy_sales_pop_city",
+        "label": "Cities",
+        "info": "Comma-separated",
+        "default": "Montreal Canada"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_purchase",
+        "label": "Purchased",
+        "default": "has purchased"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_emoji",
+        "label": "Purchase emoji",
+        "default": "👏",
+        "info": "Copy & paste an [Emoji](https:\/\/www.emojicopy.com)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_prefix",
+        "label": "Time prefix"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_suffix",
+        "label": "Time suffix",
+        "default": "ago"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_icons",
+        "label": "Icon",
+        "default": "check_circle",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_verified",
+        "label": "Verified text",
+        "default": "Verified purchase"
+      },
+      {
+        "type": "header",
+        "content": "Translations"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_minute",
+        "label": "Minute",
+        "default": "minute"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_minutes",
+        "label": "Minutes",
+        "default": "minutes"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_hour",
+        "label": "Hour",
+        "default": "hour"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_hours",
+        "label": "Hours",
+        "default": "hours"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_day",
+        "label": "Day",
+        "default": "day"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_sales_pop_days",
+        "label": "Days",
+        "default": "days"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Shop protect",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054230-how-to-use-shop-protect-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_shop_protect_image",
+        "label": "Disable images copy",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_shop_protect_drag",
+        "label": "Disable images drag & drop",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_shop_protect_text_product",
+        "label": "Disable product text copy",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_shop_protect_text_article",
+        "label": "Disable article text copy",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_shop_protect_collection",
+        "label": "Disable best selling collections",
+        "default": true,
+        "info": "Make sure your collections are not sorted by best selling. [Edit collection sorting](\/admin\/collections)"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Smart search",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054239-how-to-use-smart-search-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Result settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_smart_search_price",
+        "label": "Show price",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_smart_search_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "dbtfy_smart_search_limit",
+        "label": "Result limit",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "header",
+        "content": "Text settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_smart_search_products",
+        "label": "Products",
+        "default": "Products"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_smart_search_collections",
+        "label": "Collections",
+        "default": "Collections"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_smart_search_articles",
+        "label": "Articles",
+        "default": "Articles"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_smart_search_pages",
+        "label": "Pages",
+        "default": "Pages"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_smart_search_all",
+        "label": "Show all result",
+        "default": "Show all results for"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Social discount",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057551-how-to-use-a-social-discount-add-on-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_social_discount_icon",
+        "label": "Icon",
+        "default": "share",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_social_discount_link",
+        "label": "Title",
+        "default": "Share and get 15% off!"
+      },
+      {
+        "type": "header",
+        "content": "Pop-up Settings"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_social_discount_width",
+        "label": "Size",
+        "default": "",
+        "options": [
+          {
+            "value": "modal-small",
+            "label": "Small"
+          },
+          {
+            "value": "",
+            "label": "Medium"
+          },
+          {
+            "value": "modal-large",
+            "label": "Large"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_social_discount_popup_title",
+        "label": "Title",
+        "default": "Share and get 15% off!"
+      },
+      {
+        "type": "textarea",
+        "id": "dbtfy_social_discount_popup_text",
+        "label": "Text",
+        "default": "Simply share this product on one of the following social networks and you will unlock 15% off!"
+      },
+      {
+        "type": "header",
+        "content": "Success settings"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_social_discount_reward_title",
+        "label": "Title",
+        "default": "Thank you for sharing!"
+      },
+      {
+        "type": "richtext",
+        "id": "dbtfy_social_discount_reward_text",
+        "label": "Text",
+        "default": "<p>Copy the discount code below and paste it at checkout to get your discount!<\/p>"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_social_discount_reward_code",
+        "label": "Discount code",
+        "info": "[Create a discount code](\/admin\/discounts\/new)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_social_discount_reward_button",
+        "label": "Button label",
+        "default": "Continue browsing"
+      }
+    ]
+  },
+  {
+    "name": "⚡ Sticky add-to-cart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054241-how-to-display-a-sticky-add-to-cart-bar-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sticky_addtocart_reviews",
+        "label": "Show star ratings",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sticky_addtocart_animation",
+        "label": "Enable add-to-cart animation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sticky_addtocart_inventory",
+        "label": "Show Inventory quantity",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sticky_addtocart_countdown",
+        "label": "Show Sales countdown",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_sticky_addtocart_mobile",
+        "label": "Enable simplified mobile display",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_sticky_addtocart_position",
+        "label": "Position",
+        "default": "bottom",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "⚡ Trust badges",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054277-how-to-display-a-trust-badge-in-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_trust_badge_product",
+        "label": "Show on product page",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_trust_badge_cart",
+        "label": "Show on cart page\/drawer",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_trust_badge_text_small",
+        "label": "Small text",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "dbtfy_trust_badge_image",
+        "label": "Image",
+        "info": "Leave empty for default icons"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_trust_badge_text",
+        "label": "Text",
+        "default": "Guaranteed safe & secure checkout"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_trust_badge_text_position",
+        "label": "Text position",
+        "default": "under",
+        "options": [
+          {
+            "label": "Above",
+            "value": "above"
+          },
+          {
+            "label": "Under",
+            "value": "under"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_trust_badge_width",
+        "label": "Image width",
+        "default": "600",
+        "options": [
+          {
+            "label": "Extra Small",
+            "value": "200"
+          },
+          {
+            "label": "Small",
+            "value": "300"
+          },
+          {
+            "label": "Medium",
+            "value": "400"
+          },
+          {
+            "label": "Large",
+            "value": "500"
+          },
+          {
+            "label": "Extra Large",
+            "value": "600"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "⚡ Wish list",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054299-how-to-setup-a-wish-list-addon-in-debutify-3-0)"
+      },
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_wish_list_bubble",
+        "label": "Show bubble",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_wish_list_bubble_animation",
+        "label": "Enable bubble animation",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dbtfy_wish_list_count",
+        "label": "Show count",
+        "default": true
+      },
+      {
+        "type": "page",
+        "id": "dbtfy_wish_list_page",
+        "label": "Wish list page",
+        "info": "Use the Template page.wish-list"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_wish_list_icon_placement",
+        "label": "Icon placement",
+        "default": "bottom-right",
+        "options": [
+          {
+            "value": "bottom-right",
+            "label": "Right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Left"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_wish_list_add_text",
+        "label": "Add to wish list text",
+        "default": "Add to wish list"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_wish_list_remove_text",
+        "label": "Remove from wish list text",
+        "default": "Remove from wish list"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_wish_list_empty_text",
+        "label": "Empty wishlist text",
+        "default": "Your wishlist is currently empty."
+      }
+    ]
+  }
+]

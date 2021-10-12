@@ -1,0 +1,118 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_newsletter_popup -%}
+<div class="dbtfy dbtfy-newsletter_popup"
+     data-timeout="{{ settings.dbtfy_newsletter_popup_timeout }}000"
+     data-time-trigger="{{ settings.dbtfy_newsletter_popup_time_trigger }}">
+
+  <div id="NewsletterPopup" class="modal" role="dialog">
+    <div class="modal-dialog modal-{{ settings.dbtfy_newsletter_popup_width }}">
+      <div class="modal-content overlay-content" aria-hidden="true" tabindex="-1">
+
+		    <div class="grid grid-full">
+          {%- if settings.dbtfy_newsletter_popup_image == blank or settings.dbtfy_newsletter_popup_width == "small" -%}
+            {%- assign image_width_newsletter_popup = "one-whole" -%}
+            {%- assign content_width_newsletter_popup = "one-whole" -%}
+          {%- else -%}
+            {%- assign image_width_newsletter_popup = "large--four-twelfths medium--four-twelfths" -%}
+            {%- assign content_width_newsletter_popup = "large--eight-twelfths medium--eight-twelfths" -%}
+          {%- endif -%}
+
+          {%- if settings.dbtfy_newsletter_popup_image != blank -%}
+            <div class="grid__item {{ image_width_newsletter_popup }}">
+              <div class="media-wrapper image-newsletter_popup">
+                <div class="media bgset lazyload"
+                  {%- render 'lazysizes', img: settings.dbtfy_newsletter_popup_image, img_type: 'background' -%}"
+                  style="background-position: {{ settings.dbtfy_newsletter_popup_image_position }};">
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+
+          <div class="grid__item {{ content_width_newsletter_popup }}">
+            <div class="content-newsletter_popup flex align-center justify-center text-center">
+
+              {%- form "customer", id: "formNewsletterPopup" -%}
+                {%- if form.posted_successfully? -%}
+                <div class="np-success">
+                  <div class="text-container-newsletter_popup rte">
+                    {%- if settings.dbtfy_newsletter_popup_title_success != blank -%}
+                      <h3>{{ settings.dbtfy_newsletter_popup_title_success }}</h3>
+                    {%- endif -%}
+
+                    {%- if settings.dbtfy_newsletter_popup_text_success != blank -%}
+                      {{ settings.dbtfy_newsletter_popup_text_success }}
+                    {%- endif -%}
+                  </div>
+
+                  {%- if settings.dbtfy_newsletter_popup_coupon != blank -%}
+                    <div class="select-box spacer-bottom" tabindex="0">
+                      {{ settings.dbtfy_newsletter_popup_coupon }}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if settings.dbtfy_newsletter_popup_apply != blank -%}
+                    <button type="button" class="btn btn--primary small--full" data-modal-close="#NewsletterPopup">
+                      <span class="btn__text">
+                        {{ settings.dbtfy_newsletter_popup_apply }}
+                      </span>
+                    </button>
+                  {%- endif -%}
+                </div>
+                {%- else -%}
+                  <div class="text-container-newsletter_popup rte">
+                    {%- if settings.dbtfy_newsletter_popup_title != blank -%}
+                      <h3>{{ settings.dbtfy_newsletter_popup_title }}</h3>
+                    {%- endif -%}
+
+                    {%- if settings.dbtfy_newsletter_popup_text != blank -%}
+                      {{ settings.dbtfy_newsletter_popup_text }}
+                    {%- endif -%}
+                  </div>
+
+                  {{ form.errors | default_errors }}
+
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+
+                  <div class="newsletter--form">
+                    <div class="input-group">
+                      <input id="input-newsletter_popup" 
+                      type="email" 
+                      placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}"
+                      name="contact[email]" class="input-group-field newsletter__input" 
+                      value="{%- if form.email -%}{{ form.email }}{%- elsif customer -%}{{ customer.email }}{%- endif -%}"
+                      required="required" autocorrect="off" 
+                      autocapitalize="off">
+
+                      <button type="submit" class="btn btn--square btn--primary input-group-btn newsletter__submit" name="commit" id="Subscribe">
+                        <span class="btn__text">
+                          <span class="{{ settings.icon }}">{{ settings.dbtfy_newsletter_popup_icons }}</span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {%- if settings.dbtfy_newsletter_popup_close != blank -%}
+                    <button type="button" class="spacer-top text-link" data-modal-close="#NewsletterPopup">
+                      <small>{{ settings.dbtfy_newsletter_popup_close }}</small>
+                    </button>
+                  {%- endif -%}
+                {%- endif -%}
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay-backdrop overlay-modal"></div>
+
+  {%- if settings.dbtfy_newsletter_floating_bar -%}
+    <div class="np-floating-bar-wrapper np-position-{{ settings.dbtfy_floating_bar_position }}{% if settings.dbtfy_floating_bar_position == "right" %} prevent-scrollbar-shift{% endif %}{% if settings.dbtfy_floating_bar_mobile %} small--hide{% endif %}">
+      <div class="np-floating-bar btn btn--small">
+        <span>{{ settings.dbtfy_floating_bar_text }}</span>
+        <span class="{{ settings.icon }}">{{ settings.dbtfy_floating_bar_icons }}</span>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+{%- endif -%}

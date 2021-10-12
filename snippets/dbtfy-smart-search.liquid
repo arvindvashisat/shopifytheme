@@ -1,0 +1,52 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_smart_search -%}
+  <div class="dbtfy dbtfy-smart_search"
+       data-limit="{{ settings.dbtfy_smart_search_limit }}"
+       data-price="{{ settings.dbtfy_smart_search_price }}"
+       data-vendor="{{ settings.dbtfy_smart_search_vendor }}">
+
+    <div class="ss-image-placeholder" hidden>{{ "product-1" | placeholder_svg_tag: 'placeholder-svg' }}</div>
+
+    <div id="SmartSearch">
+      <div class="ss-section-title ss-loading text-center" style="display: none;">
+        <span class="ss-spin-icon text-large text-secondary icon-spin"></span>
+      </div>
+
+      <div class="ss-section-wrapper" style="display: none;">
+        <div class="ss-section ss-products" style="display: none;">
+          <div class="ss-section-title sticky">
+            {{ settings.dbtfy_smart_search_products }}
+          </div>
+          <div class="ss-content"></div>
+        </div>
+
+        {%- unless settings.search_product -%}
+          <div class="ss-section ss-collections" style="display: none;">
+            <div class="ss-section-title sticky">
+              {{ settings.dbtfy_smart_search_collections }}
+            </div>
+            <div class="ss-content"></div>
+          </div>
+
+          <div class="ss-section ss-posts" style="display: none;">
+            <div class="ss-section-title sticky">
+              {{ settings.dbtfy_smart_search_articles }}
+            </div>
+            <div class="ss-content"></div>
+          </div>
+
+          <div class="ss-section ss-pages" style="display: none;">
+            <div class="ss-section-title sticky">
+              {{ settings.dbtfy_smart_search_pages }}
+            </div>
+            <div class="ss-content"></div>
+          </div>
+        {%- endunless -%}
+
+        <div class="ss-showall">
+          <a href="/" class="btn btn--banner">{{ settings.dbtfy_smart_search_all }} "<span></span>" <i class="{{ settings.icon }}">keyboard_arrow_right</i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{%- endif -%}

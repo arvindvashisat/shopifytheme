@@ -1,0 +1,13 @@
+<!-- /templates/article.liquid -->
+{% comment %}
+  The contents of the article.liquid template can be found in /sections/article-template.liquid
+{% endcomment %}
+
+{%- section 'article-template' -%}
+
+<div class="back-box">
+  <a href="{{ blog.url }}" class="btn btn--banner">
+    <span class="{{ settings.icon }}" aria-hidden="true">arrow_back</span>
+      {{ 'blogs.article.back_to_blog' | t: title: blog.title }}
+  </a>
+</div>

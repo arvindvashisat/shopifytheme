@@ -1,0 +1,102 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_sales_pop -%}
+  {%- unless settings.dbtfy_sales_pop_collection == blank -%}
+    {%- assign salespop_collection = collections[settings.dbtfy_sales_pop_collection] -%}
+  {%- else -%}
+    {%- assign salespop_collection = collections.all -%}
+  {%- endunless -%}
+
+  {%- if salespop_collection.products.size > 0 -%}
+    <div class="dbtfy dbtfy-sales_pop"
+         data-name="{{ settings.dbtfy_sales_pop_name | strip | replace: ', ', ',' }}"
+         data-cities="{{ settings.dbtfy_sales_pop_city | strip | replace: ', ', ',' }}"
+         data-minute="{{ ' ' | append: settings.dbtfy_sales_pop_minute }}"
+         data-minutes="{{ ' ' | append: settings.dbtfy_sales_pop_minutes }}"
+         data-hour="{{ ' ' | append: settings.dbtfy_sales_pop_hour }}"
+         data-hours="{{ ' ' | append: settings.dbtfy_sales_pop_hours }}"
+         data-day="{{ ' ' | append: settings.dbtfy_sales_pop_day }}"
+         data-days="{{ ' ' | append: settings.dbtfy_sales_pop_days }}"
+         data-display-time="{{ settings.dbtfy_sales_pop_display }}000"
+         data-interval-time="{{ settings.dbtfy_sales_pop_interval }}000"
+         data-time-ago="{{ settings.dbtfy_sales_pop_timeago | times: 60 }}">
+
+      <div id="SalesPop" class="sp-card radius-circle{% if settings.dbtfy_sales_pop_mobile %} small--hide{% endif %}">
+        <div class="sp-card-body">
+          <div class="grid grid-xsmall flex-nowrap align-center">
+            <div class="grid__item flex-fill item-wrapper-sales_pop overflow-hidden">
+
+              {%- for product in salespop_collection.products limit: 20 -%}
+                <div class="grid grid-xsmall flex-nowrap align-center item-sales_pop">
+                  <div class="grid__item image-wrapper-sales_pop flex-auto">
+                    <a href="{{ product.url }}" class="image-link-sales_pop image-link">
+                      {%- if product.images != blank -%}
+                        <div class="media-wrapper radius-circle" style="padding-top: 100%;">
+                          <img class="image-sales_pop media lazyload"
+                          {%- render 'lazysizes', img: product.featured_image, img_type: 'responsive', crop: 'center' -%}
+                          alt="{{ product.featured_image.alt }}">
+                        </div>
+                      {%- else -%}
+                        {{ 'product-1' | placeholder_svg_tag: 'radius-circle placeholder-svg' }}
+                      {%- endif -%}
+                    </a>
+                  </div>
+
+                  <div class="grid__item text-wrapper-sales_pop flex-fill overflow-hidden">
+                    <div class="name-wrapper-sales_pop text-ellipsis">
+                      {%- unless settings.dbtfy_sales_pop_name == blank -%}
+                        <span class="name-sales_pop h6 display-inline"></span>
+                      {%- endunless -%}
+
+                      {% unless settings.dbtfy_sales_pop_city == blank %}
+                        <span class="city-wrapper-sales_pop text-small">(<span class="city-sales_pop"></span>)</span>
+                      {% endunless %}
+                    </div>
+
+                    <div class="purchased-wrapper-sales_pop text-ellipsis text-small">
+                      {% unless settings.dbtfy_sales_pop_name == blank %}
+                        <span class="purchased-sales_pop">{{ settings.dbtfy_sales_pop_purchase }}</span>
+                      {% endunless %}
+
+                      <a href="{{ product.url }}" class="link-sales_pop text-link text-small">{{ product.title }}</a>
+
+                      {% unless settings.dbtfy_sales_pop_emoji == blank %}
+                        <span>{{ settings.dbtfy_sales_pop_emoji }}</span>
+                      {% endunless %}
+                    </div>
+
+                    <div class="time-wrapper-sales_pop text-ellipsis text-small">
+                      {% unless settings.dbtfy_sales_pop_prefix == blank %}
+                        <span>{{ settings.dbtfy_sales_pop_prefix }}</span>
+                      {% endunless %}
+
+                      <span class="time-sales_pop"></span>
+
+                      {% unless settings.dbtfy_sales_pop_suffix == blank %}
+                        <span>{{ settings.dbtfy_sales_pop_suffix }}</span>
+                      {% endunless -%}
+
+                      {% unless settings.dbtfy_sales_pop_icons == blank %}
+                        <span class="{{ settings.icon }}">{{ settings.dbtfy_sales_pop_icons }}</span>
+                      {% endunless %}
+
+                      {% unless settings.dbtfy_sales_pop_verified == blank %}
+                        <span>{{ settings.dbtfy_sales_pop_verified }}</span>
+                      {% endunless %}
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+
+            </div>
+
+            <div class="grid__item flex-auto">
+              <button class="btn btn-square-small btn-close-sales_pop">
+                <span class="{{ settings.icon }}">close</span>
+              </button>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

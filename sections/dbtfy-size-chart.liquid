@@ -1,0 +1,248 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_size_chart -%}
+  <div class="dbtfy dbtfy-size_chart" data-section-id="{{ section.id }}">
+    {%- assign valid_size_chart = false -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.settings.dbtfy_size_chart_collection != blank -%}
+        {% for collection in product.collections %}
+          {%- if collection.handle == block.settings.dbtfy_size_chart_collection -%}
+            {%- assign valid_size_chart = true -%}
+            {%- assign block = block -%}
+
+            {% break %}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if block.settings.dbtfy_size_chart_type != blank -%}
+        {%- assign type_list = block.settings.dbtfy_size_chart_type | split: "," -%}
+
+        {%- for type in type_list -%}
+          {%- if product.type contains type -%}
+            {%- assign valid_size_chart = true -%}
+            {%- assign block = block -%}
+
+            {% break %}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if block.settings.dbtfy_size_chart_tag != blank -%}
+        {%- assign tag_list = block.settings.dbtfy_size_chart_tag | split: "," -%}
+
+        {%- for tag in tag_list -%}
+          {%- if product.tags contains tag -%}
+            {%- assign valid_size_chart = true -%}
+            {%- assign block = block -%}
+
+            {% break %}
+          {%- endif %}
+        {%- endfor -%}
+      {%- endif %}
+
+      {%- if block.settings.dbtfy_size_chart_product != blank -%}
+        {%- assign product_handle = block.settings.dbtfy_size_chart_product -%}
+
+        {%- if product.handle == product_handle -%}
+          {%- assign valid_size_chart = true -%}
+          {%- assign block = block -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if valid_size_chart == false and block.settings.dbtfy_size_chart_type == blank and block.settings.dbtfy_size_chart_tag == blank and block.settings.dbtfy_size_chart_product == blank and block.settings.dbtfy_size_chart_collection == blank -%}
+        {%- assign valid_size_chart = true -%}
+        {%- assign block = block -%}
+      {%- endif -%}
+    {% endfor %}
+
+    {%- if valid_size_chart -%}
+
+      <div class="sc-link spacer-bottom">
+        {%- if section.settings.dbtfy_size_chart_title != blank -%}
+          <button type="button" data-modal-open="#sizeChart">
+            {%- if section.settings.dbtfy_size_chart_icon != blank -%}
+              <span class="{{ settings.icon }} icon-width sc-icon">{{ section.settings.dbtfy_size_chart_icon }}</span>
+            {% endif %}
+
+            {{ section.settings.dbtfy_size_chart_title }}
+          </button>
+        {%- endif -%}
+      </div>
+
+      <div id="sizeChart"
+          class="modal sc-{{ block.id }}"
+          role="dialog"
+          {{ block.shopify_attributes }}>
+        <div class="modal-dialog modal-{{ section.settings.dbtfy_size_chart_width }}">
+          <div class="modal-content overlay-content" aria-hidden="true" tabindex="-1">
+            {%- if block.settings.dbtfy_size_chart_popup_title != blank -%}
+              <div class="modal-header">
+                <h4 class="modal-title">
+                  {%- if section.settings.dbtfy_size_chart_icon != blank -%}
+                    <span class="{{ settings.icon }} icon-width sc-icon">{{ section.settings.dbtfy_size_chart_icon }}</span>
+                  {% endif %}
+
+                  {{ block.settings.dbtfy_size_chart_popup_title }}
+                </h4>
+
+                <button type="button" 
+                        class="modal-close btn btn-square-small" 
+                        title="{{ 'general.password_page.close' | t }}" 
+                        aria-label="{{ 'general.password_page.close' | t }}" 
+                        data-modal-close="#sizeChart">
+                  <span class="{{ settings.icon }}">close</span>
+                </button>
+              </div>
+            {%- endif -%}
+
+            <div class="modal-body">
+              {%- if block.settings.dbtfy_size_chart_abovetext != blank -%}
+                <div class="text-center">{{ block.settings.dbtfy_size_chart_abovetext }}</div>
+              {% endif %}
+
+              {%- if block.settings.dbtfy_size_chart_html != blank -%}
+                <div class="rte spacer-bottom-none">
+                  <div>{{ block.settings.dbtfy_size_chart_html }}</div>
+                </div>
+              {% endif %}
+
+              {%- if block.settings.dbtfy_size_chart_image -%}
+                <div class="spacer-top">
+                  <div class="media-wrapper" style="padding-top: {{ 1 | divided_by: block.settings.dbtfy_size_chart_image.aspect_ratio | times: 100 }}%;">
+                    <img class="media lazyload"
+                    {%- render 'lazysizes', img: block.settings.dbtfy_size_chart_image, img_type: 'responsive' -%}
+                    alt="{{ block.settings.dbtfy_size_chart_image.alt }}">
+                  </div>
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.dbtfy_size_chart_undertext != blank -%}
+                <div class="text-center spacer-top">{{ block.settings.dbtfy_size_chart_undertext }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overlay-modal overlay-backdrop"></div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "⚡ Size chart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5057686-how-to-add-a-size-chart-in-debutify-3-0)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_size_chart_icon",
+        "label": "Button icon",
+        "default": "straighten",
+        "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+      },
+      {
+        "type": "text",
+        "id": "dbtfy_size_chart_title",
+        "label": "Button label",
+        "default": "Size chart"
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_size_chart_width",
+        "label": "Pop-up width",
+        "default": "large",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          },
+          {
+            "value": "xlarge",
+            "label": "Xlarge"
+          }
+        ]
+      }
+    ],
+    "blocks" : [
+      {
+        "type": "text",
+        "name": "Size guide",
+        "settings": [
+          {
+            "type": "text",
+            "id": "dbtfy_size_chart_popup_title",
+            "label": "Title",
+            "default": "Size guide"
+          },
+          {
+            "type": "richtext",
+            "id": "dbtfy_size_chart_abovetext",
+            "label": "Above text"
+          },
+          {
+            "type": "html",
+            "id": "dbtfy_size_chart_html",
+            "label": "Html",
+            "default": "<table><thead><tr><td>Mens</td><td>Small</td><td>Medium</td><td>Large</td><td>X-Large</td><td>XX-Large</td></tr></thead><tbody><tr><td>Neck</td><td>14-14.5</td><td>15-15.5</td><td>16-16.5</td><td>17-17.5</td><td>18-18.5</td></tr><tr><td>Chest</td><td>35-37</td><td>38-40</td><td>41-43</td><td>44-46</td><td>47-49</td></tr><tr><td>Sleeve</td><td>32-33</td><td>33-34</td><td>34-35</td><td>35-36</td><td>36-36.5</td></tr><tr><td>Waist</td><td>29-31</td><td>32-34</td><td>35-37</td><td>38-40</td><td>41-43</td></tr></tbody></table>",
+            "info": "[HTML Table Generator](https:\/\/www.rapidtables.com\/web\/tools\/html-table-generator.html) for the HTML block."
+          },
+          {
+            "type": "image_picker",
+            "id": "dbtfy_size_chart_image",
+            "label": "Image"
+          },
+          {
+            "type": "richtext",
+            "id": "dbtfy_size_chart_undertext",
+            "label": "Below text"
+          },
+          {
+            "type": "header",
+            "content": "Visibility settings",
+            "info":"Show for specific products, collections, tags, types or leave empty to show on all product pages."
+          },
+          {
+            "type": "product",
+            "id": "dbtfy_size_chart_product",
+            "label": "Product"
+          },
+          {
+            "type": "collection",
+            "id": "dbtfy_size_chart_collection",
+            "label": "Collection"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_size_chart_tag",
+            "label": "Product tags",
+            "placeholder": "Shoes,Watches,Hats",
+            "info": "Comma-separated"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_size_chart_type",
+            "label": "Product types",
+            "placeholder": "Shoes,Watches,Hats",
+            "info": "Comma-separated"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,70 @@
+<!-- /templates/search.liquid -->
+{%- paginate search.results by 12 -%}
+<div data-section-type="search">
+  <div class="box">
+    <div class="wrapper">
+
+      <div class="grid">
+        <div class="grid__item large--eight-twelfths push--large--two-twelfths">
+          <div class="section-header">
+            <div class="page-title-wrapper">
+              {%- if search.performed -%}
+                {%- if search.results_count == 0 -%}
+                  <h1>{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+                {%- else -%}
+                  <h1>{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+                {%- endif -%}
+              {%- else -%}
+                <h1 class="page-title">{{ 'general.search.title' | t }}</h1>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="grid__item large--eight-twelfths push--large--two-twelfths">
+          {%- render 'search-bar' -%}
+        </div>
+      </div>
+
+      {%- if search.performed -%}
+        {%- assign grid_item_width = 'large--four-twelfths medium--six-twelfths' -%}
+
+        <div class="grid grid-spacer spacer-top-lg">
+          {%- for item in search.results -%}
+            {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+
+            {%- if item.object_type == 'product' -%}
+              {%- assign product = item -%}
+              {%- render 'product-grid-item' with product as product, grid_item_width: grid_item_width, current: current -%}
+            {%- elsif item.object_type == 'article' -%}
+              {%- assign article = item -%}
+              {%- render 'article-grid-item' with article as article, grid_item_width: grid_item_width, emptyState: emptyState -%}
+            {%- else -%}
+              <div class="grid__item grid-search {{ grid_item_width }}">
+                <div class="grid-search__page text-center">
+                  <a href="{{ item.url }}" class="grid-search__page-link">
+                    <span class="grid-search__page-content">
+                      <span class="h4 text-center">{{ item.title }}</span>
+                      {{ item.content | strip_html | truncatewords: 60 }}
+                    </span>
+                  </a>
+                </div>
+              </div>
+            {%- endif -%}
+
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          {%- render "pagination" with paginate as paginate -%}
+        {%- endif -%}
+        
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{%- endpaginate -%}

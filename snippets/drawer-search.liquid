@@ -1,0 +1,18 @@
+<div id="SearchDrawer" class="drawer drawer--top overlay-content" aria-hidden="true" tabindex="-1">
+  <div class="drawer__inner">
+    <div class="drawer__inner-section">
+      <div class="grid grid-small flex-nowrap align-center">
+        <div class="grid__item flex-fill">
+          {%- render 'search-bar', search_location: 'drawer' -%}
+        </div>
+        <div class="grid__item flex-auto">
+          <button type="button" class="btn btn-square-small drawer__close-button js-drawer-close"  aria-label="{{ 'general.drawers.close_menu' | t }}" title="{{ 'general.drawers.close_menu' | t }}">
+            <span class="{{settings.icon}}" aria-hidden="true">close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    {%- render "dbtfy-smart-search" -%}
+  </div>
+</div>
+<div class="overlay-backdrop overlay-drawer"></div>

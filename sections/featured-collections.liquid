@@ -1,0 +1,225 @@
+{%- assign collection_count = 0 -%}
+{%- assign collection_limit = section.blocks.size -%}
+
+{%- assign collection_limit = collection_limit | plus: 1 -%}
+
+{%- for collection in section.blocks limit: collection_limit -%}
+{%- assign collection_count = collection_count | plus: 1 -%}
+{%- endfor -%}
+
+{%- if section.settings.full_width -%}
+{%- assign full_width = true -%}
+{%- endif -%}
+
+{%- if section.settings.title == blank and section.settings.subtitle == blank -%}
+{%- assign no_header = true -%}
+{%- endif -%}
+
+<div id="section-{{ section.id }}" class="{% if full_width %}section-full-width{% endif %} {% if no_header %}section-no-title{% endif %} {{ section.settings.section_style }}" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
+  <div class="box">
+    <div class="{%-if full_width %}wrapper-full{% else %}wrapper{% endif %}">
+
+      {%- unless no_header -%}
+      <div class="grid">
+        <div class="grid__item large--eight-twelfths push--large--two-twelfths">
+          <div class="section-header">
+            {%- unless section.settings.title == blank -%}
+            <h2 class="section-header__title">{{ section.settings.title | escape }}</h2>
+            {%- endunless -%}
+            {%- unless section.settings.subtitle == blank -%}
+            <p class="section-header__subtitle">{{ section.settings.subtitle | escape }}</p>
+            {%- endunless -%}
+          </div>
+        </div>
+      </div>
+      {%- endunless -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div id="FeaturedCollections-{{ section.id }}"
+            class="grid {% if full_width %}grid-full{% else %}grid-spacer{% endif %}{% if section.settings.slider_featured_collections and section.blocks.size > 1 %} slick slick-featured-collections{% endif %}" id="Collections-{{ section.id }}"
+            data-count="{{ section.blocks.size }}"
+            data-arrows="{{ section.settings.arrows }}"
+            data-dots="{{ section.settings.dots }}">
+
+          <!-- Blocks -->
+          {%- for block in section.blocks limit: collection_limit -%}
+            {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+            {%- assign collection = collections[block.settings.collection] -%}
+            {%- render 'collection-grid-item' with collection as collection, block: block, current: current -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.show_view_all -%}
+        <div class="view-all-box">
+          <a href="{{ routes.collections_url }}" class="btn {{ section.settings.button_style }} view-all-link">
+            {{ 'blogs.article.view_all' | t }}
+          </a>
+        </div>
+        {% if full_width %}
+        <div class="box" style="padding-top:0;"></div>
+        {% endif %}
+        {%- endif -%}
+      {%- else -%}
+        {%- render 'no-blocks' -%}
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Collection list",
+	  "class": "featured-collections-section",
+    "max_blocks": 9,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full width",
+		    "default": false
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Collection list"
+      },
+	    {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subheading"
+      },
+      {
+        "type": "select",
+        "id": "section_style",
+        "label": "Section style",
+        "default": "section-blank",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+		      {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+	    {
+        "type": "select",
+        "id": "section_height",
+        "label": "Collection height",
+        "default": "medium",
+        "options": [
+          {
+            "label": "Extra Small",
+            "value": "xsmall"
+          },
+		     {
+            "label": "Small",
+            "value": "small"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Large",
+            "value": "large"
+          },
+		      {
+            "label": "Extra Large",
+            "value": "xlarge"
+          }
+        ]
+      },
+	    {
+        "type": "header",
+        "content": "Footer"
+      },
+	    {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": "Show 'View all' button",
+        "default": false
+      },
+	    {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button style",
+        "default": "btn-outline-primary",
+        "options": [
+          {
+            "value": "",
+            "label": "Default"
+          },
+          {
+            "value": "btn--primary",
+            "label": "Full"
+          },
+          {
+            "value": "btn-outline-primary",
+            "label": "Outline"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Carousel options (mobile)"
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_featured_collections",
+        "label": "Enable carousel",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "arrows",
+        "label": "Show arrows",
+        "default": true
+      },
+	    {
+        "type": "checkbox",
+        "id": "dots",
+        "label": "Show dots",
+        "default": true
+      }
+    ],
+	  "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "id": "collection",
+            "type": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection list",
+        "category": "Collection",
+        "blocks": [
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

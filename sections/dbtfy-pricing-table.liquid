@@ -1,0 +1,315 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_pricing_table and section.blocks.size > 0 -%}
+<div id="PricingTable"
+     class="{{ section.settings.section_style }}"
+     data-section-id="{{ section.id }}"
+     data-section-type="pricing-table">
+
+  <div class="box">
+    <div class="wrapper">
+      {%- unless section.settings.title == blank and section.settings.subtitle == blank -%}
+        <div class="grid">
+          <div class="grid__item large--eight-twelfths push--large--two-twelfths">
+            <div class="section-header">
+              {%- unless section.settings.title == blank -%}
+                <h2 class="section-header__title">{{ section.settings.title | escape }}</h2>
+              {%- endunless -%}
+              {%- unless section.settings.subtitle == blank -%}
+                <p class="section-header__subtitle">{{ section.settings.subtitle | escape }}</p>
+              {%- endunless -%}
+            </div>
+           </div>
+        </div>
+      {%- endunless -%}
+
+      <div class="grid grid-spacer pt-pricing-plans pt-button-position-{{ section.settings.dbtfy_button_position }} text-center">
+
+        {%- capture column_width -%}
+          {%- render 'block-width' -%}
+        {%- endcapture -%}
+
+        {% for block in section.blocks %}
+          <div class="grid__item {{ column_width }} flex">
+            <div class="pt-plan-wrapper flex full">
+              {%- if block.settings.dbtfy_plan_badge != blank -%}
+              <div class="pt-badge text-center">
+                <span class="badge">{{ block.settings.dbtfy_plan_badge }}</span>
+              </div>
+              {%- endif -%}
+              
+              <div class="card full pt-pricing-plan{% if block.settings.dbtfy_full_background %} pt-full-background{% endif %}">
+                {%- if block.settings.dbtfy_plan_title != blank -%}
+                <div class="card-header justify-center text-center">
+                  <h3 class="pt-plan-title spacer-bottom-none">{{ block.settings.dbtfy_plan_title }}</h3>
+                </div>
+                {%- endif -%}
+
+                {%- if block.settings.dbtfy_plan_image != blank -%}
+                <div class="card-image media-wrapper" style="padding-top: {{ 1 | divided_by: block.settings.dbtfy_plan_image.aspect_ratio | times: 100 }}%;">
+                  <img class="pt-plan-image media lazyload"
+                  {%- render 'lazysizes', img: block.settings.dbtfy_plan_image, img_type: 'responsive' -%}
+                  alt="{{ block.settings.dbtfy_plan_image.alt }}">
+                </div>
+                {%- endif -%}
+
+                <div class="card-body pt-plan-body box">
+                  {%- if block.settings.dbtfy_plan_icon != blank -%}
+                  <div class="pt-plan-icon">
+                    <span class="{{ settings.icon }} icon-image icon-xl spacer-bottom">{{ block.settings.dbtfy_plan_icon }}</span>
+                  </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.dbtfy_plan_description != blank -%}
+                    <p>{{ block.settings.dbtfy_plan_description }}</p>
+                  {%- endif -%}
+
+                  {%- if block.settings.dbtfy_plan_price != blank -%}
+                    <h3 class="pt-plan-price">{{ block.settings.dbtfy_plan_price }}</h3>
+                  {%- endif -%}
+
+                  {%- if block.settings.dbtfy_plan_price_text != blank -%}
+                    <p class="pt-sub-text text-small spacer-top-xs">{{ block.settings.dbtfy_plan_price_text }}</p>
+                  {%- endif -%}
+
+                  {%- if section.settings.dbtfy_button_position == "middle" -%}
+                    <div>
+                      {%- if block.settings.dbtfy_plan_button_label != blank -%}
+                        <a href="{{ block.settings.dbtfy_plan_button_link }}"
+                          class="btn{% if block.settings.dbtfy_plan_button_description == blank %} spacer-bottom{% endif %} {{ block.settings.dbtfy_plan_button_style }}">
+                          {{ block.settings.dbtfy_plan_button_label }}
+                        </a>
+                      {%- endif -%}
+
+                      {% if block.settings.dbtfy_plan_button_description != blank %}
+                        <p class="pt-sub-text text-small spacer-top-xs">{{ block.settings.dbtfy_plan_button_description }}</p>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.dbtfy_plan_details != blank -%}
+                    {% assign plan_details = block.settings.dbtfy_plan_details | remove: "<p>" | remove: "</p>" | strip | split: ","  %}
+
+                    <div class="pt-plan-details rte spacer-bottom-none">
+                      {% for detail in plan_details %}
+                        {%- if detail != blank -%}
+                          <p class="pt-plan-detail spacer-bottom-sm">
+                            {%- if block.settings.dbtfy_plan_details_icon != blank -%}
+                              <span class="{{ settings.icon }} pt-icon-detail text-secondary spacer-right-sm">{{ block.settings.dbtfy_plan_details_icon }}</span>
+                            {%- endif -%}
+
+                            {{ detail | strip }}
+                          </p>
+                        {%- endif -%}
+                      {% endfor %}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if section.settings.dbtfy_button_position == "bottom" -%}
+                    <div class="pt-button-bottom">
+                      {%- if block.settings.dbtfy_plan_button_label != blank -%}
+                        <a href="{{ block.settings.dbtfy_plan_button_link }}"
+                          class="btn{% if block.settings.dbtfy_plan_button_description == blank %} spacer-bottom{% endif %} {{ block.settings.dbtfy_plan_button_style }}">
+                          {{ block.settings.dbtfy_plan_button_label }}
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.dbtfy_plan_button_description != blank -%}
+                        <p class="pt-sub-text text-small spacer-top-xs">{{ block.settings.dbtfy_plan_button_description }}</p>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "⚡ Pricing table",
+	  "class": "dbtfy dbtfy-pricing_table",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Help Center"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5054183-how-to-create-a-pricing-table-in-3-0)"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Pricing table"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subheading"
+      },
+      {
+        "type": "select",
+        "id": "section_style",
+        "label": "Section style",
+        "default": "section-blank",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+		      {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "dbtfy_button_position",
+        "label": "Button position",
+        "default": "middle",
+        "options": [
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ]
+      }
+    ],
+    "blocks" : [
+      {
+        "type": "plan",
+        "name": "Plan",
+			  "limit": 4,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "dbtfy_full_background",
+            "label": "Enable full background",
+            "default": false
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_plan_badge",
+            "label": "Badge",
+            "default": "Most popular"
+          },
+          {
+            "type": "image_picker",
+            "id": "dbtfy_plan_image",
+            "label": "Image"
+          },
+				  {
+            "type": "text",
+            "id": "dbtfy_plan_icon",
+            "label": "Plan icon",
+            "default": "local_offer",
+            "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+          },
+				  {
+            "type": "text",
+            "id": "dbtfy_plan_title",
+            "label": "Title",
+            "default": "Title"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_plan_description",
+            "label": "Description"
+          },
+				  {
+            "type": "text",
+            "id": "dbtfy_plan_price",
+            "label": "Price",
+            "default": "$19.99"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_plan_price_text",
+            "label": "Price text"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_plan_button_label",
+            "label": "Button label",
+            "default": "Get started"
+          },
+          {
+            "type": "url",
+            "id": "dbtfy_plan_button_link",
+            "label": "Button link"
+          },
+          {
+            "type": "select",
+            "id": "dbtfy_plan_button_style",
+            "label": "Button style",
+            "default": "btn-outline-primary",
+            "options": [
+              {
+                "value": "",
+                "label": "Default"
+              },
+              {
+                "value": "btn--primary",
+                "label": "Full"
+              },
+              {
+                "value": "btn-outline-primary",
+                "label": "Outline"
+              }
+            ]
+          },
+				  {
+            "type": "text",
+            "id": "dbtfy_plan_button_description",
+            "label": "Button description"
+          },
+				  {
+            "type": "richtext",
+            "id": "dbtfy_plan_details",
+            "label": "Details",
+            "info": "Comma-separated",
+            "default": "<p>point 1, point 2, point 3</p>"
+          },
+          {
+            "type": "text",
+            "id": "dbtfy_plan_details_icon",
+            "label": "Detail icon",
+            "default": "check_circle",
+            "info": "[View all available icons](https:\/\/material.io\/resources\/icons)"
+          }
+			  ]
+		  }
+	  ],
+    "presets": [
+      {
+        "name": "⚡ Pricing table",
+        "category": "Add-ons",
+        "blocks": [
+          {
+            "type": "plan"
+          },
+          {
+            "type": "plan"
+          },
+          {
+            "type": "plan"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

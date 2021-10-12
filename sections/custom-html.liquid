@@ -1,0 +1,205 @@
+<div id="section-{{ section.id }}" class="{{ section.settings.section_style }}" data-section-id="{{ section.id }}" data-section-type="custom-html-section">
+  <div class="{%- if section.settings.padding_section -%}box{%- endif -%}">
+    <div class="wrapper{{ section.settings.wrapper_size }}">
+      
+      {%- if section.blocks.size > 0 -%}
+        <div class="grid grid-spacer">
+          
+          <!-- Blocks -->
+          {%- for block in section.blocks -%}
+
+            {%- case block.settings.column_width -%}
+              {%- when 1 -%}
+                {%- assign block_width = 'large--one-twelfth medium--one-twelfth' -%}
+              {%- when 2 -%}
+                {%- assign block_width = 'large--two-twelfths medium--two-twelfths' -%}
+              {%- when 3 -%}
+                {%- assign block_width = 'large--three-twelfths medium--three-twelfths' -%}
+              {%- when 4 -%}
+                {%- assign block_width = 'large--four-twelfths medium--four-twelfths' -%}
+              {%- when 5 -%}
+                {%- assign block_width = 'large--five-twelfths medium--five-twelfths' -%}
+              {%- when 6 -%}
+                {%- assign block_width = 'large--six-twelfths medium--six-twelfths' -%}
+              {%- when 7 -%}
+                {%- assign block_width = 'large--seven-twelfths medium--seven-twelfths' -%}
+              {%- when 8 -%}
+                {%- assign block_width = 'large--eight-twelfths medium--eight-twelfths' -%}
+              {%- when 9 -%}
+                {%- assign block_width = 'large--nine-twelfths medium--nine-twelfths' -%}
+              {%- when 10 -%}
+                {%- assign block_width = 'large--ten-twelfths medium--ten-twelfths' -%}
+              {%- when 11 -%}
+                {%- assign block_width = 'large--eleven-twelfths medium--eleven-twelfths' -%}
+              {%- when 12 -%}
+                {%- assign block_width = 'large--twelfth-twelfths medium--twelfth-twelfths' -%}
+            {%- endcase -%}
+
+            {%- case block.settings.column_width_mobile -%}
+              {%- when 1 -%}
+                {%- assign block_width_mobile = 'small--one-twelfth' -%}
+              {%- when 2 -%}
+                {%- assign block_width_mobile = 'small--two-twelfths' -%}
+              {%- when 3 -%}
+                {%- assign block_width_mobile = 'asmall--three-twelfths' -%}
+              {%- when 4 -%}
+                {%- assign block_width_mobile = 'small--four-twelfths' -%}
+              {%- when 5 -%}
+                {%- assign block_width_mobile = 'small--five-twelfths' -%}
+              {%- when 6 -%}
+                {%- assign block_width_mobile = 'small--six-twelfths' -%}
+              {%- when 7 -%}
+                {%- assign block_width_mobile = 'small--seven-twelfths' -%}
+              {%- when 8 -%}
+                {%- assign block_width_mobile = 'small--eight-twelfths' -%}
+              {%- when 9 -%}
+                {%- assign block_width_mobile = 'mall--nine-twelfths' -%}
+              {%- when 10 -%}
+                {%- assign block_width_mobile = 'small--ten-twelfths' -%}
+              {%- when 11 -%}
+                {%- assign block_width_mobile = 'small--eleven-twelfths' -%}
+              {%- when 12 -%}
+                {%- assign block_width_mobile = 'small--twelfth-twelfths' -%}
+            {%- endcase -%}
+
+            <div class="grid__item {{ block_width }} {{ block_width_mobile }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.code != blank -%}
+                <div class="{{ block.settings.text_alignment }}">
+                  {{ block.settings.code }}
+                </div>
+              {%- else -%}
+                <div class="text-center">
+                  {{ 'home_page.onboarding.no_content' | t }}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      
+      {%- if section.blocks.size == 0 -%}
+        {%- render 'no-blocks' -%}
+      {%- endif -%}
+      
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Custom HTML",
+	  "class": "custom-html-section",
+    "max_blocks": 9,
+	  "settings": [
+	    {
+        "type": "checkbox",
+        "id": "padding_section",
+        "label": "Add padding",
+		    "default": true
+      },
+      {
+        "type": "select",
+        "id": "section_style",
+        "label": "Section style",
+        "default": "section-blank",
+        "options": [
+          {
+            "value": "section-blank",
+            "label": "Blank background"
+          },
+		      {
+            "value": "section-default",
+            "label": "Accent background"
+          },
+          {
+            "value": "section-border",
+            "label": "Border top"
+          }
+        ]
+      },
+	    {
+        "type": "select",
+        "id": "wrapper_size",
+        "label": "Wrapper size",
+		    "default": "",
+        "options": [
+		      {
+            "value": "",
+            "label": "Default"
+          },
+	        {
+            "value": "-fluid",
+            "label": "Fluid"
+          },
+		      {
+            "value": "-full",
+            "label": "Full"
+          }
+        ]
+      }
+	  ],
+    "blocks": [
+      {
+        "type": "html",
+        "name": "Custom HTML",
+        "settings": [
+          {
+            "type": "html",
+            "id": "code",
+            "label": "HTML",
+			      "default": "<h2>Custom HTML!</h2><p>This section can be used to code your own custom layout.</p>"
+          },
+          {
+            "type": "range",
+            "id": "column_width",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Column width (desktop)",
+            "default": 4
+          },
+          {
+            "type": "range",
+            "id": "column_width_mobile",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Column width (mobile)",
+            "default": 12
+          },
+		      {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Text alignment",
+            "default": "text-center",
+            "options": [
+              {
+                "value": "text-left",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-right",
+                "label": "Right"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom HTML",
+        "category": "Advanced layout",
+        "blocks": [
+          {
+            "type": "html"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,48 @@
+<div class="box">
+    <div class="wrapper">
+        <div class="grid">
+            <div class="grid__item large--eight-twelfths push--large--two-twelfths">
+                <div class="section-header">
+                    <div class="page-title-wrapper">
+                        <h1 class="page-title">{{ page.title }}</h1>
+                    </div>
+                </div>
+                {%- unless page.content == blank -%}
+                <div class="page-content rte">
+                    {{ page.content }}
+                </div>
+                {%- endunless -%}
+            </div>
+        </div>
+
+        {%- if content_for_header contains 'debutify' and settings.dbtfy_order_tracking -%}
+            <script type="text/javascript" src="//www.17track.net/externalcall.js" defer="defer"></script>
+
+            <div class="dbtfy dbtfy-order_tracking">
+                <div class="grid">
+                    <div class="grid__item large--four-twelfths medium--six-twelfths push--large--four-twelfths push--medium--three-twelfths text-center">
+                        <form action="/" id="ot-form" class="form-vertical">
+                            <!--Tracking number input box.-->
+                            <input type="text" id="ot-num" class="input-full" maxlength="50"
+                                placeholder="{{ settings.dbtfy_order_tracking_input_text }}" />
+                            <!--The button is used to call script method.-->
+                            <button id="ot-btn" type="submit" class="btn btn--primary btn--full"
+                                    value="{{ settings.dbtfy_order_tracking_button_text }}">
+                                <span class="btn__text">
+                                    {{ settings.dbtfy_order_tracking_button_text }}
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="grid">
+                    <div class="grid__item">
+                        <!--Container to display the tracking result.-->
+                        <div id="ot-container"></div>
+                    </div>
+                </div>
+            </div>
+        {%- endif -%}
+    </div>
+</div>

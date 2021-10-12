@@ -1,0 +1,90 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_social_discount -%}
+  <div class="dbtfy dbtfy-social_discount">
+    <div class="SocialDiscount">
+      {%- if type == "button" -%}
+        {%- if settings.dbtfy_social_discount_link != blank -%}
+          <button type="button" class="btn btn-outline-primary btn--small sd-btn spacer-top" data-modal-open="#socialDiscountPopup">
+            {%- if settings.dbtfy_social_discount_icon != blank -%}
+            <span class="{{ settings.icon }}">{{ settings.dbtfy_social_discount_icon }}</span>
+            {% endif %}
+
+            {{ settings.dbtfy_social_discount_link }}
+          </button>
+        {%- endif -%}
+      {%- else -%}
+        <!--- start social-discount modal -->
+        <div id="socialDiscountPopup" class="modal sd-content" role="dialog">
+          <div class="modal-dialog {{ settings.dbtfy_social_discount_width }}">
+            <div class="modal-content overlay-content" aria-hidden="true" tabindex="-1">
+              <div class="modal-header">
+                {%- if settings.dbtfy_social_discount_popup_title != blank -%}
+                  <h4 class="modal-title">{{ settings.dbtfy_social_discount_popup_title }}</h4>
+                {%- endif -%}
+
+                <button type="button" 
+                        class="btn btn-square-small modal-close"
+                        title="{{ 'general.password_page.close' | t }}" 
+                        aria-label="{{ 'general.password_page.close' | t }}"
+                        data-modal-close="#socialDiscountPopup">
+                  <span class="{{ settings.icon }}">close</span>
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <div class="sd-body">
+                  {%- if settings.dbtfy_social_discount_popup_text != blank -%}
+                  <p>{{ settings.dbtfy_social_discount_popup_text }}</p>
+                  {%- endif -%}
+                  <div class="sd-social-sharing">
+                    {%- render "social-sharing" -%}
+                  </div>
+                </div>
+
+                <span class="sd-loading icon-spin text-secondary" style="display:none;"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay-modal overlay-backdrop"></div>
+
+        <div id="socialDiscountRewardPopup" class="modal" role="dialog">
+          <div class="modal-dialog {{ settings.dbtfy_social_discount_width }}">
+            <div class="modal-content overlay-content" aria-hidden="true" tabindex="-1">
+              <div class="modal-header">
+                {%- if settings.dbtfy_social_discount_reward_title != blank -%}
+                  <h4 class="modal-title">{{ settings.dbtfy_social_discount_reward_title }}</h4>
+                {%- endif -%}
+
+                <button type="button" class="btn btn-square-small modal-close" data-modal-close="#socialDiscountRewardPopup">
+                  <span class="{{ settings.icon }}">close</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                {%- if settings.dbtfy_social_discount_reward_text != blank -%}
+                  <div class="rte text-center">
+                    {{ settings.dbtfy_social_discount_reward_text }}
+                  </div>
+                {%- endif -%}
+
+                {%- if settings.dbtfy_social_discount_reward_code != blank -%}
+                  <div class="sd-reward-code select-box spacer-bottom" tabindex="0">
+                    {{ settings.dbtfy_social_discount_reward_code }}
+                  </div>
+                {%- endif -%}
+
+                {%- if settings.dbtfy_social_discount_reward_button != blank -%}
+                  <button class="btn btn--primary btn--full" data-modal-close="#socialDiscountRewardPopup">
+                    {{ settings.dbtfy_social_discount_reward_button }}
+                  </button>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay-modal overlay-backdrop"></div>
+        <!--- End social-discount modal -->
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
