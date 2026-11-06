@@ -1,4 +1,4 @@
-{%- capture "form_id" %}ContactForm--{{ section.id }}{%- endcapture -%}
+{%- capture form_id %}ContactForm--{{ section.id }}{%- endcapture -%}
 {%- form 'customer', class:'form-vertical', id:form_id -%}
   {%- if form.errors -%}
   {{ form.errors | default_errors }}
@@ -54,3 +54,13 @@
 
   {%- endif -%}
 {%- endform -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{%- capture "form_id" %}'
+  to: "{%- capture form_id %}"
+  position: 0..22
+{% endcomment %}

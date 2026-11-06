@@ -121,7 +121,7 @@
                         {%- endif -%}
 
                         {%- if xr_id -%}
-                          {%- render 'xr-button' with model_id: xr_id, multi: true -%}
+                          {%- render 'xr-button' with model_id, model_id: xr_id, multi: true -%}
                         {%- endif -%}
                         {%- assign first_media = false -%}
                       {% endif %}
@@ -136,7 +136,7 @@
                 Thumbnail layout only (desktop)
               {% endcomment %}
               {%- if first_3d_model -%}
-              {%- render 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+              {%- render 'xr-button' with model_id, model_id: first_3d_model.id, multi: false -%}
               {%- endif -%}
 
               {%- if product.media.size > 1 -%}
@@ -305,11 +305,11 @@
                   </button>
                 </div>
               {%- else -%}
-                {%- capture "form_classes" -%}
+                {%- capture form_classes -%}
                   product-single__form {% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
                 {%- endcapture -%}
 
-                {%- capture "form_id" -%}AddToCartForm--{{ section.id }}{%- endcapture -%}
+                {%- capture form_id -%}AddToCartForm--{{ section.id }}{%- endcapture -%}
 
                 {%- render "dbtfy-color-swatches" with product as product -%}
 
@@ -572,3 +572,23 @@
 {{ product.media | where: 'media_type', 'model' | json }}
 </script>
 {%- endunless -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'xr-button' with model_id: xr_id, multi: true -%}"
+  to: "{%- render 'xr-button' with model_id, model_id: xr_id, multi: true -%}"
+  position: 5869..5939
+- from: "{%- render 'xr-button' with model_id: first_3d_model.id, multi: false -%}"
+  to: "{%- render 'xr-button' with model_id, model_id: first_3d_model.id, multi: false
+    -%}"
+  position: 6452..6535
+- from: '{%- capture "form_classes" -%}'
+  to: "{%- capture form_classes -%}"
+  position: 15972..16000
+- from: '{%- capture "form_id" -%}'
+  to: "{%- capture form_id -%}"
+  position: 16179..16202
+{% endcomment %}

@@ -128,8 +128,8 @@
               </div>
             {%- endunless -%}
 
-            {%- capture "form_classes" -%}add-to-cart__form qv-form product-single__form{%- endcapture -%}
-            {%- capture "form_id" -%}QuickViewForm-{{ section.id }}-{{ product.id }}{%- endcapture -%}
+            {%- capture form_classes -%}add-to-cart__form qv-form product-single__form{%- endcapture -%}
+            {%- capture form_id -%}QuickViewForm-{{ section.id }}-{{ product.id }}{%- endcapture -%}
 
             {%- form "product", product, class: form_classes, id: form_id -%}
               {%- unless product.has_only_default_variant -%}
@@ -222,3 +222,16 @@
 </div>
 
 <div class="overlay-modal overlay-backdrop"></div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{%- capture "form_classes" -%}'
+  to: "{%- capture form_classes -%}"
+  position: 5392..5420
+- from: '{%- capture "form_id" -%}'
+  to: "{%- capture form_id -%}"
+  position: 5497..5520
+{% endcomment %}

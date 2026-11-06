@@ -16,7 +16,7 @@
   {%- assign toggle_class = "btn btn--small" -%}
 {%- endif -%}
 
-{%- capture "form_id" -%}localization_form--{{ section.id }}{%- endcapture -%}
+{%- capture form_id -%}localization_form--{{ section.id }}{%- endcapture -%}
 
 {%- assign enabled_currencies = shop.enabled_currencies | map: 'iso_code' | join: ',' -%}
 {%- assign enabled_locales = shop.enabled_locales | map: 'iso_code' | join: ',' -%}
@@ -71,3 +71,13 @@
     </div>
   {%- endform -%}
 {%- endif -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{%- capture "form_id" -%}'
+  to: "{%- capture form_id -%}"
+  position: 587..610
+{% endcomment %}

@@ -55,8 +55,8 @@
 
       <div class="grid__item large--four-twelfths medium--four-twelfths">
         <div class="wl-product-options">
-          {%- capture "form_classes" %}wl-form{%- endcapture -%}
-          {%- capture "form_id" %}wl-form--{{ product.id }}{%- endcapture -%}
+          {%- capture form_classes %}wl-form{%- endcapture -%}
+          {%- capture form_id %}wl-form--{{ product.id }}{%- endcapture -%}
 
           {%- form "product", product, class: form_classes, id: form_id -%}
             {%- assign first_option = product.options | first -%}
@@ -105,3 +105,16 @@
     </div>
   </div>
 </div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{%- capture "form_classes" %}'
+  to: "{%- capture form_classes %}"
+  position: 2409..2436
+- from: '{%- capture "form_id" %}'
+  to: "{%- capture form_id %}"
+  position: 2472..2494
+{% endcomment %}
